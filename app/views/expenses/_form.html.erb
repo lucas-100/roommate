@@ -1,0 +1,27 @@
+<% form_for(@expense, :url => house_expenses_path(@house)) do |f| %>
+  <%= f.error_messages %>
+	
+	<div class="field">
+		<%= f.label :name %><br />
+		<%= f.text_field :name %>
+	</div>
+  <div class="field">
+    <%= f.label :amount_in_cents %><br />
+    <%= f.text_field :amount_in_cents %>
+  </div>
+	<div class="field">
+		<label>Who owe's the money?</label>
+		<% @people.each do |person| %>
+			<input name="expense[people][<%= person.id %>]" type="hidden" value="0" />
+			<input id="expense_people_<%= person.id %>" name="expense[people][<%= person.id %>]" type="checkbox" value="1" /> 
+			<label for="expense_people_<%= person.id %>"><%= person.name %></label>
+		<% end %>
+	</div>
+	<div class="field">
+		<%= f.label :loaner_id, "Who paid up front?" %>
+		<%= f.collection_select :loaner_id, @people, :id, :name, {:prompt => true}%>
+	</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
