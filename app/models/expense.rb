@@ -5,6 +5,8 @@ class Expense < ActiveRecord::Base
   attr_accessor :people
   attr_accessor :loaner_id
   
+  money :amount
+  
   after_create :create_debt
   def create_debt
     people.keys.each do |person_id|
