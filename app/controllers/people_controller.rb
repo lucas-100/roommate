@@ -38,6 +38,7 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.xml
   def create
+    logout_keeping_session!
     @house = House.find(params[:house_id])
     @person = @house.people.new(params[:person])
 

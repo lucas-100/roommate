@@ -19,7 +19,7 @@
 	</div>
 	<div class="field">
 		<%= f.label :loaner_id, "Who paid up front?" %>
-		<%= f.collection_select :loaner_id, @people, :id, :name, {:prompt => true}%>
+		<%= f.collection_select :loaner_id, @people, :id, :name, {:prompt => true} %>
 	</div>
   <div class="actions">
     <%= f.submit %>

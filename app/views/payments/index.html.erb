@@ -1,0 +1,28 @@
+<h1>Listing payments</h1>
+
+<table>
+  <tr>
+    <th>Person paid</th>
+    <th>Person paying</th>
+    <th>Amount in cents</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payments.each do |payment| %>
+  <tr>
+    <td><%= payment.person_paid_id %></td>
+    <td><%= payment.person_paying_id %></td>
+    <td><%= payment.amount_in_cents %></td>
+    <td><%= link_to 'Show', house_person_payment_path(@house, @person, payment) %></td>
+    <td><%= link_to 'Edit', edit_house_person_payment_path(@house, @person, payment) %></td>
+    <td><%= link_to 'Destroy', house_person_payment_path(@house, @person, payment), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New payment', new_house_person_payment_path(@house, @person) %> |
+<%= link_to 'Back', house_person_path(@house, @person) %>

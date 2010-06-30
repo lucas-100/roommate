@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  person_paid_id: 1
+  person_paying_id: 1
+  amount_in_cents: 1
+
+two:
+  person_paid_id: 1
+  person_paying_id: 1
+  amount_in_cents: 1

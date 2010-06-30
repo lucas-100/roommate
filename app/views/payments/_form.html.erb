@@ -1,0 +1,18 @@
+<% form_for(@payment, :url => house_person_payments_path(@house, @person)) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="field">
+    <%= f.label :person_paid_id %><br />
+    <%= f.collection_select :person_paid_id, @people, :id, :name, {:prompt => true} %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :person_paying_id, :value => @person.id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
