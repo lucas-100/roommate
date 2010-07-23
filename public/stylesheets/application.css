@@ -1,0 +1,9 @@
+body {margin:0; padding:0;}
+
+div#content {
+  width: 940px;
+  margin:0 auto;
+  border-left: 3px solid gray;
+  border-right: 3px solid gray;
+  padding:10px;
+}
