@@ -1,9 +1,181 @@
-body {margin:0; padding:0;}
+body {margin:0; padding:0;background-image:url('../images/bodyBackground.jpg');background-repeat:no-repeat;background-color:#028eb7;}
 
 div#content {
-  width: 940px;
-  margin:0 auto;
-  border-left: 3px solid gray;
-  border-right: 3px solid gray;
-  padding:10px;
+  width: 960px;
+  margin: 0 auto;
+  background-image: url('../images/contentBgRepeat.png');
+  background-repeat: repeat-y;
+  padding: 20px 0;
+}
+div#contentTop {
+  width:960px;
+  height:20px;
+  margin: 150px auto 0 auto;
+  background-image: url('../images/contentBgTop.png');
+  background-repeat: no-repeat;
+  padding: 0;
+}
+div#contentBottom {
+  width:960px;
+  height:20px;
+  margin: 0 auto 50px auto;
+  background-image: url('../images/contentBgBottom.png');
+  background-repeat: no-repeat;
+}
+
+#top-bar {
+  float: right;
+}
+.edit {
+  font-size: .5em;
+}
+#person-bar-greeting {
+  float: left;
+}
+#person-bar-action {
+  float: left;
+}
+
+#header {
+  margin-top: 25px;
+}
+#header h1 {
+  float: left;
+  width: 440px;
+  line-height: 1.1em;
+}
+#newExpense, #newPayment {
+  display: block;
+  float: left;
+  width: 166px;
+  height: 48px;
+  background-repeat: no-repeat;
+}
+#newExpense span, #newPayment span {
+  display: none;
+}
+#newExpense {background-image: url('../images/newExpense.png'); margin-left: 25px;}
+#newPayment {background-image: url('../images/newPayment.png'); margin-left: 15px;}
+#newExpense:hover, #newPayment:hover {background-color: #fff;}
+
+#oweTop {
+  width: 960px;
+  height: 51px;
+  background-image: url('../images/goldBoxTop.png');
+  background-repeat: no-repeat;
+  margin: 0;
+}
+#oweMiddle, .goldBoxMiddle {
+  background-color: #ffc90e;
+  background-image: url('../images/goldBoxBGRepeat.png');
+  background-repeat: repeat-x;
+  width: 960px;
+  margin: 0;
+  min-height: 146px;
+}
+#oweBottom, .goldBoxBottom {
+  width: 960px;
+  height: 32px;
+  background-image: url('../images/goldBoxBottom.png');
+  background-repeat: no-repeat;
+  margin: 0 0 50px 0;
+}
+
+.goldBoxMiddle {
+  padding-left: 100px;
+  width: 860px;
+}
+label {
+  font-size: 1.7em;
+  color: #666;
+}
+.field {
+  padding-top: 15px;
+}
+input {
+  font-size: 1.7em;
+  color: 999;
+}
+
+.boxHeader {
+  width: 960px;
+  height: 51px;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+#roommatesHeader {
+  background-image: url('../images/roommatesHeader.png');
+}
+#expensesHeader {
+  background-image: url('../images/expensesHeader.png');
+}
+.boxMiddle {
+  background-color: #ececec;
+  background-image: url("../images/boxBGRepeat.png");
+  width: 960px;
+  margin: 0;
+  background-repeat: repeat-x;
+  min-height: 142px;
+}
+.boxFooter {
+  width: 960px;
+  height: 37px;
+  background-image: url('../images/boxFooter.png');
+  background-repeat: no-repeat;
+  margin: 0 0 50px 0;
+}
+.addBanner {
+  height: 87px;
+  width: 87px;
+  z-index: 100;
+  background-image: url('../images/addBanner.png');
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-bottom: -87px;
+  display: block;
+}
+.addBanner:hover {background-color: transparent;}
+.addBanner span {
+  display: none;
+}
+
+.clearfix {
+  clear:both;
+  margin: 0;
+  padding: 0;
+}
+
+.inline {
+  float: left;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  list-style-type: none;
+  margin-left: 100px;
+  font-size: 1.4em;
+}
+h1 {
+  font-size: 3em;
+  font-weight: normal;
+  margin: 0 0 20px 0;
+  padding: 0;
+  padding-left: 100px;
+}
+h2 {
+  font-size: 1.7em;
+}
+.column_1 {
+  width: 350px;
+  float: left;
+  margin-right: 0px;
+}
+.column_2 {
+  width: 350px;
+  float: right;
 }

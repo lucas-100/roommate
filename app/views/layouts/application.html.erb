@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Roommates</title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<p class="notice"><%= notice %></p>
+<div id="contentTop"></div>
+<div id="content">
+<%= yield %>
+</div>
+</div>
+<div id="contentBottom"></div>
+
+</body>
+</html>

@@ -14,7 +14,8 @@ class HousesController < ApplicationController
   # GET /houses/1
   # GET /houses/1.xml
   def show
-    @house = House.joins(:expenses => {:debts => :loaner}).find(params[:id])
+    # @house = House.joins(:expenses => {:debts => :loaner}).find(params[:id])
+    @house = House.find(params[:id])
 
     respond_with(@house)
   end

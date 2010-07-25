@@ -1,0 +1,47 @@
+
+
+ 
+  
+  <div class="clearfix"></div>
+  
+  <div id="header">
+    <h1><%= @house.name %></h1>
+    <a href="#" id="newExpense"><span>New Expense</span></a>
+    <a href="#" id="newPayment"><span>New Payment</span></a>
+  </div>
+  <div class="clearfix"></div>
+  
+  <div id="owe">
+    <div id="oweTop"></div>
+    <div id="oweMiddle">
+      
+    
+      <div class="clearfix"></div>
+    </div>
+    <div id="oweBottom"></div>
+  </div>
+  
+  <div id="expenses">
+    <a class="addBanner" href="#"><span>Add Expenses</span></a>
+    <div id="expensesHeader" class="boxHeader"></div>
+    <div id="roommatesMiddle" class="boxMiddle">
+      
+    </div>
+    <div id="roommatesFooter" class="boxFooter"></div>
+  </div>
+  
+  <div id="roommates">
+    <%= link_to '', new_house_person_path(@house),  {:class => 'addBanner'}%>
+    <div id="roommatesHeader" class="boxHeader"></div>
+    <div id="roommatesMiddle" class="boxMiddle">
+      <ul>
+        <% for roommate in @house.people %>
+          <li><%= roommate.name %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div id="roommatesFooter" class="boxFooter"></div>
+  </div>
+  
+  <div class="clearfix"></div>
+  

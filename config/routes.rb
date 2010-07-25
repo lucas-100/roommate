@@ -7,8 +7,8 @@ Roommate::Application.routes.draw do |map|
     resources :expenses
   end
 
-  match 'logout' => 'session#destroy', :as => :logout
-  match 'login' => 'session#new', :as => :login
+  match 'logout' => 'sessions#destroy', :as => :logout
+  match 'login' => 'sessions#new', :as => :login
   # match 'register' => 'people#create', :as => :register
   match 'signup' => 'people#new', :as => :signup
   resource :session, :only => [:new, :create, :destroy]
@@ -63,7 +63,7 @@ Roommate::Application.routes.draw do |map|
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "houses#index"
+  root :to => "dashboard#index"
 
   # See how all your routes lay out with "rake routes"
 

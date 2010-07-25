@@ -45,11 +45,11 @@ module PeopleHelper
   #
   def link_to_person(person, options={})
     raise "Invalid person" unless person
-    options.reverse_merge! :content_method => :login, :title_method => :login, :class => :nickname
+    options.reverse_merge! :content_method => :name, :title_method => :name, :class => :nickname
     content_text      = options.delete(:content_text)
     content_text    ||= person.send(options.delete(:content_method))
     options[:title] ||= person.send(options.delete(:title_method))
-    link_to h(content_text), person_path(person), options
+    link_to h(content_text), house_person_path(person.house, person), options
   end
 
   #
