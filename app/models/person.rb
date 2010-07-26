@@ -8,7 +8,9 @@ class Person < ActiveRecord::Base
   include Authentication::ByCookieToken
   
   belongs_to :house
-
+  has_many :debts
+  has_many :loans, :class_name => "Debt", :foreign_key => :loaner_id
+  
   validates :name,  :format     => { :with => Authentication.name_regex, :message => Authentication.bad_name_message },
                     :length     => { :maximum => 100 },
                     :allow_nil  => true
@@ -72,6 +74,14 @@ class Person < ActiveRecord::Base
     
     return debts
   end
+
+  def recent_expenses 
+    debts.limit(5).where("loaner_id != ?", self.id).order("created_at DESC").map{|d| d.expense}
+  end
+  
+  def recent_loans
+    loans.group(:expense_id).limit(5).order("created_at DESC").map{|d| d.expense}
+  end
   
   protected
   def total_debt_owed(to_user)
@@ -117,8 +127,6 @@ class Person < ActiveRecord::Base
     
     return Money.new(total_debt_in_cents)
   end
-
-  protected
     
 
 

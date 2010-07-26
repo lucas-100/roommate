@@ -6,7 +6,7 @@
   
   <div id="header">
     <h1><%= @house.name %></h1>
-    <a href="#" id="newExpense"><span>New Expense</span></a>
+    <%= link_to '', new_house_expense_path(@house), {:id => 'newExpense'}%>
     <a href="#" id="newPayment"><span>New Payment</span></a>
   </div>
   <div class="clearfix"></div>
@@ -14,7 +14,27 @@
   <div id="owe">
     <div id="oweTop"></div>
     <div id="oweMiddle">
-      
+        
+        <div class="column_1">
+        
+          <ul>
+
+            <% @person.all_debts_owed.each do |d| %>
+            	<li><b><%= d[:person] %></b>: <%= d[:amount] %></li>
+            <% end %>
+
+          </ul>
+        </div>
+        
+        <div class="column_2">
+          <ul>
+
+            <% @person.all_debts_loaned.each do |d| %>
+            	<li><%= d[:person] %></b>: <%= d[:amount] %></li>
+            <% end %>
+
+          </ul>
+        </div>
     
       <div class="clearfix"></div>
     </div>
@@ -25,7 +45,22 @@
     <a class="addBanner" href="#"><span>Add Expenses</span></a>
     <div id="expensesHeader" class="boxHeader"></div>
     <div id="roommatesMiddle" class="boxMiddle">
-      
+      <div class="column_1">
+        <h2>Things I didn't pay for</h2>
+        <ul>
+          <% @person.recent_expenses.each do |e| %>
+            <li><%= "#{e.name} -- #{e.amount}" %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="column_2">
+        <h2>Things I paid for</h2>
+        <ul>
+          <% @person.recent_loans.each do |e| %>
+            <li><%= "#{e.name} -- #{e.amount}" %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
     <div id="roommatesFooter" class="boxFooter"></div>
   </div>

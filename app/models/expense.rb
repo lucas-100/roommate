@@ -9,6 +9,12 @@ class Expense < ActiveRecord::Base
   
   after_create :create_debt
   def create_debt
+    people.each do |key, value|
+      unless value == "1"
+        people.delete(key)
+      end
+    end
+    
     people.keys.each do |person_id|
       debts << Debt.create(
         :amount_in_cents => (amount_in_cents / people.count), 
@@ -24,6 +30,12 @@ class Expense < ActiveRecord::Base
     # first destroy all the old debt, they're no longer valid
     debts.each do |d|
       d.destroy
+    end
+    
+    people.each do |key, value|
+      unless value == "1"
+        people.delete(key)
+      end
     end
     
     # now recreate all the debt with the new info

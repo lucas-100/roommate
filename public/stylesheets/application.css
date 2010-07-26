@@ -69,7 +69,8 @@ div#contentBottom {
   background-color: #ffc90e;
   background-image: url('../images/goldBoxBGRepeat.png');
   background-repeat: repeat-x;
-  width: 960px;
+  padding-left: 100px;
+  width: 860px;
   margin: 0;
   min-height: 146px;
 }
@@ -82,8 +83,7 @@ div#contentBottom {
 }
 
 .goldBoxMiddle {
-  padding-left: 100px;
-  width: 860px;
+  
 }
 label {
   font-size: 1.7em;
@@ -112,7 +112,9 @@ input {
 .boxMiddle {
   background-color: #ececec;
   background-image: url("../images/boxBGRepeat.png");
-  width: 960px;
+  width: 860px;
+  padding-left: 100px;
+  padding-bottom: 20px;
   margin: 0;
   background-repeat: repeat-x;
   min-height: 142px;
@@ -157,7 +159,7 @@ ul {
 }
 ul li {
   list-style-type: none;
-  margin-left: 100px;
+  margin-left: 0px;
   font-size: 1.4em;
 }
 h1 {
@@ -171,11 +173,13 @@ h2 {
   font-size: 1.7em;
 }
 .column_1 {
-  width: 350px;
+  width: 380px;
   float: left;
   margin-right: 0px;
 }
 .column_2 {
-  width: 350px;
+  width: 380px;
+  margin-right: 100px;
+  padding:0;
   float: right;
 }
