@@ -82,7 +82,7 @@ class Person < ActiveRecord::Base
   end
   
   def recent_loans
-    loans.group(:expense_id).limit(5).order("created_at DESC").map{|d| d.expense}
+    loans.select(:expense_id).group(:expense_id).limit(5).order("created_at DESC").map{|d| d.expense}
   end
   
   def recent_payments_received
