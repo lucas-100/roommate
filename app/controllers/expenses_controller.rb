@@ -4,7 +4,7 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.xml
   def index
-    @house = House.includes(:expenses).find(params[:house_id])
+    @house = House.includes(:expenses).find(current_person.house_id)
     @expenses = @house.expenses
 
     respond_with(@house, @expenses)
@@ -25,7 +25,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new
   # GET /expenses/new.xml
   def new
-    @house = House.includes(:people).find(params[:house_id])
+    @house = House.includes(:people).find(current_person.house_id)
     @expense = @house.expenses.new
     @people = @house.people
 
@@ -42,13 +42,13 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.xml
   def create
-    @house = House.includes(:people).find(params[:house_id])
+    @house = House.includes(:people).find(current_person.house_id)
     @expense = @house.expenses.new(params[:expense])
     @people = @house.people
 
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to(house_expense_path(@house, @expense), :notice => 'Expense was successfully created.') }
+        format.html { redirect_to(root_path, :notice => 'Expense was successfully created.') }
         format.xml  { render :xml => @expense, :status => :created, :location => @expense }
       else
         format.html { render :action => "new" }

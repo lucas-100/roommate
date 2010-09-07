@@ -109,6 +109,9 @@ input {
 #expensesHeader {
   background-image: url('../images/expensesHeader.png');
 }
+#paymentsHeader {
+  background-image: url('../images/paymentsHeader.png');
+}
 .boxMiddle {
   background-color: #ececec;
   background-image: url("../images/boxBGRepeat.png");

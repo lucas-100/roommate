@@ -10,6 +10,8 @@ class Person < ActiveRecord::Base
   belongs_to :house
   has_many :debts
   has_many :loans, :class_name => "Debt", :foreign_key => :loaner_id
+  has_many :payments_made, :class_name => "Payment", :foreign_key => :person_paying_id
+  has_many :payments_received, :class_name => "Payment", :foreign_key => :person_paid_id
   
   validates :name,  :format     => { :with => Authentication.name_regex, :message => Authentication.bad_name_message },
                     :length     => { :maximum => 100 },
@@ -83,7 +85,16 @@ class Person < ActiveRecord::Base
     loans.group(:expense_id).limit(5).order("created_at DESC").map{|d| d.expense}
   end
   
+  def recent_payments_received
+    payments_received.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount}}
+  end
+  
+  def recent_payments_made
+   payments_made.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount}}
+  end
+  
   protected
+  # how much the current user owes to another user
   def total_debt_owed(to_user)
     payments = 0
     debt_received = 0
@@ -106,6 +117,7 @@ class Person < ActiveRecord::Base
     return Money.new(total_debt_in_cents)
   end
   
+  # how much the current user has loaned out to, or is owed by, another user
   def total_debt_loaned(to_user)
     payments = 0
     debt_received = 0

@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
   # GET /payments/new.xml
   def new
     @payment = Payment.new
-    @people = Person.where("house_id = ?", params[:house_id]).all
+    @people = Person.where("house_id = ? AND id != ?", current_person.house_id, current_person.id).all
     
     respond_to do |format|
       format.html # new.html.erb
@@ -47,7 +47,7 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
-        format.html { redirect_to(@payment, :notice => 'Payment was successfully created.') }
+        format.html { redirect_to(root_path, :notice => 'Payment was successfully created.') }
         format.xml  { render :xml => @payment, :status => :created, :location => @payment }
       else
         format.html { render :action => "new" }
@@ -86,8 +86,8 @@ class PaymentsController < ApplicationController
   
   protected
   def load_person_and_house
-    @house = House.find(params[:house_id])
-    @person = Person.find(params[:person_id])
+    @house = current_person.house_id
+    @person = current_person
   end
   
 end

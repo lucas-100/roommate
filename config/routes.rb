@@ -2,10 +2,12 @@ Roommate::Application.routes.draw do |map|
 
   resources :houses do
     resources :people do 
-      resources :payments
+      # resources :payments
     end
-    resources :expenses
+    # resources :expenses
   end
+  resources :expenses
+  resources :payments
 
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login

@@ -1,5 +1,11 @@
-<h1>New payment</h1>
+<div id="header">
+  <h1>New payment</h1>
+  <div class="clearfix"></div>
+</div>
 
-<%= render 'form' %>
+<div class="goldBoxMiddle">
+  <%= render 'form' %>
 
-<%= link_to 'Back', house_person_payments_path(@house, @person) %>
+
+  <%= link_to 'Back', root_path %>
+</div>
