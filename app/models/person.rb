@@ -82,7 +82,21 @@ class Person < ActiveRecord::Base
   end
   
   def recent_loans
-    loans.select("expense_id, created_at").group("expense_id, created_at").limit(5).order("created_at DESC").map{|d| d.expense}
+    # loans.group("expense_id").limit(5).order("created_at DESC").map{|d| d.expense}
+    
+    ls = loans.order("created_at DESC")
+    counter = 0
+    array = []
+    for l in ls
+      if counter <= 5
+        unless array.include? l.expense
+          array << l.expense
+          counter += 1
+        end
+      end
+    end
+    
+    return array
   end
   
   def recent_payments_received
