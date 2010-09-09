@@ -44,10 +44,18 @@ class ExpensesController < ApplicationController
   def create
     @house = House.includes(:people).find(current_person.house_id)
     @expense = @house.expenses.new(params[:expense])
+    @expense.creator = current_person
+    @expense.payer_id = params[:expense][:loaner_id]
     @people = @house.people
 
     respond_to do |format|
       if @expense.save
+        
+        params[:expense][:people].keys.each do |person_id|
+          person = Person.find(person_id)
+          PersonMailer.new_expense_created(@expense, person).deliver
+        end
+        
         format.html { redirect_to(root_path, :notice => 'Expense was successfully created.') }
         format.xml  { render :xml => @expense, :status => :created, :location => @expense }
       else

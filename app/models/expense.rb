@@ -1,6 +1,8 @@
 class Expense < ActiveRecord::Base
   belongs_to :house
   has_many :debts, :dependent => :destroy
+  belongs_to :creator, :class_name => "Person", :foreign_key => :creator_id
+  belongs_to :payer, :class_name => "Person", :foreign_key => :payer_id
   
   attr_accessor :people
   attr_accessor :loaner_id
