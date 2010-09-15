@@ -1,13 +1,22 @@
 class ExpensesController < ApplicationController
+  respond_to :json
   respond_to :html
   
   # GET /expenses
   # GET /expenses.xml
   def index
-    @house = House.includes(:expenses).find(current_person.house_id)
-    @expenses = @house.expenses
-
-    respond_with(@house, @expenses)
+    recent_loans = []
+    current_person.recent_loans.each do |l|
+      recent_loans << {:name => l.name, :amount => l.amount.to_s}
+    end
+    
+    recent_expenses = []
+    current_person.recent_expenses.each do |e|
+      recent_expenses << {:name => e.name, :amount => e.amount.to_s}
+    end
+    @expenses = {:recent_expenses => recent_expenses, :recent_loans => recent_loans}
+    
+    respond_with(@expenses)
   end
 
   # GET /expenses/1

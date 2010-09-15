@@ -88,7 +88,7 @@ class Person < ActiveRecord::Base
     counter = 0
     array = []
     for l in ls
-      if counter <= 5
+      if counter < 5
         unless array.include? l.expense
           array << l.expense
           counter += 1

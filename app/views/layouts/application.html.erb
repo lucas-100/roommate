@@ -9,10 +9,29 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
+<% if logged_in? %>
+  <div id="accountInfo">
+    <div class="center">
+      <p class="notice"><%= notice %></p>
+      <ul>
+        <!-- ><li>Account |</li> -->
+        <li><%= link_to "Logout", logout_path %></li>
+      </ul>
+    </div>
+  </div>
+<% elsif notice %>
+<div id="accountInfo">
+  <div class="center">
+    <p class="notice"><%= notice %></p>
+  </div>
+</div>
+<% end %>
+
 <div id="contentTop"></div>
-<div id="content">
-<%= yield %>
+
+<div id="content"> 
+  
+  <%= yield %>
 </div>
 </div>
 <div id="contentBottom"></div>

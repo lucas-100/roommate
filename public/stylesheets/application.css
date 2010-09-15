@@ -23,6 +23,27 @@ div#contentBottom {
   background-repeat: no-repeat;
 }
 
+div#accountInfo {
+  width: 100%;
+  margin: 0 0 0 0;
+  padding: 20px 0 0 0;
+  height: 47px;
+  background-image: url('../images/headerBG.png');
+  background-repeat: repeat-x;
+}
+#accountInfo ul {
+  width: 300px;
+  text-align: right;
+  margin: 0 auto 0 auto;
+  padding: 0;
+  float: right;
+}
+#accountInfo ul li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 #top-bar {
   float: right;
 }
@@ -165,6 +186,24 @@ ul li {
   margin-left: 0px;
   font-size: 1.4em;
 }
+.boxMiddle li {
+  font-family: Cambria, serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.1em;
+}
+#oweMiddle li {
+  font-family: “Lucida Grande”, sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: -1px;
+  line-height: 1.4em; 
+}
 h1 {
   font-size: 3em;
   font-weight: normal;
@@ -173,7 +212,13 @@ h1 {
   padding-left: 100px;
 }
 h2 {
-  font-size: 1.7em;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.4em;
 }
 .column_1 {
   width: 380px;
@@ -185,4 +230,8 @@ h2 {
   margin-right: 100px;
   padding:0;
   float: right;
+}
+.center {
+  width: 960px;
+  margin: auto;
 }

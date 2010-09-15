@@ -1,15 +1,24 @@
 class PaymentsController < ApplicationController
   before_filter :load_person_and_house
   
+  respond_to :json
+  
   # GET /payments
   # GET /payments.xml
   def index
-    @payments = Payment.where('person_paying_id = ?', @person).all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @payments }
+    recent_payments_made = []
+    current_person.recent_payments_made.each do |p|
+      recent_payments_made << {:name => p[:name], :amount => p[:amount].to_s}
     end
+    
+    recent_payments_received = []
+    current_person.recent_payments_received.each do |p|
+      recent_payments_received << {:name => p[:name], :amount => p[:amount].to_s}
+    end
+    
+    @payments = {:payments_made => recent_payments_made, :payments_received => recent_payments_received}
+    
+    respond_with(@payments)
   end
 
   # GET /payments/1
@@ -47,6 +56,9 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
+        PersonMailer.new_payment_sent(@payment, @payment.person_paying).deliver
+        PersonMailer.new_payment_received(@payment, @payment.person_paid).deliver
+        
         format.html { redirect_to(root_path, :notice => 'Payment was successfully created.') }
         format.xml  { render :xml => @payment, :status => :created, :location => @payment }
       else

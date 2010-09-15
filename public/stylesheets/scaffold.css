@@ -22,6 +22,17 @@ div.field, div.actions {
 
 .notice {
   color: green;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1em;
+  float: left;
+  margin-left: 50px;
+  width: 550px;
+  margin-top: 5px;
 }
 
 .fieldWithErrors {

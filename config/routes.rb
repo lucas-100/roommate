@@ -8,12 +8,15 @@ Roommate::Application.routes.draw do |map|
   end
   resources :expenses
   resources :payments
+  resources :people
 
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   # match 'register' => 'people#create', :as => :register
   match 'signup' => 'people#new', :as => :signup
   resource :session, :only => [:new, :create, :destroy]
+  
+  match 'mobile/loans/:id(.:format)' => 'dashboard#mobile'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

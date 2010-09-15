@@ -1,14 +1,21 @@
 class PeopleController < ApplicationController
+  before_filter :login_required
+  
   # TODO - before_filter :load_house
-  respond_to :html
+  respond_to :json
   
   # GET /people
   # GET /people.xml
   def index
-    @house = House.includes(:people).find(params[:house_id])
-    @people = @house.people
+    house = current_person.house
+    @people = []
+    house.people.each do |p|
+      if p != current_person
+        @people << {:name => p.name}
+      end
+    end
 
-    respond_with(@house, @people)
+    respond_with(@people)
   end
 
   # GET /people/1
