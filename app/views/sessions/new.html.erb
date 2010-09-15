@@ -9,21 +9,22 @@
       <div class="goldBoxMiddle">
       
 			  <% form_tag session_path do %>
-  				<p><%= label_tag 'email' %><br />
-  				<%= text_field_tag 'email', @email %></p>
+  			  <label for="email">Email<span class="small">The email you signed up with</span></label>
+  				<%= text_field_tag 'email', @email %>
+          
+          <label for="password">Password<span class="small">Enter your password so we know you're really you</span></label>
+  				<%= password_field_tag 'password', nil %>
 
-  				<p><%= label_tag 'password' %><br/>
-  				<%= password_field_tag 'password', nil %></p>
+  				<!-- Uncomment this if you want this functionality -->
+  				<label for="remember_me">Remember Me?<span class="small">Check this box if you want this computer to be automatically logged in when you visit MyRoommate in the future</span></label>
+  				<%= check_box_tag 'remember_me', '1', @remember_me, {:style => "float:none;width:20px"} %>
 
-  				<!-- Uncomment this if you want this functionality
-  				<p><%= label_tag 'remember_me', 'Remember me' %>
-  				<%= check_box_tag 'remember_me', '1', @remember_me %></p>
-  				-->
-
-  				<p><%= submit_tag 'Log in' %></p>
+  				<div class="actions">
+  				  <button type="submit">Log In</button>
+  				</div>
   			<% end %>
   		  
-  		  <%= link_to 'Cancel', root_path() %>
+  		  
   		  
   		</div>
   		

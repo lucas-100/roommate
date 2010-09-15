@@ -2,26 +2,30 @@
   <%= f.error_messages %>
 	
 	<div class="field">
-		<%= f.label :name %><br />
+		<label for="expense_name">Name <span class="small">What'd you spend the money on?</span></label>
 		<%= f.text_field :name %>
 	</div>
   <div class="field">
-    <%= f.label :amount %><br />
+    <label for="expense_amount">Amount <span class="small">Amount of the expense in dollars</span></label>
     <%= f.text_field :amount %>
   </div>
 	<div class="field">
-		<label>Who owe's the money?</label>
-		<% @people.each do |person| %>
-			<input name="expense[people][<%= person.id %>]" type="hidden" value="0" />
-			<input id="expense_people_<%= person.id %>" name="expense[people][<%= person.id %>]" type="checkbox" value="1" /> 
-			<label for="expense_people_<%= person.id %>"><%= person.name %></label>
-		<% end %>
+		<label>Who owe's the money? <span class="small">Check the boxes for the roommates that should help pay for this expense</span></label>
+		<ul class="listInputs">
+		  <% @people.each do |person| %>
+  			<li><input name="expense[people][<%= person.id %>]" type="hidden" value="0" />  			
+  			<input id="expense_people_<%= person.id %>" name="expense[people][<%= person.id %>]" type="checkbox" value="1" /> 
+  			<label for="expense_people_<%= person.id %>"><%= person.name %></label></li>
+  		<% end %>
+		</ul>
 	</div>
+	
+	<div class="clearfix"></div>
 	<div class="field">
-		<%= f.label :loaner_id, "Who paid up front?" %>
+		<label for="expense_loaner_id">Who paid up front?<span class="small">Who fronted the cash for this expense?</span></label>
 		<%= f.collection_select :loaner_id, @people, :id, :name, {:prompt => true} %>
 	</div>
   <div class="actions">
-    <%= f.submit %>
+    <button type="submit" name="commit" id="expense_submit">Create Expense</button> or <%= link_to 'cancel', root_path, {:class => "cancel"} %>
   </div>
 <% end %>

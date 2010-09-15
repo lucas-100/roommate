@@ -106,17 +106,6 @@ div#accountInfo {
 .goldBoxMiddle {
   
 }
-label {
-  font-size: 1.7em;
-  color: #666;
-}
-.field {
-  padding-top: 15px;
-}
-input {
-  font-size: 1.7em;
-  color: 999;
-}
 
 .boxHeader {
   width: 960px;
@@ -234,4 +223,107 @@ h2 {
 .center {
   width: 960px;
   margin: auto;
+}
+/* FORMS */
+form {
+  margin:0 0;
+  width: 700px;
+  padding:14px 14px 14px 0;
+}
+
+.field {
+  padding-top: 15px;
+}
+
+input, select {
+  font-size: 1.2em;
+  color: 999;
+  
+  float:left;
+  font-size:12px;
+  padding:4px 2px;
+  border:solid 1px #aacfe4;
+  width:440px;
+  margin:2px 0 20px 20px;
+}
+
+label {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.4em;
+  
+  display:block;
+  font-weight:bold;
+  text-align:right;
+  width:200px;
+  float:left;
+}
+
+.small{
+  color:#666666;
+  display:block;
+  font-size:11px;
+  font-weight:normal;
+  text-align:right;
+  width:200px;
+  line-height: 1em;
+}
+
+.listInputs {
+  float: left;
+  width: 440px;
+}
+.listInputs input, .listInputs label {
+ display: inline;
+ float: left;
+}
+.listInputs input {
+  width: 20px;
+}
+.listInputs label {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.2em;
+  text-align: left;
+  margin-left: 20px;
+}
+.listInputs li {
+  clear: both;
+  float: none;
+}
+
+.actions {
+  width: 250px;
+  margin: auto;
+}
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  clear:both;
+	width:125px;
+	height:31px;
+	background:transparent url("../images/button.png") no-repeat;
+	text-align:center;
+	line-height:31px;
+	color:#FFFFFF;
+	font-size:11px;
+	font-weight:bold;
+	margin-top: 20px;
+}
+
+a.cancel {
+  color: red;
+}
+a.cancel:hover {
+  background-color: red;
+  color: white;
 }

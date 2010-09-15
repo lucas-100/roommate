@@ -2,17 +2,17 @@
   <%= f.error_messages %>
 
   <div class="field">
-    <%= f.label :person_paid_id %><br />
+    <label for="payment_person_paid_id">Person Paid<span class="small">Who did you pay?</span></label>
     <%= f.collection_select :person_paid_id, @people, :id, :name, {:prompt => true} %>
   </div>
   <div class="field">
     <%= f.hidden_field :person_paying_id, :value => @person.id %>
   </div>
   <div class="field">
-    <%= f.label :amount %><br />
+    <label for="payment_amount">Amount<span class="small">The amount you paid them, in dollards</span></label>
     <%= f.text_field :amount %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <button type="submit">Create Payment</button> or <%= link_to 'cancel', root_path(), {:class => 'cancel'} %>
   </div>
 <% end %>
