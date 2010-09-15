@@ -1,28 +1,29 @@
-<% form_for(@expense, :url => expenses_path) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@expense, :url => expenses_path) do |f| %>
 	
 	<div class="field">
-		<label for="expense_name">Name <span class="small">What'd you spend the money on?</span></label>
+		<%= f.label :name, raw('Name <span class="small">What\'d you spend the money on?</span>') %>
 		<%= f.text_field :name %>
 	</div>
   <div class="field">
-    <label for="expense_amount">Amount <span class="small">Amount of the expense in dollars</span></label>
+    <%= f.label :amount, raw('Amount <span class="small">Amount of the expense in dollars</span>')%>
     <%= f.text_field :amount %>
   </div>
 	<div class="field">
-		<label>Who owe's the money? <span class="small">Check the boxes for the roommates that should help pay for this expense</span></label>
+		<%= f.label :people, raw('Who owe\'s the money? <span class="small">Check the boxes for the roommates that should help pay for this expense</span>')%>
 		<ul class="listInputs">
 		  <% @people.each do |person| %>
-  			<li><input name="expense[people][<%= person.id %>]" type="hidden" value="0" />  			
-  			<input id="expense_people_<%= person.id %>" name="expense[people][<%= person.id %>]" type="checkbox" value="1" /> 
-  			<label for="expense_people_<%= person.id %>"><%= person.name %></label></li>
+  			<li>
+  			  <input name="expense[people][<%= person.id %>]" type="hidden" value="0" />  			
+  			  <input id="expense_people_<%= person.id %>" <%= "checked" if @expense.people["#{person.id}"] == "1" %>  name="expense[people][<%= person.id %>]" type="checkbox" value="1" /> 
+  			  <label for="expense_people_<%= person.id %>"><%= person.name %></label>
+  			</li>
   		<% end %>
 		</ul>
 	</div>
 	
 	<div class="clearfix"></div>
 	<div class="field">
-		<label for="expense_loaner_id">Who paid up front?<span class="small">Who fronted the cash for this expense?</span></label>
+		<%= f.label :loaner_id, raw('Who paid up front?<span class="small">Who fronted the cash for this expense?</span>') %>
 		<%= f.collection_select :loaner_id, @people, :id, :name, {:prompt => true} %>
 	</div>
   <div class="actions">

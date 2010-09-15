@@ -35,6 +35,21 @@ div.field, div.actions {
   margin-top: 5px;
 }
 
+.error {
+  color: red;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1em;
+  float: left;
+  margin-left: 50px;
+  width: 550px;
+  margin-top: 5px;
+}
+
 .fieldWithErrors {
   padding: 2px;
   background-color: red;
@@ -68,5 +83,5 @@ div.field, div.actions {
 
 #errorExplanation ul li {
   font-size: 12px;
-  list-style: square;
+  list-style: none;
 }

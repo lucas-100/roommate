@@ -12,7 +12,12 @@
 <% if logged_in? %>
   <div id="accountInfo">
     <div class="center">
-      <p class="notice"><%= notice %></p>
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if flash[:error] %>
+        <p class="error"><%= flash[:error] %>
+      <% end %>
       <ul>
         <!-- ><li>Account |</li> -->
         <li><%= link_to "Logout", logout_path %></li>

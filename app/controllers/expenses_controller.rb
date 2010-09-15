@@ -35,7 +35,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new.xml
   def new
     @house = House.includes(:people).find(current_person.house_id)
-    @expense = @house.expenses.new
+    @expense = @house.expenses.new(:people => {})
     @people = @house.people
 
     respond_with(@house, @expense)
@@ -68,6 +68,7 @@ class ExpensesController < ApplicationController
         format.html { redirect_to(root_path, :notice => 'Expense was successfully created.') }
         format.xml  { render :xml => @expense, :status => :created, :location => @expense }
       else
+        flash[:error] = "Unable to save new expense."
         format.html { render :action => "new" }
         format.xml  { render :xml => @expense.errors, :status => :unprocessable_entity }
       end

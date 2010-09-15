@@ -53,6 +53,7 @@ class PaymentsController < ApplicationController
   # POST /payments.xml
   def create
     @payment = Payment.new(params[:payment])
+    @people = Person.where("house_id = ? AND id != ?", current_person.house_id, current_person.id).all
 
     respond_to do |format|
       if @payment.save
@@ -62,6 +63,7 @@ class PaymentsController < ApplicationController
         format.html { redirect_to(root_path, :notice => 'Payment was successfully created.') }
         format.xml  { render :xml => @payment, :status => :created, :location => @payment }
       else
+        flash[:error] = "Unabel to save payment."
         format.html { render :action => "new" }
         format.xml  { render :xml => @payment.errors, :status => :unprocessable_entity }
       end

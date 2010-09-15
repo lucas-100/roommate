@@ -263,6 +263,18 @@ label {
   float:left;
 }
 
+.field_with_errors input, .field_with_errors select {
+  color: red;
+  border: 3px solid red;
+}
+.field_with_errors label, .field_with_errors .small {
+  color: red;
+}
+
+.errorExplanation ul, .errorExplanation ul li {
+  list-style-type: none;
+}
+
 .small{
   color:#666666;
   display:block;

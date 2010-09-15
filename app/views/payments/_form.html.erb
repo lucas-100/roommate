@@ -1,15 +1,14 @@
-<% form_for(@payment, :url => payments_path) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@payment, :url => payments_path) do |f| %>
 
   <div class="field">
-    <label for="payment_person_paid_id">Person Paid<span class="small">Who did you pay?</span></label>
+    <%= f.label :person_paid_id, raw('Person Paid<span class="small">Who did you pay?</span>') %>
     <%= f.collection_select :person_paid_id, @people, :id, :name, {:prompt => true} %>
   </div>
   <div class="field">
     <%= f.hidden_field :person_paying_id, :value => @person.id %>
   </div>
   <div class="field">
-    <label for="payment_amount">Amount<span class="small">The amount you paid them, in dollards</span></label>
+    <%= f.label :amount, raw('Amount<span class="small">The amount you paid them, in dollards</span>')%>
     <%= f.text_field :amount %>
   </div>
   <div class="actions">
