@@ -3,6 +3,7 @@ class PeopleController < ApplicationController
   
   # TODO - before_filter :load_house
   respond_to :json
+  respond_to :html
   
   # GET /people
   # GET /people.xml
@@ -45,15 +46,24 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.xml
   def create
-    logout_keeping_session!
-    @house = House.find(params[:house_id])
+    @house = House.find(current_person.id)
+    
+    pass =  Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{params[:person][:email]}"))[0..7]
+    if params[:person][:password] == '' || params[:person][:password].nil?
+      params[:person][:password] = pass
+      params[:person][:password_confirmation] = pass
+    end
+    
     @person = @house.people.new(params[:person])
-
+    
     respond_to do |format|
       if @person.save
-        format.html { redirect_to(house_person_path(@house, @person), :notice => 'Person was successfully created.') }
+        PersonMailer.new_person_created(@person, pass).deliver
+        
+        format.html { redirect_to(root_path, :notice => 'Person was successfully created.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else
+        flash[:error] = "Unable to create roommate."
         format.html { render :action => "new" }
         format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
       end

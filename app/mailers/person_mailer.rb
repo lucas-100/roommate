@@ -18,4 +18,10 @@ class PersonMailer < ActionMailer::Base
     @payment = payment
     mail(:to => @person.email,  :subject => "[MyRoommate] New payment received")
   end
+  
+  def new_person_created(person, pass)
+    @person = person
+    @pass = pass
+    mail(:to => @person.email,  :subject => "[MyRoommate] New account created for you")
+  end
 end

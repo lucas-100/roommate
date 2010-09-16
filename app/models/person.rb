@@ -15,18 +15,20 @@ class Person < ActiveRecord::Base
   
   validates :name,  :format     => { :with => Authentication.name_regex, :message => Authentication.bad_name_message },
                     :length     => { :maximum => 100 },
-                    :allow_nil  => true
+                    :allow_nil  => true,
+                    :presence   => true
 
   validates :email, :presence   => true,
                     :uniqueness => true,
                     :format     => { :with => Authentication.email_regex, :message => Authentication.bad_email_message },
                     :length     => { :within => 6..100 }
 
-  
+  before_save :send_email
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
+  attr_accessor :password, :password_confirmation
   attr_accessible :email, :name, :password, :password_confirmation
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -106,6 +108,10 @@ class Person < ActiveRecord::Base
   def recent_payments_made
    payments_made.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount}}
   end
+    
+  def send_email
+    
+  end
   
   protected
   # how much the current user owes to another user
@@ -153,7 +159,7 @@ class Person < ActiveRecord::Base
     
     return Money.new(total_debt_in_cents)
   end
-    
-
+  
+  
 
 end

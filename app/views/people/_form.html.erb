@@ -1,16 +1,14 @@
-<%= form_for(@person, :url => house_people_path(@house)) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@person, :url => people_path) do |f| %>
 
   <div class="field">
-    
-    <%= f.label :name %>
+    <%= f.label :name, raw('Name <span class="small">Enter the name of your new roommate</span>') %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :email %>
+    <%= f.label :email, raw('Email <span class="small">Enter your new roommate\'s email address</span>') %>
     <%= f.text_field :email %>
   </div>
   <div class="actions">
-    <%= f.submit %> or <%= link_to 'cancel', root_path(), {:class => 'cancel'} %>
+    <button type="submit">Create Roommate</button> or <%= link_to 'cancel', root_path(), {:class => 'cancel'} %>
   </div>
 <% end %>
