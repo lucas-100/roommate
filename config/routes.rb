@@ -14,6 +14,9 @@ Roommate::Application.routes.draw do |map|
   match 'login' => 'sessions#new', :as => :login
   # match 'register' => 'people#create', :as => :register
   match 'signup' => 'people#new', :as => :signup
+  match 'account' => 'people#show', :as => :account
+  match 'account_save' => 'people#update', :as => :account_save
+  match 'account_save_password' => 'people#update_password', :as => :account_save_password
   resource :session, :only => [:new, :create, :destroy]
   
   match 'mobile/loans/:id(.:format)' => 'dashboard#mobile'

@@ -106,11 +106,27 @@ class Person < ActiveRecord::Base
   end
   
   def recent_payments_made
-   payments_made.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount}}
+    payments_made.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount}}
   end
-    
-  def send_email
-    
+  
+  def update_password(params)
+    if params[:password] == params[:password_confirmation] && !params[:password].nil? && params[:password] != ""
+      if update_attribute(:crypted_password, encrypt(params[:password]))
+        return true
+      else
+        return false
+      end
+    else
+      if params[:password] != params[:password_confirmation]
+        errors.add(:password_confirmation, "must match password")
+      end 
+      
+      if params[:password].nil? || params[:password] == ''
+        errors.add(:password, "cannot be blank")
+      end
+      
+      return false
+    end
   end
   
   protected

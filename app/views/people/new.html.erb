@@ -6,7 +6,15 @@
 <div class="clearfix"></div>
 
 <div class="goldBoxMiddle">
-  <%= render 'form' %>
+  <%= form_for(@person, :url => people_path) do |f| %>
+
+    <%= render :partial => 'form', :locals => {:f => f} %>
+    <div class="actions">
+      <button type="submit">Create Roommate</button> or <%= link_to 'cancel', root_path(), {:class => 'cancel'} %>
+    </div>
+  <% end %>
+  
+  
 </div>
 
 <div class="goldBoxBottom"></div>

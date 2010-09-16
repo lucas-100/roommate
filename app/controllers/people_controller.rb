@@ -22,7 +22,7 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.xml
   def show
-    @person = Person.includes(:house).find(params[:id])
+    @person = current_person
     @house = @person.house
     
     respond_with(@person, @house)
@@ -73,15 +73,34 @@ class PeopleController < ApplicationController
   # PUT /people/1
   # PUT /people/1.xml
   def update
-    @person = Person.includes(:house).find(params[:id])
+    @person = current_person
     @house = @person.house
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to(house_person_path(@house, @person), :notice => 'Person was successfully updated.') }
+        format.html { redirect_to(account_path, :notice => 'Profile was successfully updated.') }
         format.xml  { head :ok }
       else
+        flash[:error] = "We couldn't save your profile."
         format.html { render :action => "edit" }
+        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  # PUT /people/1
+  # PUT /people/1.xml
+  def update_password
+    @person = current_person
+    @house = @person.house
+
+    respond_to do |format|
+      if @person.update_password(params[:person])
+        format.html { redirect_to(account_path, :notice => 'Profile was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        flash[:error] = "We couldn't save your profile."
+        format.html { render :action => "show" }
         format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
       end
     end
