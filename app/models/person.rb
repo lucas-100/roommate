@@ -182,7 +182,7 @@ class Person < ActiveRecord::Base
       payments_made_to = payments_made_to + p.amount_in_cents
     end
     
-    Payment.where("person_paying_id = ? AND person_paid_to = ?", self.id, to_user.id).all.each do |p|
+    Payment.where("person_paying_id = ? AND person_paid_id = ?", self.id, to_user.id).all.each do |p|
       payments_made_from = payments_made_from + p.amount_in_cents
     end
     
