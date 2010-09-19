@@ -130,8 +130,16 @@ class Person < ActiveRecord::Base
   protected
   # how much the current user owes to another user
   def total_debt_owed(to_user)
-    payments = 0
+    # Payments the current user made to the to_user
+    payments_made_to = 0
+    
+    # Payments the to_user made to the current user
+    payments_made_from = 0
+    
+    # Debt that someone else made and the current user owes them
     debt_received = 0
+    
+    # Debt that this user made and the to_user owes 
     debt_loaned = 0
     
     Debt.where("loaner_id = ? AND person_id = ?", to_user.id, self.id).all.each do |d|
@@ -143,10 +151,14 @@ class Person < ActiveRecord::Base
     end
     
     Payment.where("person_paid_id = ? AND person_paying_id = ?", to_user.id, self.id).all.each do |p|
-      payments = payments + p.amount_in_cents
+      payments_made_to = payments_made_to + p.amount_in_cents
     end
     
-    total_debt_in_cents = (debt_received) - (payments + debt_loaned)
+    Payment.where("person_paying_id = ? AND person_paid_id = ?", to_user.id, self.id).all.each do |p|
+      payments_made_from = payments_made_from + p.amount_in_cents
+    end
+    
+    total_debt_in_cents = (debt_received + payments_made_from) - (payments_made_to + debt_loaned)
     
     return Money.new(total_debt_in_cents)
   end
