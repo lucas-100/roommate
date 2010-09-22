@@ -8,7 +8,7 @@
         <h2>All Expenses</h2>
         <ul>
 					<% @expenses.each do |e| %>
-            <li <%= "class='owner'" if e. %>>
+            <li <%= "class='owner'" if e.loaner_id == @current_user.id %>>
 							<span class='expenseName'><%= e.name %></span> 
 							<span class='amount'>$<%= e.amount %></span> 
 							<span class='expenseSmall'><%= "#{e.notes}" unless e.notes.nil? %></span>

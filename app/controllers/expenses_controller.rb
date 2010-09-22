@@ -6,6 +6,7 @@ class ExpensesController < ApplicationController
   # GET /expenses.xml
   def index
     @expenses = Expense.where("house_id = ?", current_person.house_id).order("created_at DESC").all
+    @current_user = current_person
     
     respond_with(@expenses)
   end
