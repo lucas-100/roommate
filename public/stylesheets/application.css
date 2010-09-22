@@ -289,6 +289,17 @@ h2 {
   background-color: #dadada;
 }
 
+.smallLink {
+  font-size: 65%;
+  font-weight: normal;
+  text-decoration: none;
+  color: red;
+}
+.smallLink:hover {
+  color: white;
+  background-color: red;
+}
+
 /****************************
 ********** FORMS ***********
 ***************************/
