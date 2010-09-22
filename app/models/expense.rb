@@ -9,7 +9,7 @@ class Expense < ActiveRecord::Base
   money :amount
   
   after_create :create_debt
-  #after_update :update_debt
+  after_update :update_debt
   
   validates_presence_of :name
   validate :amount_greater_than_zero
