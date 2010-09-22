@@ -30,6 +30,10 @@ div#accountInfo {
   height: 47px;
   background-image: url('../images/headerBG.png');
   background-repeat: repeat-x;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 #accountInfo ul {
   width: 300px;
