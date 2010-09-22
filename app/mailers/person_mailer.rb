@@ -4,19 +4,19 @@ class PersonMailer < ActionMailer::Base
   def new_expense_created(expense, person)
     @person = person
     @expense = expense
-    mail(:to => @person.email,  :subject => "[MyRoommate] New expense") 
+    mail(:to => @person.email,  :subject => "[MyRoommate] New expense: #{@expense.name}") 
   end
   
   def new_payment_sent(payment, person)
     @person = person
     @payment = payment
-    mail(:to => @person.email,  :subject => "[MyRoommate] New payment sent")
+    mail(:to => @person.email,  :subject => "[MyRoommate] New payment sent to #{@person.name}")
   end
   
   def new_payment_received(payment, person)
     @person = person
     @payment = payment
-    mail(:to => @person.email,  :subject => "[MyRoommate] New payment received")
+    mail(:to => @person.email,  :subject => "[MyRoommate] New payment received from #{@person.name}")
   end
   
   def new_person_created(person, pass)
