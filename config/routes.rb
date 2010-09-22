@@ -1,9 +1,9 @@
 Roommate::Application.routes.draw do |map|
 
   resources :houses do
-    resources :people do 
+    # resources :people do 
       # resources :payments
-    end
+    # end
     # resources :expenses
   end
   resources :expenses

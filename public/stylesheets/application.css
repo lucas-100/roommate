@@ -183,6 +183,12 @@ ul li {
   text-transform: normal;
   letter-spacing: normal;
   line-height: 1.1em;
+  border-bottom: 1px dotted #666;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+.boxMiddle li.last {
+  border: none;
 }
 #oweMiddle li {
   font-family: “Lucida Grande”, sans-serif;
@@ -224,7 +230,70 @@ h2 {
   width: 960px;
   margin: auto;
 }
-/* FORMS */
+
+/****************************
+******** DASHBOARD *********
+***************************/
+
+.expenseName {
+  font-weight: bold;
+  display: block;
+  float: left;
+  font-size: 110%;
+}
+
+.amount {
+  display: block;
+  float: right;
+}
+
+.expenseSmall {
+  color:#666666;
+  display:block;
+  font-size:11px;
+  font-weight:normal;
+  text-align:left;
+  line-height: 1em;
+  float: left;
+  clear: both;
+}
+
+.expenseDate {
+  color:#999;
+  display:block;
+  font-size:11px;
+  font-weight:normal;
+  line-height: 1em;
+  float: right;
+}
+
+.column_1 ul li {
+  width: 300px;
+  clear: both;
+}
+
+.more {
+  font-size: 80%;
+  color: #666;
+}
+
+.single_column {
+  margin: 0;
+  float: left;
+}
+.single_column ul li {
+  width: 600px;
+  clear: both;
+}
+.single_column ul li.owner {
+  background-color: #dadada;
+}
+
+/****************************
+********** FORMS ***********
+***************************/
+
+
 form {
   margin:0 0;
   width: 700px;
@@ -235,7 +304,7 @@ form {
   padding-top: 15px;
 }
 
-input, select {
+input, select, textarea {
   font-size: 1.2em;
   color: 999;
   

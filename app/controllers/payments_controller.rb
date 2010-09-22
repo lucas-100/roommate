@@ -93,7 +93,7 @@ class PaymentsController < ApplicationController
     @payment.destroy
 
     respond_to do |format|
-      format.html { redirect_to(payments_url) }
+      format.html { redirect_to(root_path, :notice => "Payment was deleted.") }
       format.xml  { head :ok }
     end
   end

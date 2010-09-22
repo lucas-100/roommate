@@ -100,11 +100,11 @@ class Person < ActiveRecord::Base
   end
   
   def recent_payments_received
-    payments_received.limit(5).order("created_at DESC").map{|p| {:name => p.person_paying.name, :amount => p.amount}}
+    payments_received.limit(5).order("created_at DESC").map{|p| {:name => p.person_paying.name, :amount => p.amount, :id => p.id}}
   end
   
   def recent_payments_made
-    payments_made.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount}}
+    payments_made.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount, :id => p.id}}
   end
   
   def update_password(params)

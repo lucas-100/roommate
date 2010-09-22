@@ -5,16 +5,7 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.xml
   def index
-    recent_loans = []
-    current_person.recent_loans.each do |l|
-      recent_loans << {:name => l.name, :amount => l.amount.to_s}
-    end
-    
-    recent_expenses = []
-    current_person.recent_expenses.each do |e|
-      recent_expenses << {:name => e.name, :amount => e.amount.to_s}
-    end
-    @expenses = {:recent_expenses => recent_expenses, :recent_loans => recent_loans}
+    @expenses = Expense.where("house_id = ?", current_person.house_id).order("created_at DESC").all
     
     respond_with(@expenses)
   end
@@ -99,7 +90,7 @@ class ExpensesController < ApplicationController
     @expense.destroy
 
     respond_to do |format|
-      format.html { redirect_to(house_expenses_url(@house)) }
+      format.html { redirect_to(root_path, :notice => "Expense was deleted.") }
       format.xml  { head :ok }
     end
   end

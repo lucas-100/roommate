@@ -31,7 +31,7 @@ class PeopleController < ApplicationController
   # GET /people/new
   # GET /people/new.xml
   def new
-    @house = House.find(params[:house_id])
+    @house = House.find(current_person.house_id)
     @person = @house.people.new
 
     respond_with(@house, @person)
@@ -114,7 +114,7 @@ class PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to(house_people_url(@house)) }
+      format.html { redirect_to(root_path) }
       format.xml  { head :ok }
     end
   end

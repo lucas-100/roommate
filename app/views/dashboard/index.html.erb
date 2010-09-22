@@ -20,7 +20,7 @@
           <ul>
 
             <% @person.all_debts_owed.each do |d| %>
-            	<li><b><%= d[:person] %></b>: <%= d[:amount] %></li>
+            	<li><%= d[:person] %>: $<%= d[:amount] %></li>
             <% end %>
 
           </ul>
@@ -30,7 +30,7 @@
           <ul>
 
             <% @person.all_debts_loaned.each do |d| %>
-            	<li><%= d[:person] %></b>: <%= d[:amount] %></li>
+            	<li><%= d[:person] %>: $<%= d[:amount] %></li>
             <% end %>
 
           </ul>
@@ -49,22 +49,31 @@
         <h2>Things I didn't pay for</h2>
         <ul>
           <% @person.recent_expenses.each do |e| %>
-            <li><%= "#{e.name} -- #{e.amount}" %></li>
+            <li>
+							<span class='expenseName'><%= e.name %></span> 
+							<span class='amount'>$<%= e.amount %></span> 
+							<span class='expenseSmall'><%= "#{e.notes}" unless e.notes.nil? %></span>
+							<span class="expenseDate"><%= e.created_at.to_s(:short) %></span>
+							<div class="clearfix"></div>
+						</li>
           <% end %>
+					<li class="last"><%= link_to "More...", expenses_path, {:class => "more"} %></li>
         </ul>
       </div>
       <div class="column_2">
         <h2>Things I paid for</h2>
         <ul>
           <% @person.recent_loans.each do |e| %>
-            <li><%= "#{e.name} -- #{e.amount}" %></li>
+            <li><%= "#{e.name} -- $#{e.amount}" %> <%= link_to "Delete", expense_path(e), :method => :delete, :confirm => "Are you sure you want to delete this expense? You cannot undo this." %></li>
           <% end %>
         </ul>
       </div>
+			<div class="clearfix"></div>
     </div>
     <div id="roommatesFooter" class="boxFooter"></div>
   </div>
   
+
   <div id="payments">
     <%= link_to '', new_payment_path, {:class => 'addBanner'}%>
     <div id="paymentsHeader" class="boxHeader"></div>
@@ -73,7 +82,7 @@
         <h2>People I paid</h2>
         <ul>
           <% @person.recent_payments_made.each do |e| %>
-            <li><%= "#{e[:name]} -- #{e[:amount]}" %></li>
+            <li><%= "#{e[:name]} -- $#{e[:amount]}" %> <%= link_to "Delete", payment_path(e[:id]), :method => :delete, :confirm => "Are you sure want to delete this payment? You cannot undo this."%></li>
           <% end %>
         </ul>
       </div>
@@ -81,7 +90,7 @@
         <h2>People who paid me</h2>
         <ul>
           <% @person.recent_payments_received.each do |e| %>
-            <li><%= "#{e[:name]} -- #{e[:amount]}" %></li>
+            <li><%= "#{e[:name]} -- $#{e[:amount]}" %></li>
           <% end %>
         </ul>
       </div>
@@ -90,12 +99,12 @@
   </div>
   
   <div id="roommates">
-    <%= link_to '', new_house_person_path(@house),  {:class => 'addBanner'}%>
+    <%= link_to '', new_person_path,  {:class => 'addBanner'}%>
     <div id="roommatesHeader" class="boxHeader"></div>
     <div id="roommatesMiddle" class="boxMiddle">
       <ul>
         <% for roommate in @house.people %>
-          <li><%= roommate.name %></li>
+          <li><%= roommate.name %> </li>
         <% end %>
       </ul>
     </div>

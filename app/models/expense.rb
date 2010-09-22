@@ -3,14 +3,13 @@ class Expense < ActiveRecord::Base
   has_many :debts, :dependent => :destroy
   belongs_to :creator, :class_name => "Person", :foreign_key => :creator_id
   belongs_to :payer, :class_name => "Person", :foreign_key => :payer_id
-  
-  attr_accessor :people
-  attr_accessor :loaner_id
+  belongs_to :loaner, :class_name => "Person", :foreign_key => :loaner_id
+  serialize :people
   
   money :amount
   
   after_create :create_debt
-  after_update :update_debt
+  #after_update :update_debt
   
   validates_presence_of :name
   validate :amount_greater_than_zero
@@ -19,13 +18,15 @@ class Expense < ActiveRecord::Base
   
   def at_least_one_person
     count = 0
-    people.each do |key, value|
-      if (value == "1")
-        count += 1
+    unless people.nil?
+      people.each do |key, value|
+        if (value == "1")
+          count += 1
+        end
       end
     end
     
-    if count <= 0
+    if count <= 0 || people.nil?
       errors.add(:people, "have to have at lease one selected.")
     end
   end
