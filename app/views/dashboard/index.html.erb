@@ -89,7 +89,13 @@
         <h2>People I paid</h2>
         <ul>
           <% @person.recent_payments_made.each do |e| %>
-            <li><%= "#{e[:name]} -- $#{e[:amount]}" %> <%= link_to "Delete", payment_path(e[:id]), :method => :delete, :confirm => "Are you sure want to delete this payment? You cannot undo this."%></li>
+            <li>
+							<span class='expenseName'><%= e[:name] %> <%= link_to "Delete", payment_path(e[:id]), :method => :delete, :confirm => "Are you sure want to delete this payment? You cannot undo this.", :class => "smallLink" %></span> 
+							<span class='amount'>$<%= e[:amount] %></span> 
+							<span class="expenseSmall"></span>
+							<span class="expenseDate"><%= e[:created_at].to_s(:short) %></span>
+							<div class="clearfix"></div>
+						</li>
           <% end %>
         </ul>
       </div>
@@ -97,7 +103,13 @@
         <h2>People who paid me</h2>
         <ul>
           <% @person.recent_payments_received.each do |e| %>
-            <li><%= "#{e[:name]} -- $#{e[:amount]}" %></li>
+            <li>
+							<span class='expenseName'><%= e[:name] %></span> 
+							<span class='amount'>$<%= e[:amount] %></span> 
+							<span class="expenseSmall"></span>
+							<span class="expenseDate"><%= e[:created_at].to_s(:short) %></span>
+							<div class="clearfix"></div>
+						</li>
           <% end %>
         </ul>
       </div>
