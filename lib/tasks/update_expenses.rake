@@ -29,4 +29,18 @@ namespace :expense do
     
   end
   
+  task(:update_relationships => :environment) do
+    Expense.all.each do |e|
+      e.person_array.each do |key, value|
+        if value == "0"
+          e.person_array.delete(key)
+        end
+      end
+      
+      e.person_array.keys.each do |person_id|
+        e.people << Person.find(person_id)
+      end
+    end
+  end
+  
 end
