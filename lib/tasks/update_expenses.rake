@@ -31,13 +31,13 @@ namespace :expense do
   
   task(:update_relationships => :environment) do
     Expense.all.each do |e|
-      e.person_array.each do |key, value|
+      e.people_array.each do |key, value|
         if value == "0"
-          e.person_array.delete(key)
+          e.people_array.delete(key)
         end
       end
       
-      e.person_array.keys.each do |person_id|
+      e.people_array.keys.each do |person_id|
         e.people << Person.find(person_id)
       end
     end
