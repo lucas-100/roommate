@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100922012219) do
+ActiveRecord::Schema.define(:version => 20100922064616) do
 
   create_table "debts", :force => true do |t|
     t.integer  "amount_in_cents"
@@ -45,7 +45,12 @@ ActiveRecord::Schema.define(:version => 20100922012219) do
     t.integer  "payer_id"
     t.text     "notes"
     t.integer  "loaner_id"
-    t.string   "people"
+    t.string   "people_array"
+  end
+
+  create_table "expenses_people", :id => false, :force => true do |t|
+    t.integer "expense_id"
+    t.integer "person_id"
   end
 
   create_table "houses", :force => true do |t|

@@ -12,6 +12,7 @@ class Person < ActiveRecord::Base
   has_many :loans, :class_name => "Debt", :foreign_key => :loaner_id
   has_many :payments_made, :class_name => "Payment", :foreign_key => :person_paying_id
   has_many :payments_received, :class_name => "Payment", :foreign_key => :person_paid_id
+  has_and_belongs_to_many :expenses
   
   validates :name,  :format     => { :with => Authentication.name_regex, :message => Authentication.bad_name_message },
                     :length     => { :maximum => 100 },

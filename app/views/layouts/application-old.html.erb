@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Roommates</title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag :defaults %>
+  
+</head>
+<body>
+
+<% if logged_in? %>
+  <div id="accountInfo">
+    <div class="center">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if flash[:error] %>
+        <p class="error"><%= flash[:error] %>
+      <% end %>
+      <ul>
+        <li><%= link_to "Home", root_path %> |</li>
+				<li><%= link_to "Account", account_path %> |</li>
+        <li><%= link_to "Logout", logout_path %></li>
+      </ul>
+    </div>
+  </div>
+<% elsif notice %>
+<div id="accountInfo">
+  <div class="center">
+    <p class="notice"><%= notice %></p>
+  </div>
+</div>
+<% end %>
+
+<div id="contentTop"></div>
+
+<div id="content"> 
+  
+  <%= yield %>
+</div>
+</div>
+<div id="contentBottom"></div>
+
+</body>
+</html>

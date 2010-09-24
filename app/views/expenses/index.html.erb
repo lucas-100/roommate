@@ -9,7 +9,7 @@
         <ul>
 					<% @expenses.each do |e| %>
             <li <%= "class='owner'" if e.loaner_id == @current_user.id %>>
-							<span class='expenseName'><%= e.name %></span> 
+							<span class='expenseName'><%= e.name %> <%= (link_to "Delete", expense_path(e), :method => :delete, :confirm => "Are you sure you want to delete #{e.name}? This cannot be undone", :class => "smallLink") if e.loaner_id == @current_user.id %></span> 
 							<span class='amount'>$<%= e.amount %></span> 
 							<span class='expenseSmall'><%= "#{e.notes}" unless e.notes.nil? %></span>
 							<span class="expenseDate"><%= e.created_at.to_s(:short) %></span>

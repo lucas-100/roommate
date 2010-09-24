@@ -1,11 +1,13 @@
 class ExpensesController < ApplicationController
+  before_filter :login_required
+  
   respond_to :json
   respond_to :html
   
   # GET /expenses
   # GET /expenses.xml
   def index
-    @expenses = Expense.where("house_id = ?", current_person.house_id).order("created_at DESC").all
+    @expenses = Expense.where("house_id = ?", current_person.house_id).joins("people").order("created_at DESC").all
     @current_user = current_person
     
     respond_with(@expenses)
@@ -30,7 +32,7 @@ class ExpensesController < ApplicationController
     @expense = @house.expenses.new(:people => {})
     @people = @house.people
 
-    respond_with(@house, @expense)
+    respond_with(@house, @expense, @people)
   end
 
   # GET /expenses/1/edit
@@ -47,19 +49,24 @@ class ExpensesController < ApplicationController
     @expense = @house.expenses.new(params[:expense])
     @expense.creator = current_person
     @expense.payer_id = params[:expense][:loaner_id]
-    @people = @house.people
+    
+    params[:expense][:people_array].each do |key, value|
+      if value == "1"
+        @expense.people << @house.people.find(key) unless @house.people.find(key).nil?
+      end
+    end
 
     respond_to do |format|
       if @expense.save
         
-        params[:expense][:people].keys.each do |person_id|
-          person = Person.find(person_id)
-          PersonMailer.new_expense_created(@expense, person).deliver
+        @expense.people.each do |p|
+          PersonMailer.new_expense_created(@expense, p).deliver
         end
         
         format.html { redirect_to(root_path, :notice => 'Expense was successfully created.') }
         format.xml  { render :xml => @expense, :status => :created, :location => @expense }
       else
+        @people = @house.people
         flash[:error] = "Unable to save new expense."
         format.html { render :action => "new" }
         format.xml  { render :xml => @expense.errors, :status => :unprocessable_entity }

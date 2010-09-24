@@ -13,13 +13,13 @@
 		<%= f.collection_select :loaner_id, @people, :id, :name, {:prompt => true} %>
 	</div>
 	<div class="field">
-		<%= f.label :people, raw('Who responsible for the expense? <span class="small">Check the boxes for the roommates that should help pay for this expense</span>')%>
+		<%= f.label :people_array, raw('Who responsible for the expense? <span class="small">Check the boxes for the roommates that should help pay for this expense</span>')%>
 		<ul class="listInputs">
 		  <% @people.each do |person| %>
   			<li>
-  			  <input name="expense[people][<%= person.id %>]" type="hidden" value="0" />  			
-  			  <input id="expense_people_<%= person.id %>" <%= "checked" if @expense.people["#{person.id}"] == "1" %>  name="expense[people][<%= person.id %>]" type="checkbox" value="1" /> 
-  			  <label for="expense_people_<%= person.id %>"><%= person.name %></label>
+  			  <input name="expense[people_array][<%= person.id %>]" type="hidden" value="0" />  			
+  			  <input id="expense_people_array_<%= person.id %>" <%= "checked" if @expense.people.include?(person.id) %>  name="expense[people_array][<%= person.id %>]" type="checkbox" value="1" /> 
+  			  <label for="expense_people_array_<%= person.id %>"><%= person.name %></label>
   			</li>
   		<% end %>
 		</ul>
