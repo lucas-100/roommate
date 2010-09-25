@@ -109,13 +109,6 @@
 		<%= javascript_include_tag 'dd_belatedpng' %>
   <![endif]-->
 
-	<% unless Rails.env.production? %>
-	  <!-- yui profiler and profileviewer - remove for production -->
-		<%= javascript_include_tag 'profiling/yahoo-profiling.min' %>
-		<%= javascript_include_tag 'profiling/config' %>
-	  <!-- end profiling code -->
-	<% end %>
-
 
  <% if Rails.env.production? %>
 	  <!-- asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet 
@@ -130,6 +123,11 @@
 	    s.parentNode.insertBefore(g, s);
 	   })(document, 'script');
 	  </script>
+	<% else %>
+		<!-- yui profiler and profileviewer - remove for production -->
+		<%= javascript_include_tag 'profiling/yahoo-profiling.min' %>
+		<%= javascript_include_tag 'profiling/config' %>
+	  <!-- end profiling code -->
 	<% end %>
   
 </body>

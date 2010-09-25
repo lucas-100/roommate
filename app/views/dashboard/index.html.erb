@@ -93,6 +93,7 @@
 							<div class="clearfix"></div>
 						</li>
           <% end %>
+					<li class="last"><%= link_to "More...", payments_path, {:class => "more"} %></li>
         </ul>
       </div>
       <div class="column_2">
@@ -107,6 +108,7 @@
 							<div class="clearfix"></div>
 						</li>
           <% end %>
+					<li class="last"><%= link_to "More...", payments_path, {:class => "more"} %></li>
         </ul>
       </div>
 			<div class="clearfix"></div>
@@ -118,11 +120,19 @@
     <%= link_to '', new_person_path,  {:class => 'addBanner'}%>
     <div id="roommatesHeader" class="boxHeader"></div>
     <div id="roommatesMiddle" class="boxMiddle">
-      <ul>
-        <% for roommate in @house.people %>
-          <li><%= roommate.name %> </li>
-        <% end %>
-      </ul>
+      <div class='column_1'>
+				<ul>
+	        <% for roommate in @house.people %>
+	          <li>
+							<span class='expenseName'><%= roommate.name %></span>
+							<span class='amount'></span>
+							<span class='expenseSmall'></span>
+							<span class='expenseDate'></span>
+							<div class="clearfix"></div>
+						</li>
+	        <% end %>
+	      </ul>
+			</div>
     </div>
     <div id="roommatesFooter" class="boxFooter"></div>
   </div>

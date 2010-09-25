@@ -1,5 +1,6 @@
 class ExpensesController < ApplicationController
   before_filter :login_required
+  before_filter :load_person_and_house
   
   respond_to :json
   respond_to :html
@@ -7,8 +8,7 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.xml
   def index
-    @expenses = Expense.where("house_id = ?", current_person.house_id).includes(:people).order("created_at DESC").all
-    @current_user = current_person
+    @expenses = @person.expenses.includes(:people).order("created_at DESC").all
     
     respond_with(@expenses)
   end

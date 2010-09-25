@@ -1,24 +1,17 @@
 class PaymentsController < ApplicationController
   before_filter :load_person_and_house
+  before_filter :login_required
   
   respond_to :json
+  respond_to :html
   
   # GET /payments
   # GET /payments.xml
   def index
-    recent_payments_made = []
-    current_person.recent_payments_made.each do |p|
-      recent_payments_made << {:name => p[:name], :amount => p[:amount].to_s}
-    end
+    @payments_received = @person.payments_received
+    @payments_made = @person.payments_made
     
-    recent_payments_received = []
-    current_person.recent_payments_received.each do |p|
-      recent_payments_received << {:name => p[:name], :amount => p[:amount].to_s}
-    end
-    
-    @payments = {:payments_made => recent_payments_made, :payments_received => recent_payments_received}
-    
-    respond_with(@payments)
+    respond_with(@payments_recieved, @payments_made)
   end
 
   # GET /payments/1
@@ -96,12 +89,6 @@ class PaymentsController < ApplicationController
       format.html { redirect_to(root_path(:anchor => "payments"), :notice => "Payment was deleted.") }
       format.xml  { head :ok }
     end
-  end
-  
-  protected
-  def load_person_and_house
-    @house = current_person.house_id
-    @person = current_person
   end
   
 end
