@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100922064616) do
+ActiveRecord::Schema.define(:version => 20100925222134) do
 
   create_table "debts", :force => true do |t|
     t.integer  "amount_in_cents"
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(:version => 20100922064616) do
     t.string   "salt",                      :limit => 40
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
+  end
+
+  create_table "signups", :force => true do |t|
+    t.string   "email"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

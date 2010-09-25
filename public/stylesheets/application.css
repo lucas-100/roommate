@@ -356,6 +356,10 @@ form {
   padding:14px 14px 14px 0;
 }
 
+.column_1 form, .column_2 form {
+  width: 352px;
+}
+
 .field {
   padding-top: 15px;
 }
@@ -372,6 +376,10 @@ input, select, textarea {
   margin:2px 0 20px 20px;
 }
 
+.column_1 input, .column_2 input, .column_1 select, .column_2 select, .column_1 textarea, .column_2 textarea {
+  width: 200px;
+}
+
 label {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -386,6 +394,10 @@ label {
   text-align:right;
   width:200px;
   float:left;
+}
+
+.column_1 label, .column_2 label {
+  width: 120px;
 }
 
 .field_with_errors input, .field_with_errors select {
@@ -408,6 +420,10 @@ label {
   text-align:right;
   width:200px;
   line-height: 1em;
+}
+
+.column_1 .small, .column_2 .small {
+  width: 120px;
 }
 
 .listInputs {

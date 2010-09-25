@@ -36,6 +36,10 @@ class PeopleController < ApplicationController
 
     respond_with(@house, @person)
   end
+  
+  def signup
+    
+  end
 
   # GET /people/1/edit
   def edit

@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
   def index 
     @house = House.joins(:people).find(current_person.house_id)
     @person = current_person
+    @signup = Signup.new
   end
   
   def mobile

@@ -69,10 +69,15 @@
 			      </ul>
 			    </div>
 			  </div>
-			<% elsif notice %>
+			<% elsif notice || flash[:error] %>
 			<div id="accountInfo">
 			  <div class="center">
-			    <p class="notice"><%= notice %></p>
+			    <% if notice %>
+		        <p class="notice"><%= notice %></p>
+		      <% end %>
+		      <% if flash[:error] %>
+		        <p class="error"><%= flash[:error] %>
+		      <% end %>
 			  </div>
 			</div>
 			<% end %>

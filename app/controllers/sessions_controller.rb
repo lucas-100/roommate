@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
+    @signup = Signup.new
   end
 
   def create
@@ -18,11 +19,12 @@ class SessionsController < ApplicationController
       self.current_person = person
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
-      redirect_back_or_default('/', :notice => "Logged in successfully")
+      redirect_back_or_default('/', :notice => "Welcome back, #{current_person.name}")
     else
       note_failed_signin
       @email       = params[:email]
       @remember_me = params[:remember_me]
+      @signup = Signup.new
       render :action => 'new'
     end
   end

@@ -9,14 +9,16 @@ Roommate::Application.routes.draw do |map|
   resources :expenses
   resources :payments
   resources :people
+  resources :signups
 
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   # match 'register' => 'people#create', :as => :register
-  match 'signup' => 'people#new', :as => :signup
+  # match 'signup' => 'people#signup', :as => :signup, :via => :post
   match 'account' => 'people#show', :as => :account
   match 'account_save' => 'people#update', :as => :account_save
   match 'account_save_password' => 'people#update_password', :as => :account_save_password
+  # match 'thank_you' => 'dashboard#thank_you', :as => :thank_you
   resource :session, :only => [:new, :create, :destroy]
   
   match 'mobile/loans/:id(.:format)' => 'dashboard#mobile'
