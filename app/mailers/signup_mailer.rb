@@ -6,4 +6,10 @@ class SignupMailer < ActionMailer::Base
     mail(:to => signup.email, :subject => "[MyRoommate] Thanks for signing up!")
   end
   
+  def new_house_and_person(person, pass)
+    @person = person
+    @pass = pass
+    mail(:to => @person.email, :subject => "[MyRoommate] Your account has been created")
+  end
+  
 end

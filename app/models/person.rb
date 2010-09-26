@@ -50,6 +50,8 @@ class Person < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
   
+  # 
+  
   def all_debts_owed
     debts = []
     
