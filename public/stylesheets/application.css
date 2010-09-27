@@ -480,3 +480,15 @@ a.cancel:hover {
   background-color: red;
   color: white;
 }
+
+h1 input {
+  float:left;
+  font-size:100%;
+  width:250px;
+}
+h1 button.inline {
+  clear:none;
+  display:block;
+  float:left;
+  margin-left:20px;
+}

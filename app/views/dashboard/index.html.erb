@@ -1,7 +1,14 @@
 	<div class="clearfix"></div>
   
   <div id="header">
-    <h1><%= @house.name %></h1>
+    <h1>
+			<div id="house_name">	
+				<%= @house.name %> <a href="/house" id="houseEditLink" class="edit">edit</a>
+			</div>
+			<%= form_for @house, :html => {:id => 'house_name_home', :style => "display:none"} do |f| %>
+				<%= f.text_field :name %><button class="inline">Save</button>
+			<% end %>
+		</h1>
     <%= link_to '', new_expense_path, {:id => 'newExpense'}%>
     <%= link_to '', new_payment_path, {:id => 'newPayment'}%>
   </div>

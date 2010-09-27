@@ -56,10 +56,10 @@ class HousesController < ApplicationController
 
     respond_to do |format|
       if @house.update_attributes(params[:house])
-        format.html { redirect_to(@house, :notice => 'House was successfully updated.') }
+        format.html { redirect_to(root_path, :notice => 'House name changed.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { redirect_to(root_path) }
         format.xml  { render :xml => @house.errors, :status => :unprocessable_entity }
       end
     end
