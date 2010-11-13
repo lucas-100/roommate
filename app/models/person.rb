@@ -146,19 +146,19 @@ class Person < ActiveRecord::Base
     debt_loaned = 0
     
     Debt.where("loaner_id = ? AND person_id = ?", to_user.id, self.id).all.each do |d|
-      debt_received = debt_received + d.amount_in_cents
+      debt_received += d.amount_in_cents
     end
     
     Debt.where("loaner_id = ? AND person_id = ?", self.id, to_user.id).all.each do |d|
-      debt_loaned = debt_loaned + d.amount_in_cents
+      debt_loaned += d.amount_in_cents
     end
     
     Payment.where("person_paid_id = ? AND person_paying_id = ?", to_user.id, self.id).all.each do |p|
-      payments_made_to = payments_made_to + p.amount_in_cents
+      payments_made_to += p.amount_in_cents
     end
     
     Payment.where("person_paying_id = ? AND person_paid_id = ?", to_user.id, self.id).all.each do |p|
-      payments_made_from = payments_made_from + p.amount_in_cents
+      payments_made_from += p.amount_in_cents
     end
     
     total_debt_in_cents = (debt_received + payments_made_from) - (payments_made_to + debt_loaned)

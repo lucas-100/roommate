@@ -31,7 +31,8 @@ class SessionsController < ApplicationController
 
   def destroy
     logout_killing_session!
-    redirect_back_or_default('/', :notice => "You have been logged out.")
+    # redirect_back_or_default('/', :notice => "You have been logged out.")
+    redirect_to login_path, :notice => "You have been logged out."
   end
 
 protected
