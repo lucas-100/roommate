@@ -1,9 +1,3 @@
-Given /^there is a user and a house$/ do
-  house = House.create(:name => "Test House")
-  person = Person.create(:email => "jared.online@gmail.com", :password => "password", :password_confirmation => "password", :name => "Jared")
-  person.update_attribute(:house_id, house.id)
-end
-
 Given /^I am logged in$/ do
   visit '/'
   fill_in "email", :with => "jared.online@gmail.com"

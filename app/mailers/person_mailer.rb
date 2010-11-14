@@ -10,13 +10,13 @@ class PersonMailer < ActionMailer::Base
   def new_payment_sent(payment, person)
     @person = person
     @payment = payment
-    mail(:to => @person.email,  :subject => "[MyRoommate] New payment sent to #{@person.name}")
+    mail(:to => @person.email,  :subject => "[MyRoommate] New payment sent to #{@payment.person_paid.name}")
   end
   
   def new_payment_received(payment, person)
     @person = person
     @payment = payment
-    mail(:to => @person.email,  :subject => "[MyRoommate] New payment received from #{@person.name}")
+    mail(:to => @person.email,  :subject => "[MyRoommate] New payment received from #{@payment.person_paying.name}")
   end
   
   def new_person_created(person, pass)

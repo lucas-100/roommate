@@ -1,6 +1,6 @@
 <u>A new expense has been created on MyRoommate</u><br /><br />
 
-Hey, <%= @expense.creator.name %> created a new expense, that <%= ((@expense.creator == @expense.payer) ? "they" : @expense.payer.name) %> paid for. They spent <%= @expense.amount %> paying for <%= @expense.name %>.<br /><br />
+Hey, <%= @expense.creator.name %> created a new expense, that <%= ((@expense.creator == @expense.payer) ? "they" : @expense.payer.name) %> paid for. They spent $<%= @expense.amount %> paying for <%= @expense.name %>.<br /><br />
 
 Login to <a href="http://www.myroommateapp.com">MyRoommate</a> to see who owes who.<br /><br />
 

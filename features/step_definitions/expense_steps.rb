@@ -1,22 +1,3 @@
-def current_email_address
-  @email || (@current_user && @current_user.email) || "jared.online@gmail.com"
-end
-
-Given /^there is a setup house$/ do
-  @house = House.create!(:name => "Test House")
-  bill = Person.create(:name => "Bill", :email => "bill@testemail.com", :password => "password", :password_confirmation => "password")
-  bill.update_attribute(:house_id, @house.id)
-  
-  phil = Person.create(:name => "Phil", :email => "phil@testemail.com", :password => "password", :password_confirmation => "password")
-  phil.update_attribute(:house_id, @house.id)
-  
-  josh = Person.create(:name => "Josh", :email => "josh@testemail.com", :password => "password", :password_confirmation => "password")
-  josh.update_attribute(:house_id, @house.id)
-  
-  jared = Person.create(:name => "Jared", :email => "jared.online@gmail.com", :password => "password", :password_confirmation => "password")
-  jared.update_attribute(:house_id, @house.id)
-end
-
 When /^I log a new expense$/ do
   visit new_expense_path
   fill_in "Name", :with => "Rent"
@@ -37,6 +18,12 @@ Then /^I should see who owe's me money$/ do
   page.should have_content("Phil: $500")
 end
 
+Given /^an expense from a roommate was logged$/ do
+  expense = Expense.new(:name => "Electricity", :amount_in_cents => 20000, :notes => "Electric for this month", :payer_id => 1, :loaner_id => 1)
+  expense.people << Person.all
+  expense.save
+end
+
 Given /^an expense was logged$/ do
   Given 'there is a setup house'
   And 'I am logged in'
@@ -47,5 +34,26 @@ Then /^I should get an email about the expense$/ do
   unread_emails_for(current_email_address).size.should == 1
   open_email(current_email_address)
   current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
-  current_email.should have_body_text(/$2000.00/)
+  current_email.should have_body_text(/\$2000\.00/)
+  current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
+end
+
+Then /^everyone else should get an email about the expense$/ do
+  unread_emails_for('bill@testemail.com').size.should == 1
+  open_email('bill@testemail.com')
+  current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
+  current_email.should have_body_text(/\$2000\.00/)
+  current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
+  
+  unread_emails_for('phil@testemail.com').size.should == 1
+  open_email('phil@testemail.com')
+  current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
+  current_email.should have_body_text(/\$2000\.00/)
+  current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
+  
+  unread_emails_for('josh@testemail.com').size.should == 1
+  open_email('josh@testemail.com')
+  current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
+  current_email.should have_body_text(/\$2000\.00/)
+  current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
 end
