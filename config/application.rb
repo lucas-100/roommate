@@ -42,5 +42,10 @@ module Roommate
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters << :password
     config.secret_token =  "my roommates never want to pay me back.  Wtf?"
+    
+    config.session_store = {
+      :key    => '_roommate_session',
+      :secret => 'afc41c9e59df57f450ce5ad8289fa18d7984ab6284c866bbb2ee75dc9cb01fe297b9da995f5e952cee2fa998d78342bb0606ba488d5662c8d685b2a110f56229'
+    }
   end
 end
