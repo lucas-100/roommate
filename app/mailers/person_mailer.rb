@@ -4,6 +4,7 @@ class PersonMailer < ActionMailer::Base
   def new_expense_created(expense, person)
     @person = person
     @expense = expense
+    @debt = expense.debts.where("person_id = ?", person.id).first
     mail(:to => @person.email,  :subject => "[MyRoommate] New expense: #{@expense.name}") 
   end
   

@@ -59,8 +59,8 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       if @expense.save
         
-        @expense.people.each do |p|
-          PersonMailer.new_expense_created(@expense, p).deliver
+        @expense.people.each do |person|
+          PersonMailer.new_expense_created(@expense, person).deliver
         end
         
         format.html { redirect_to(root_path, :notice => 'Expense was successfully created.') }
