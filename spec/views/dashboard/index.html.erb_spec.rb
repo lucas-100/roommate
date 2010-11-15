@@ -34,11 +34,17 @@ describe "dashboard/index.html.erb" do
     rendered.should contain("Who owes me")
   end
   
-  it "should have recent payments"
+  it "should have recent payments" do
+    render
+    rendered.should contain("People I paid")
+    rendered.should contain("People who paid me")
+  end
   
-  it "should have recent expenses"
-  
-  it "should have roommates"
+  it "should have recent expenses" do
+    render
+    rendered.should contain("Things I paid for")
+    rendered.should contain("Things I didn't pay for")
+  end
   
   it "should have an edit link for the house name" do 
     render
