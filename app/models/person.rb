@@ -1,5 +1,3 @@
-# TODO - Dry up this model
-
 require 'digest/sha1'
 
 class Person < ActiveRecord::Base
@@ -50,150 +48,82 @@ class Person < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
   
-  # 
-  
   def all_debts_owed
-    debts = []
-    
-    house.people.each do |p|
-      total_debt = total_debt_owed(p)
-      if total_debt.cents > 0
-        debt = {:person => p.name, :amount => total_debt}
-        debts << debt
-      end
-    end
-    
-    return debts
+    house.people.map { |person| create_debt(person.name, total_debt_owed(person)) }.compact! || Array.new
   end
   
   def all_debts_loaned
-    debts = []
-    
-    house.people.each do |p|
-      total_debt = total_debt_loaned(p)
-        if total_debt.cents > 0
-          debt = {:person => p.name, :amount => total_debt}
-          debts << debt
-        end
-    end
-    
-    return debts
+    house.people.map { |person| create_debt(person.name, total_debt_loaned(person)) }.compact! || Array.new
   end
 
   def recent_expenses 
-    debts.limit(5).where("loaner_id != ?", self.id).order("created_at DESC").map{|d| d.expense}
+    debts.limit(5).where("loaner_id != ?", self.id).order("created_at DESC").map{ |debt| debt.expense } || Array.new
   end
   
   def recent_loans
-    # loans.group("expense_id").limit(5).order("created_at DESC").map{|d| d.expense}
-    
-    ls = loans.order("created_at DESC")
-    counter = 0
-    array = []
-    for l in ls
-      if counter < 5
-        unless array.include? l.expense
-          array << l.expense
-          counter += 1
-        end
-      end
-    end
-    
-    return array
+    loans.select('DISTINCT expense_id').limit(5).order("created_at DESC").map { |loan| loan.expense } || Array.new
   end
   
   def recent_payments_received
-    payments_received.limit(5).order("created_at DESC").map{|p| {:name => p.person_paying.name, :amount => p.amount, :id => p.id, :created_at => p.created_at}}
+    payments_received.limit(5).order("created_at DESC").map{ |payment| create_payment_hash(payment, payment.person_paying) }
   end
   
   def recent_payments_made
-    payments_made.limit(5).order("created_at DESC").map{|p| {:name => p.person_paid.name, :amount => p.amount, :id => p.id, :created_at => p.created_at}}
+    payments_made.limit(5).order("created_at DESC").map{ |payment| create_payment_hash(payment, payment.person_paid) }
   end
   
   def update_password(params)
-    if params[:password] == params[:password_confirmation] && !params[:password].nil? && params[:password] != ""
-      if update_attribute(:crypted_password, encrypt(params[:password]))
-        return true
-      else
-        return false
-      end
+    if password_is_valid(params) && password_is_confirmed(params)
+      update_attribute(:crypted_password, encrypt(params[:password]))
     else
-      if params[:password] != params[:password_confirmation]
-        errors.add(:password_confirmation, "must match password")
-      end 
+      errors.add(:password_confirmation, "must match password") if params[:password] != params[:password_confirmation]
+      errors.add(:password, "cannot be blank") if params[:password].nil? || params[:password] == ''
       
-      if params[:password].nil? || params[:password] == ''
-        errors.add(:password, "cannot be blank")
-      end
-      
-      return false
+      false
     end
   end
   
   protected
   # how much the current user owes to another user
   def total_debt_owed(to_user)
-    # Payments the current user made to the to_user
-    payments_made_to = 0
-    
-    # Payments the to_user made to the current user
-    payments_made_from = 0
-    
-    # Debt that someone else made and the current user owes them
-    debt_received = 0
-    
-    # Debt that this user made and the to_user owes 
-    debt_loaned = 0
-    
-    Debt.where("loaner_id = ? AND person_id = ?", to_user.id, self.id).all.each do |d|
-      debt_received += d.amount_in_cents
-    end
-    
-    Debt.where("loaner_id = ? AND person_id = ?", self.id, to_user.id).all.each do |d|
-      debt_loaned += d.amount_in_cents
-    end
-    
-    Payment.where("person_paid_id = ? AND person_paying_id = ?", to_user.id, self.id).all.each do |p|
-      payments_made_to += p.amount_in_cents
-    end
-    
-    Payment.where("person_paying_id = ? AND person_paid_id = ?", to_user.id, self.id).all.each do |p|
-      payments_made_from += p.amount_in_cents
-    end
-    
-    total_debt_in_cents = (debt_received + payments_made_from) - (payments_made_to + debt_loaned)
-    
-    return Money.new(total_debt_in_cents)
+    Money.new((debt_received(to_user) + payments_made_from(to_user)) - (payments_made_to(to_user) + debt_loaned(to_user)))
   end
   
   # how much the current user has loaned out to, or is owed by, another user
   def total_debt_loaned(to_user)
-    payments_made_to = 0
-    payments_made_from = 0
-    debt_received = 0
-    debt_loaned = 0
-    
-    Debt.where("loaner_id = ? AND person_id = ?", to_user.id, self.id).all.each do |d|
-      debt_received = debt_received + d.amount_in_cents
-    end
-    
-    Debt.where("loaner_id = ? AND person_id = ?", self.id, to_user.id).all.each do |d|
-      debt_loaned = debt_loaned + d.amount_in_cents
-    end
-    
-    Payment.where("person_paid_id = ? AND person_paying_id = ?", self.id, to_user.id).all.each do |p|
-      payments_made_to = payments_made_to + p.amount_in_cents
-    end
-    
-    Payment.where("person_paying_id = ? AND person_paid_id = ?", self.id, to_user.id).all.each do |p|
-      payments_made_from = payments_made_from + p.amount_in_cents
-    end
-    
-    total_debt_in_cents = (debt_loaned + payments_made_from) - (payments_made_to + debt_received)
-    
-    return Money.new(total_debt_in_cents)
+    Money.new((debt_loaned(to_user) + payments_made_to(to_user)) - (payments_made_from(to_user) + debt_received(to_user)))
   end
   
+  def debt_received(user)
+    Debt.where("loaner_id = ? AND person_id = ?", user.id, self.id).all.inject(0) { |amount, debt| amount += debt.amount_in_cents }
+  end
   
+  def payments_made_from(user)
+    Payment.where("person_paying_id = ? AND person_paid_id = ?", user.id, self.id).all.inject(0) { |amount, payment| amount += payment.amount_in_cents }
+  end
+  
+  def payments_made_to(user)
+    Payment.where("person_paid_id = ? AND person_paying_id = ?", user.id, self.id).all.inject(0) { |amount, payment|  amount += payment.amount_in_cents }
+  end
+  
+  def debt_loaned(user)
+    Debt.where("loaner_id = ? AND person_id = ?", self.id, user.id).all.inject(0) { |amount, debt| amount += debt.amount_in_cents }
+  end
+  
+  def create_debt(person, amount)
+    {:person => person, :amount => amount} if amount.cents > 0
+  end
+  
+  def create_payment_hash(payment, user)
+    {:name => user.name, :amount => payment.amount, :id => payment.id, :created_at => payment.created_at}
+  end
+  
+  def password_is_valid(params)
+    !params[:password].nil? && params[:password] != ""
+  end
+  
+  def password_is_confirmed(params)
+    params[:password] == params[:password_confirmation]
+  end
 
 end
