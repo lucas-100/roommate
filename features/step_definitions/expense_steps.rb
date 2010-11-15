@@ -36,6 +36,7 @@ Then /^I should get an email about the expense$/ do
   current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
   current_email.should have_body_text(/\$2000\.00/)
   current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
+  current_email.should have_body_text(/Your share of this expense is $500.00/)
 end
 
 Then /^everyone else should get an email about the expense$/ do
@@ -44,16 +45,19 @@ Then /^everyone else should get an email about the expense$/ do
   current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
   current_email.should have_body_text(/\$2000\.00/)
   current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
+  current_email.should have_body_text(/Your share of this expense is $500.00/)
   
   unread_emails_for('phil@testemail.com').size.should == 1
   open_email('phil@testemail.com')
   current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
   current_email.should have_body_text(/\$2000\.00/)
   current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
+  current_email.should have_body_text(/Your share of this expense is $500.00/)
   
   unread_emails_for('josh@testemail.com').size.should == 1
   open_email('josh@testemail.com')
   current_email.should have_subject(/\[MyRoommate\] New expense: Rent/)
   current_email.should have_body_text(/\$2000\.00/)
   current_email.should have_body_text(/Jared created a new expense\, that they paid for/)
+  current_email.should have_body_text(/Your share of this expense is $500.00/)
 end

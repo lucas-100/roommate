@@ -9,7 +9,8 @@ Feature: Expenses
 		And I am logged in
 		When I log a new expense
 		Then I should see who owe's me money
-		
+	
+	@wip	
 	Scenario: receive emails for expense
 		Given an expense was logged
 		Then I should get an email about the expense

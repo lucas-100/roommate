@@ -34,10 +34,12 @@ class Person < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
-  def self.authenticate(email, password)
-    return nil if email.blank? || password.blank?
-    u = find_by_email(email.downcase) # need to get the salt
-    u && u.authenticated?(password) ? u : nil
+  class << self
+    def authenticate(email, password)
+      return nil if email.blank? || password.blank?
+      user = find_by_email(email.downcase) # need to get the salt
+      user && user.authenticated?(password) ? user : nil
+    end
   end
 
   def login=(value)
@@ -61,7 +63,7 @@ class Person < ActiveRecord::Base
   end
   
   def recent_loans
-    loans.select('DISTINCT expense_id').limit(5).order("created_at DESC").map { |loan| loan.expense } || Array.new
+    loans.order("created_at DESC").map { |loan| loan.expense }.uniq[0..4] || Array.new
   end
   
   def recent_payments_received
