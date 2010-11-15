@@ -1,4 +1,4 @@
-Roommate::Application.routes.draw do |map|
+Roommate::Application.routes.draw do
 
   resources :houses do
     # resources :people do 

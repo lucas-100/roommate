@@ -1,3 +1,17 @@
+@font-face {
+	font-family: "Helvetica Neue";
+	src: url('/fonts/HelveticaNeue.ttf');
+}
+@font-face {
+	font-family: "Helvetica Neue Light";
+	src: url('/fonts/HelveticaNeueLight.ttf');
+}
+@font-face {
+	font-family: "Helvetica Neue Bold";
+	src: url('/fonts/HelveticaNeueBold.ttf');
+}
+
+
 body {margin:0; padding:0;background-image:url('../images/bodyBackground.jpg');background-repeat:no-repeat;background-color:#028eb7;}
 
 div#content {
@@ -85,10 +99,20 @@ div#accountInfo {
 
 #oweTop {
   width: 960px;
-  height: 51px;
+  height: 31px;
   background-image: url('../images/goldBoxTop.png');
   background-repeat: no-repeat;
   margin: 0;
+  padding-top: 20px;
+}
+#oweTop h2 {
+  font-family: "Helvetica Neue Light";
+  font-style: normal;
+  font-size: 180%;
+  color: #999;
+}
+#oweTop .column_1 {
+  padding-left: 100px;
 }
 #oweMiddle, .goldBoxMiddle {
   background-color: #ffc90e;

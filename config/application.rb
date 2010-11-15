@@ -47,5 +47,7 @@ module Roommate
       :key    => '_roommate_session',
       :secret => 'afc41c9e59df57f450ce5ad8289fa18d7984ab6284c866bbb2ee75dc9cb01fe297b9da995f5e952cee2fa998d78342bb0606ba488d5662c8d685b2a110f56229'
     }
+    
+    config.autoload_paths << File.join(config.root, "lib")
   end
 end
