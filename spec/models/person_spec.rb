@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Person do
   before(:each) do
     @person = Person.new(
-      :name => "Jared",
+      :name => "Jared McFarland",
       :password => "password",
       :email => "jared.online@gmail.com",
       :password_confirmation => "password"
@@ -12,6 +12,10 @@ describe Person do
   
   it "should be valid with valid attributes" do
     @person.should be_valid
+  end
+  
+  it "should return a 1 word first name" do
+    @person.first_name.split(" ").count.should eq(1)
   end
   
   it "should be invalid without a name" do

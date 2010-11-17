@@ -8,7 +8,7 @@ describe "dashboard/index.html.erb" do
                 :recent_expenses => [mock_model("Expense", 
                                                   :name => "Electricity", 
                                                   :created_at => Time.now, 
-                                                  :loaner => mock_model("Person", :name => "Bill").as_null_object
+                                                  :loaner => mock_model("Person", :name => "Bill Duncan", :first_name => "Bill").as_null_object
                                                 ).as_null_object]
                 ).as_null_object 
   }
@@ -66,6 +66,7 @@ describe "dashboard/index.html.erb" do
     rendered.should have_selector("div", :id => "expenses") do |expenses_div|
       expenses_div.should have_selector("div", :class => "column_1") do |column_1|
         column_1.should contain("Bill")
+        column_1.should_not contain("Duncan")
       end
     end
   end

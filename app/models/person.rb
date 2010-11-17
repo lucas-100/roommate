@@ -41,7 +41,11 @@ class Person < ActiveRecord::Base
       user && user.authenticated?(password) ? user : nil
     end
   end
-
+  
+  def first_name
+    name.split(" ")[0]
+  end
+  
   def login=(value)
     write_attribute :login, (value ? value.downcase : nil)
   end
