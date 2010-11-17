@@ -1,6 +1,8 @@
 class PaymentsController < ApplicationController
-  before_filter :load_person_and_house
   before_filter :login_required
+  before_filter :load_person
+  before_filter :load_house
+  
   
   respond_to :json
   respond_to :html

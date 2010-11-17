@@ -4,8 +4,11 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   
   protected
-  def load_person_and_house
-    @house = current_person.house
-    @person = current_person
+  def load_person
+    @person ||= current_person
+  end
+  
+  def load_house
+    @house ||= current_person.house
   end
 end
