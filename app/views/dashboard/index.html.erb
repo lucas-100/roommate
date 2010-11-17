@@ -61,7 +61,7 @@
           <% @person.recent_expenses.each do |e| %>
             <li>
 							<span class='expenseName'><%= e.name %></span> 
-							<span class='amount'>$<%= e.amount %></span> 
+							<span class='amount'>$<%= e.amount %> (<%=e.loaner.name%>)</span> 
 							<span class='expenseSmall'><%= "#{e.notes}" unless e.notes.nil? %></span>
 							<span class="expenseDate"><%= e.created_at.to_s(:short) %></span>
 							<div class="clearfix"></div>

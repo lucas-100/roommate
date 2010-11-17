@@ -1,7 +1,17 @@
 require 'spec_helper'
 
 describe "dashboard/index.html.erb" do
-  let(:person) { mock_model("Person", :name => "Jared", :email => "jared.online@gmail.com").as_null_object }
+  let(:person) { 
+    mock_model("Person", 
+                :name => "Jared", 
+                :email => "jared.online@gmail.com", 
+                :recent_expenses => [mock_model("Expense", 
+                                                  :name => "Electricity", 
+                                                  :created_at => Time.now, 
+                                                  :loaner => mock_model("Person", :name => "Bill").as_null_object
+                                                ).as_null_object]
+                ).as_null_object 
+  }
   let(:house) { mock_model("House", :name => "Test House").as_null_object }
   
   before do
@@ -50,4 +60,14 @@ describe "dashboard/index.html.erb" do
     render
     rendered.should have_selector("a", :href => edit_house_path(house))
   end
+    
+  it "should say the name of the person who paid for something" do
+    render
+    rendered.should have_selector("div", :id => "expenses") do |expenses_div|
+      expenses_div.should have_selector("div", :class => "column_1") do |column_1|
+        column_1.should contain("Bill")
+      end
+    end
+  end
+  
 end

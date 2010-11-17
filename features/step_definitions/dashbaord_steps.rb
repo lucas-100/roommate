@@ -40,7 +40,9 @@ Then /^I should see the things I didn't pay for$/ do
   end
   within "#expenses .column_1" do
     page.should have_content("Groceries")
+    page.should have_content("Phil")
     page.should have_content("Electric Bill")
+    page.should have_content("Bill")
   end
 end
 
