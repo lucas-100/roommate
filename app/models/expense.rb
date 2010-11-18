@@ -12,7 +12,6 @@ class Expense < ActiveRecord::Base
   before_save :add_people_associations
   after_create :create_debt
   after_save :send_emails
-  # after_update :update_debt
   
   validates_presence_of :name
   validate :amount_greater_than_zero
@@ -20,32 +19,15 @@ class Expense < ActiveRecord::Base
   validate :at_least_one_person
   
   def add_people_associations
-    people_array.each do |key, value|
-      if value == "1"
-        people << house.people.find(key) unless house.people.find(key).nil?
-      end
-    end
+    people_array.each { |key, value| people << house.people.find(key) if value == "1" }
   end
   
   def send_emails
-    people.each do |person|
-      PersonMailer.new_expense_created(self, person).deliver
-    end
+    people.each { |person| PersonMailer.new_expense_created(self, person).deliver }
   end
   
   def at_least_one_person
-    count = 0
-    unless people_array.nil?
-      people_array.each do |key, value|
-        if (value == "1")
-          count += 1
-        end
-      end
-    end
-    
-    if count <= 0 || people_array.nil?
-      errors.add(:people_array, "have to have at lease one selected.")
-    end
+    errors.add(:people_array, "have to have at lease one selected.") if (people_array_count <= 0 || people_array.nil?)
   end
   
   def amount_greater_than_zero
@@ -53,30 +35,20 @@ class Expense < ActiveRecord::Base
   end
   
   def create_debt
-    people.each do |p|
-      debts << Debt.create(
-        :amount_in_cents => (amount_in_cents / people.count), 
-        :person_id => p.id, 
-        :loaner_id => loaner_id, 
-        :paid => ((loaner_id == p.id) ? true : false)
-      )
-    end
+    people.each { |person| debts << create_expense_debt(person) }
   end
   
-  def update_debt
-    # first destroy all the old debt, they're no longer valid
-    debts.each do |d|
-      d.destroy
+  protected
+    def people_array_count
+      (people_array.nil?) ? 0 : people_array.values.inject(0) { |count, value| count += 1 if value == "1" } 
     end
-    
-    # now recreate all the debt with the new info
-    people.each do |p|
-      debts << Debt.create(
+  
+    def create_expense_debt(person)
+      Debt.create(
         :amount_in_cents => (amount_in_cents / people.count), 
-        :person_id => p.id, 
+        :person_id => person.id, 
         :loaner_id => loaner_id, 
-        :paid => ((loaner_id == p.id) ? true : false)
+        :paid => ((loaner_id == person.id) ? true : false)
       )
     end
-  end
 end
