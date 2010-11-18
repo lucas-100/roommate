@@ -17,8 +17,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/1
   # GET /expenses/1.xml
   def show
-    @expense = Expense.includes(:house).find(params[:id])
-    @house = @expense.house
+    @expense = Expense.where(:house_id => @house.id).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,8 +28,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new
   # GET /expenses/new.xml
   def new
-    @house = House.includes(:people).find(current_person.house_id)
-    @expense = @house.expenses.new(:people => {})
+    @expense = Expense.new
     @people = @house.people
 
     respond_with(@house, @expense, @people)
@@ -38,32 +36,17 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/1/edit
   def edit
-    @expense = Expense.includes(:house).find(params[:id])
-    @house = @expense.house
+    @expense = Expense.where(:house_id => @house.id).find(params[:id])
     @people = Person.where(:house_id => @house.id).all
   end
 
   # POST /expenses
   # POST /expenses.xml
   def create
-    @house = House.includes(:people).find(current_person.house_id)
-    @expense = @house.expenses.new(params[:expense])
-    @expense.creator = current_person
-    @expense.payer_id = params[:expense][:loaner_id]
-    
-    params[:expense][:people_array].each do |key, value|
-      if value == "1"
-        @expense.people << @house.people.find(key) unless @house.people.find(key).nil?
-      end
-    end
+    @expense = Expense.new(params[:expense])
 
     respond_to do |format|
       if @expense.save
-        
-        @expense.people.each do |person|
-          PersonMailer.new_expense_created(@expense, person).deliver
-        end
-        
         format.html { redirect_to(root_path, :notice => 'Expense was successfully created.') }
         format.xml  { render :xml => @expense, :status => :created, :location => @expense }
       else
@@ -94,8 +77,7 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.xml
   def destroy
-    @expense = Expense.includes(:house).find(params[:id])
-    @house = @expense.house
+    @expense = Expense.find(params[:id])
     @expense.destroy
 
     respond_to do |format|

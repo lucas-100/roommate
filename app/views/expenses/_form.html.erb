@@ -1,5 +1,6 @@
 <%= form_for(@expense, :url => expenses_path) do |f| %>
-	
+	<%= f.hidden_field :creator_id, :value => @person.id %>
+	<%= f.hidden_field :house_id, :value => @house.id %>
 	<div class="field">
 		<%= f.label :name, raw('Name <span class="small">What\'d you spend the money on?</span>') %>
 		<%= f.text_field :name %>

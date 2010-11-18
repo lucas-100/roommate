@@ -19,7 +19,7 @@ Then /^I should see who owe's me money$/ do
 end
 
 Given /^an expense from a roommate was logged$/ do
-  expense = Expense.new(:name => "Electricity", :amount_in_cents => 20000, :notes => "Electric for this month", :payer_id => 1, :loaner_id => 1)
+  expense = Expense.new(:name => "Electricity", :amount_in_cents => 20000, :notes => "Electric for this month", :loaner_id => 1)
   expense.people << Person.all
   expense.save
 end

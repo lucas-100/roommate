@@ -29,7 +29,7 @@ Given /^there is a setup house with payment and expense history$/ do
 end
 
 Given /^the house has payment and expense history$/ do
-  expense = Expense.new(:name => "Rent", :amount_in_cents => 200000, :payer_id => 4, :loaner_id => 4, :creator_id => 4, :house_id => 1)
+  expense = Expense.new(:name => "Rent", :amount_in_cents => 200000, :loaner_id => 4, :creator_id => 4, :house_id => 1)
   expense.people << Person.all
   expense.people_array = {"1" => "1"}
   expense.save
@@ -38,14 +38,14 @@ Given /^the house has payment and expense history$/ do
   Payment.create!(:amount_in_cents => 50000, :person_paid_id => 4, :person_paying_id => 2)
   Payment.create!(:amount_in_cents => 50000, :person_paid_id => 4, :person_paying_id => 3)
   
-  expense = Expense.new(:name => "Groceries", :amount_in_cents => 80000, :payer_id => 2, :loaner_id => 2, :house_id => 1, :creator_id => 4)
+  expense = Expense.new(:name => "Groceries", :amount_in_cents => 80000, :loaner_id => 2, :house_id => 1, :creator_id => 4)
   expense.people << Person.all
   expense.people_array = {"1" => "1"}
   expense.save
   
   Payment.create!(:amount_in_cents => 10000, :person_paid_id => 2, :person_paying_id => 4)
   
-  expense = Expense.new(:name => "Electric Bill", :amount_in_cents => 40000, :payer_id => 3, :loaner_id => 3, :house_id => 1, :creator_id => 4)
+  expense = Expense.new(:name => "Electric Bill", :amount_in_cents => 40000, :loaner_id => 3, :house_id => 1, :creator_id => 4)
   expense.people << Person.all
   expense.people_array = {"1" => "1"}
   expense.save

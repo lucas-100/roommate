@@ -2,7 +2,6 @@ class Expense < ActiveRecord::Base
   belongs_to :house
   has_many :debts, :dependent => :destroy
   belongs_to :creator, :class_name => "Person", :foreign_key => :creator_id
-  belongs_to :payer, :class_name => "Person", :foreign_key => :payer_id
   belongs_to :loaner, :class_name => "Person", :foreign_key => :loaner_id
   serialize :people_array
   
@@ -10,13 +9,29 @@ class Expense < ActiveRecord::Base
   
   money :amount
   
+  before_save :add_people_associations
   after_create :create_debt
+  after_save :send_emails
   # after_update :update_debt
   
   validates_presence_of :name
   validate :amount_greater_than_zero
   validates_presence_of :loaner_id
   validate :at_least_one_person
+  
+  def add_people_associations
+    people_array.each do |key, value|
+      if value == "1"
+        people << house.people.find(key) unless house.people.find(key).nil?
+      end
+    end
+  end
+  
+  def send_emails
+    people.each do |person|
+      PersonMailer.new_expense_created(self, person).deliver
+    end
+  end
   
   def at_least_one_person
     count = 0

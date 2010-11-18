@@ -90,7 +90,7 @@ describe Person do
     end
     
     it "should return all the debt it owes someone else" do
-      e = Expense.new(:name => "Rent", :loaner_id => 2, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"})
+      e = Expense.new(:name => "Rent", :loaner_id => 2, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"}, :creator_id => 1)
       e.people << Person.all
       e.save
     
@@ -101,7 +101,7 @@ describe Person do
     end
   
     it "should return all the debt it loaned to someone else" do
-      e = Expense.new(:name => "Rent", :loaner_id => 1, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"})
+      e = Expense.new(:name => "Rent", :loaner_id => 1, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"}, :creator_id => 1)
       e.people << Person.all
       e.save
     
@@ -112,7 +112,7 @@ describe Person do
     end
   
     it "has recent expenses" do
-      e = Expense.new(:name => "Rent", :loaner_id => 2, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"})
+      e = Expense.new(:name => "Rent", :loaner_id => 2, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"}, :creator_id => 1)
       e.people << Person.all
       e.save
       
@@ -124,7 +124,7 @@ describe Person do
     end
   
     it "has recent loans" do
-      e = Expense.new(:name => "Rent", :loaner_id => 1, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"})
+      e = Expense.new(:name => "Rent", :loaner_id => 1, :house_id => 1, :amount_in_cents => 20000, :people_array => {"1" => "1"}, :creator_id => 1)
       e.people << Person.all
       e.save
       
@@ -174,13 +174,13 @@ describe Person do
       )
       person3.update_attribute(:house, house)
       
-      e = Expense.new(:name => "Rent", :loaner_id => 1, :house_id => 1, :amount_in_cents => 300000, :people_array => {"1" => "1"})
+      e = Expense.new(:name => "Rent", :loaner_id => 1, :house_id => 1, :amount_in_cents => 300000, :people_array => {"1" => "1"}, :creator_id => 1)
       e.people << Person.all
       e.save
       
       Payment.create!(:amount_in_cents => 100000, :person_paid_id => 1, :person_paying_id => 2)
       
-      e = Expense.new(:name => "Groceries", :loaner_id => 2, :house_id => 1, :amount_in_cents => 30000, :people_array => {"1" => "1"})
+      e = Expense.new(:name => "Groceries", :loaner_id => 2, :house_id => 1, :amount_in_cents => 30000, :people_array => {"1" => "1"}, :creator_id => 1)
       e.people << Person.all
       e.save
       
