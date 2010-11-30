@@ -12,6 +12,16 @@ When /^I log a new expense$/ do
   page.should have_content("Expense was successfully created.")
 end
 
+When /^I log a new expense without me on it$/ do
+  visit new_expense_path
+  fill_in "Name", :with => "Rent"
+  fill_in "Amount", :with => "2000"
+  select "Jared"
+  check "Bill"
+  fill_in "Notes", :with => "Rent for this month"
+  click_link_or_button "Create Expense"
+end
+
 Then /^I should see who owe's me money$/ do
   page.should have_content("Bill: $500")
   page.should have_content("Josh: $500")
@@ -28,6 +38,12 @@ Given /^an expense was logged$/ do
   Given 'there is a setup house'
   And 'I am logged in'
   When 'I log a new expense'
+end
+
+Given /^an expense was logged without me on it$/ do
+  Given 'there is a setup house'
+  And 'I am logged in'
+  When 'I log a new expense without me on it'
 end
 
 Then /^I should get an email about the expense$/ do

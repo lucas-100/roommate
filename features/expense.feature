@@ -14,3 +14,7 @@ Feature: Expenses
 		Given an expense was logged
 		Then I should get an email about the expense
 		And everyone else should get an email about the expense
+	
+	Scenario: log a new expense where the person paying for it isn't responsible for it
+		Given an expense was logged without me on it
+		Then I should see "Expense was successfully created."

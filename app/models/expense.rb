@@ -1,9 +1,15 @@
+# The expense class keeps track of all the expenses in the database
+# before saving it adds an association of people from the people array
+# after saving it sends out emails and creates the debt associated with the 
+# expense
+
 class Expense < ActiveRecord::Base
   belongs_to :house
   has_many :debts, :dependent => :destroy
   belongs_to :creator, :class_name => "Person", :foreign_key => :creator_id
   belongs_to :loaner, :class_name => "Person", :foreign_key => :loaner_id
-  serialize :people_array
+  
+  attr_accessor :people_array
   
   has_and_belongs_to_many :people
   
@@ -27,7 +33,7 @@ class Expense < ActiveRecord::Base
   end
   
   def at_least_one_person
-    errors.add(:people_array, "have to have at lease one selected.") if (people_array_count <= 0 || people_array.nil?)
+    errors.add(:people_array, "have to have at lease one selected.") if ( people_array.nil? || people_array_count <= 0)
   end
   
   def amount_greater_than_zero
@@ -40,15 +46,14 @@ class Expense < ActiveRecord::Base
   
   protected
     def people_array_count
-      (people_array.nil?) ? 0 : people_array.values.inject(0) { |count, value| count += 1 if value == "1" } 
+      people_array.values.inject(0) { |count, value| (value == "1") ? count + 1 : count } 
     end
   
     def create_expense_debt(person)
       Debt.create(
         :amount_in_cents => (amount_in_cents / people.count), 
         :person_id => person.id, 
-        :loaner_id => loaner_id, 
-        :paid => ((loaner_id == person.id) ? true : false)
+        :loaner_id => loaner_id
       )
     end
 end

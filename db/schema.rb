@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101117215514) do
+ActiveRecord::Schema.define(:version => 20101118065721) do
 
   create_table "debts", :force => true do |t|
     t.integer  "amount_in_cents"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20101117215514) do
     t.integer  "creator_id"
     t.text     "notes"
     t.integer  "loaner_id"
-    t.string   "people_array"
   end
 
   create_table "expenses_people", :id => false, :force => true do |t|
