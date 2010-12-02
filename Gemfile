@@ -31,6 +31,7 @@ group :cucumber, :test, :development do
   gem 'launchy'    # So you can do Then show me the page
   gem 'metric_fu'
   gem 'webrat'
+  gem 'newrelic_rpm'
 end
 
 ## Bundle gems used only in certain environments:

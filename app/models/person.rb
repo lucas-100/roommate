@@ -63,11 +63,11 @@ class Person < ActiveRecord::Base
   end
 
   def recent_expenses 
-    debts.limit(5).where("loaner_id != ?", self.id).order("created_at DESC").map{ |debt| debt.expense } || Array.new
+    debts.includes(:expense).limit(5).where("loaner_id != ?", self.id).order("created_at DESC").map{ |debt| debt.expense } || Array.new
   end
   
   def recent_loans
-    loans.order("created_at DESC").map { |loan| loan.expense }.uniq[0..4] || Array.new
+    loans.includes(:expense).order("created_at DESC").map { |loan| loan.expense }.uniq[0..4] || Array.new
   end
   
   def recent_payments_received
