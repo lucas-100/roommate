@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   respond_to :html
   
   def index 
-    @house = House.joins(:people).find(current_person.house_id)
-    @person = current_person
+    @house = House.includes(:people).find(current_person.house_id)
+    @person = Person.includes(:expenses, :debts).find(current_person)
   end
 end

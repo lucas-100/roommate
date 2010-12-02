@@ -1,0 +1,4 @@
+development: &developer
+  developer: true
+  license_key: fefd6e59d8ec20746b292a9ac2a12e280fff41d8
+  developer_mode: true
