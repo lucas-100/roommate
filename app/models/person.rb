@@ -1,5 +1,7 @@
 require 'digest/sha1'
 
+# Person is the class for each user.  Controls authentication; assigns debt and payments; owns expenses; calculates total debt owed and loaned
+
 class Person < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword

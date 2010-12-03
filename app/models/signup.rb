@@ -1,3 +1,6 @@
+# Deprecated class used for the beta signups
+# TODO - remove this class and all references
+
 class Signup < ActiveRecord::Base
   
   validate :check_email_against_people

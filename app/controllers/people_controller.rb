@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => [:new, :create]
   
   # TODO - before_filter :load_house
   respond_to :json
@@ -50,21 +50,11 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.xml
   def create
-    @house = House.find(current_person.id)
-    
-    pass =  Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{params[:person][:email]}"))[0..7]
-    if params[:person][:password] == '' || params[:person][:password].nil?
-      params[:person][:password] = pass
-      params[:person][:password_confirmation] = pass
-    end
-    
-    @person = @house.people.new(params[:person])
+    @person = Person.new(params[:person])
     
     respond_to do |format|
       if @person.save
-        PersonMailer.new_person_created(@person, pass).deliver
-        
-        format.html { redirect_to(root_path, :notice => 'Person was successfully created.') }
+        format.html { redirect_to(login_path, :notice => 'Thank you for registering! Login with your new account below.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else
         flash[:error] = "Unable to create roommate."
