@@ -8,8 +8,14 @@ Roommate::Application.routes.draw do
   end
   resources :expenses
   resources :payments
-  resources :people
+  resources :people do
+    collection do
+      post :search
+    end
+  end
   resources :signups
+  
+  match 'wizard/house' => 'wizard#house', :as => :house_wizard, :via => :get
 
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
@@ -20,6 +26,7 @@ Roommate::Application.routes.draw do
   match 'account_save_password' => 'people#update_password', :as => :account_save_password
   # match 'thank_you' => 'dashboard#thank_you', :as => :thank_you
   resource :session, :only => [:new, :create, :destroy]
+  match 'dashboard' => 'dashboard#index', :as => :dashboard
   
   match 'mobile/loans/:id(.:format)' => 'dashboard#mobile'
   

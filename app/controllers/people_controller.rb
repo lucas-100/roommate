@@ -54,7 +54,11 @@ class PeopleController < ApplicationController
     
     respond_to do |format|
       if @person.save
-        format.html { redirect_to(login_path, :notice => 'Thank you for registering! Login with your new account below.') }
+        self.current_person = Person.authenticate(@person.email, @person.password)
+        new_cookie_flag = (params[:remember_me] == "1")
+        handle_remember_cookie! new_cookie_flag
+        
+        format.html { redirect_to(house_wizard_path, :notice => 'Thank you for registering! You\'ve been automatically logged in.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else
         flash[:error] = "Unable to create roommate."
@@ -97,6 +101,18 @@ class PeopleController < ApplicationController
         format.html { render :action => "show" }
         format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+  
+  # POST /people/search
+  def search
+    @person = Person.where(:email => params[:person][:email]).limit(1).first
+    if @person
+      current_person.update_attribute(:house_id, @person.house_id)
+      redirect_to(dashboard_path, :notice => "You've been added to the '#{@person.house.name}' house")
+    else
+      flash[:error] = "Couldn't find a user with that email."
+      redirect_to house_wizard_path
     end
   end
 

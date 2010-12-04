@@ -1,0 +1,25 @@
+<div id="header">
+</div>
+
+<div class="clearfix"></div>
+
+<div id="owe">
+  <div id="oweTop">
+    <div>
+      <h2>Do any of your roommates already have an account on MyRoommate?</h2>
+    </div>
+  </div>
+  <div id="oweMiddle">
+  	<%= link_to "No, I'm the first of my roommates to sign up for MyRoomate.", new_house_path %>
+
+		<%= form_for :person, :url => search_people_path, :method => :post do |f| %>
+			<%= f.label :email, "Enter a roommates email" %>
+			<%= f.text_field :email %>
+			
+			<button type="submit" name="commit" id="person_submit">Find Person</button>
+		<% end %>
+		
+    <div class="clearfix"></div>
+  </div>
+  <div id="oweBottom"></div>
+</div>

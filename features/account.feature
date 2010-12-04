@@ -42,9 +42,8 @@ Feature: User accounts
 	    | person_password | password |
 	    | person_password_confirmation | password |
 	  And I press "Sign Up"
-	  Then I should see "Thank you for registering! Login with your new account below."
-	
-	Scenario: logging after signup
+	  Then I should see "Thank you for registering! You've been automatically logged in."
+		
+	Scenario: automatically logged in after signup
 		Given I just signed up
-		When I sign in
-		Then I should see "Welcome back, Phillip"
+		Then I should see "Logout"
