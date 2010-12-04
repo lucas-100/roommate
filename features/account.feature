@@ -33,3 +33,18 @@ Feature: User accounts
 		And I change my password
 		Then I should see "Profile was successfully updated."
 		And I should be able to login with the new password
+		
+	Scenario: signup
+	  Given I am on the homepage
+	  When I fill in the following:
+	    | person_email | jared.test@gmail.com |
+	    | person_name | Jared Test |
+	    | person_password | password |
+	    | person_password_confirmation | password |
+	  And I press "Sign Up"
+	  Then I should see "Thank you for registering! Login with your new account below."
+	
+	Scenario: logging after signup
+		Given I just signed up
+		When I sign in
+		Then I should see "Welcome back, Phillip"

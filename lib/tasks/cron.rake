@@ -1,5 +1,8 @@
 desc "This task is called by the Heroku cron add-on"
 task :cron => :environment do
+ 
+ 
+ # add the signups into the actual database
  max_houses = 10
  counter = (House.count > 0) ? House.count : 0
    while counter <= max_houses
