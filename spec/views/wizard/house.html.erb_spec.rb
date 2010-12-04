@@ -5,7 +5,7 @@ describe "wizard/house.html.erb" do
     render
     rendered.should have_selector("form", :action => "/people/search", :method => "post") do |form|
       form.should have_selector("label") do |label|
-        label.should contain("Enter a roommates email")
+        label.should contain("Email")
       end
       
       form.should have_selector("input", :id => "person_email")
@@ -16,10 +16,14 @@ describe "wizard/house.html.erb" do
   
   it "should prompt to create a new house" do
     render
-    rendered.should have_selector("a", :href => "/houses/new") do |a|
-      a.should contain("No, I'm the first of my roommates to sign up for MyRoomate.")
+    rendered.should have_selector("form", :action => "/houses/new") do |form|
+      form.should have_selector("button")
     end
   end
   
-  it "should have a clear seperation between the two choices"
+  it "should have a clear seperation between the two choices" do
+    render
+    rendered.should have_selector("div", :class => "roommate-lookup")
+    rendered.should have_selector("div", :class => "start-new-house")
+  end
 end

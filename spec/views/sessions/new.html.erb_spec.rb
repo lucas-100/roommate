@@ -12,8 +12,8 @@ describe 'sessions/new.html.erb' do
     rendered.should have_selector("form", :action => "/people") do |form|
       form.should have_selector("input", :id => "person_name")
       form.should have_selector("input", :id => "person_email")
-      form.should have_selector("input", :id => "person_password")
-      form.should have_selector("input", :id => "person_password_confirmation")
+      form.should have_selector("input", :id => "person_password", :type => "password")
+      form.should have_selector("input", :id => "person_password_confirmation", :type => "password")
     end
   end
 end

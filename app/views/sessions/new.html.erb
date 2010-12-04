@@ -23,10 +23,10 @@
 						<%= f.text_field :name %>
 						
 						<%= f.label :password, raw("Password<span class='small'>At least 6 characters</span>") %>	
-						<%= f.text_field :password %>
+						<%= f.password_field :password %>
 						
 						<%= f.label :password_confirmation, raw("Password Again<span class='small'>Just to check for typos</span>") %>
-						<%= f.text_field :password_confirmation %>					
+						<%= f.password_field :password_confirmation %>					
 						
 						<div class="actions">
 							<button type="submit">Sign Up</button>
