@@ -15,6 +15,8 @@ describe "dashboard/index.html.erb" do
   let(:house) { mock_model("House", :name => "Test House").as_null_object }
   
   before do
+    person.stub!(:new_user? => false)
+    person.stub!(:expenseless? => false)
     assign(:person, person)
     assign(:house, house)
   end
@@ -68,6 +70,43 @@ describe "dashboard/index.html.erb" do
         column_1.should contain("Bill")
         column_1.should_not contain("Duncan")
       end
+    end
+  end
+  
+  context "new user" do
+    before(:each) do
+      person.stub!(:new_user? => true)
+      person.stub!(:expenseless? => true)
+      assign(:person, person)
+      assign(:house, house)
+    end
+    
+    it "should prompt to get started" do
+      render
+      
+      rendered.should contain("First time here?")
+    end
+    
+    it "should prompt to add new expense" do
+      render
+      
+      rendered.should have_selector("a", :href => new_expense_path) do |a|
+        a.should contain("adding a new expense")
+      end
+    end
+    
+    it "should prompt to add new payment" do
+      render
+      
+      rendered.should have_selector("a", :href => new_payment_path) do |a|
+        a.should contain("adding a new payment")
+      end
+    end
+    
+    it "should prompt to add a new roommate" do
+      render
+      
+      rendered.should have_selector("a", :href => new_roommate_path)
     end
   end
   

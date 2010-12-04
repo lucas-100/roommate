@@ -91,6 +91,22 @@ class Person < ActiveRecord::Base
     end
   end
   
+  def new_user?
+    (expenseless? && paymentless? && roommateless?) ? true : false
+  end
+  
+  def expenseless?
+    (expenses.count > 0) ? false : true
+  end
+  
+  def paymentless?
+    (payments_made.count > 0) ? false : true
+  end
+  
+  def roommateless?
+    (house.people.count > 1) ? false : true 
+  end
+  
   protected
   # how much the current user owes to another user
   def total_debt_owed(to_user)

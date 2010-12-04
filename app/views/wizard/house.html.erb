@@ -39,9 +39,9 @@
 
   <div class="goldBoxMiddle">
   	
-		<%= form_tag new_house_path %>
+		<%= form_for :house, :url => houses_path, :method => :post do |f| %>
 			<button type="submit" name="commit" id="person_submit">Start a new house</button>
-		</form>
+		<% end %>
 
 		
   </div>

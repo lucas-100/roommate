@@ -12,11 +12,27 @@ Feature: wizard
 		Given there is a setup house
 		And I just signed up
 		When I join a house
-		Then I should see "Who I owe"
-		And I should see "Who owes me"
+		Then I should see "First time here?"
 		And I should see "You've been added to the 'Test House' house"
 	
 	Scenario: attempt to join a house with a bad email
 		Given I just signed up
 		When I join a house
 		Then I should see "Couldn't find a user with that email."
+	
+	Scenario: create a new house
+		Given I just signed up
+		When I create a new house
+		Then I should see "New house created!"
+	
+	@wip
+	Scenario: after joining a house, prompt to create an expense
+		Given I just signed up
+		And I create a new house
+		Then I should see "Click here to log your first expense"
+	
+	@wip
+	Scenario: after joining a house, prompt to create a payment
+	
+	@wip
+	Scenario: after joining a house, prompt to add roommates

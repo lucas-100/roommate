@@ -16,7 +16,7 @@ describe "wizard/house.html.erb" do
   
   it "should prompt to create a new house" do
     render
-    rendered.should have_selector("form", :action => "/houses/new") do |form|
+    rendered.should have_selector("form", :action => "/houses") do |form|
       form.should have_selector("button")
     end
   end
