@@ -1,3 +1,5 @@
+# Controller for the House model.  Handles the HTTP requests
+
 class HousesController < ApplicationController
   before_filter :login_required
   
@@ -36,16 +38,12 @@ class HousesController < ApplicationController
   # POST /houses
   # POST /houses.xml
   def create
-    @house = House.new(params[:house])
+    @house = House.new(:name => "New House")
 
     respond_to do |format|
-      if @house.save
-        format.html { redirect_to(@house, :notice => 'House was successfully created.') }
-        format.xml  { render :xml => @house, :status => :created, :location => @house }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @house.errors, :status => :unprocessable_entity }
-      end
+      @house.save
+      current_person.update_attribute(:house_id, @house.id)
+      format.html { redirect_to dashboard_path, :notice => "New house created!" }
     end
   end
 

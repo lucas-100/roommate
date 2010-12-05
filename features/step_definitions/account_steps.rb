@@ -32,7 +32,7 @@ Given /^I just signed up$/ do
   When 'I fill in "person_password" with "password"'
   When 'I fill in "person_password_confirmation" with "password"'
   When 'I press "Sign Up"'
-  Then 'I should see "Thank you for registering! Login with your new account below."'
+  Then 'I should see "Thank you for registering! You\'ve been automatically logged in."'
 end
 
 When /^I sign in$/ do

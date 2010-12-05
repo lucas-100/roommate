@@ -97,7 +97,7 @@ div#accountInfo {
 #newPayment {background-image: url('../images/newPayment.png'); margin-left: 15px;}
 #newExpense:hover, #newPayment:hover {background-color: #fff;}
 
-#oweTop {
+#oweTop, .goldBoxTop {
   width: 960px;
   height: 31px;
   background-image: url('../images/goldBoxTop.png');
@@ -349,6 +349,7 @@ a:hover { color: #fff; background-color:#000; }
 .single_column {
   margin: 0;
   float: left;
+  width: 800px;
 }
 .single_column ul li {
   width: 600px;
@@ -382,6 +383,25 @@ form {
 
 .column_1 form, .column_2 form {
   width: 352px;
+}
+
+.wizard form {
+  width: 800px;
+}
+
+.wizard.house-lookup label {
+  width:200px;
+}
+.wizard.house-lookup label span.small  {
+  width: 200px;
+}
+
+.wizard input {
+  width: 500px;
+}
+
+.wizard button {
+  clear: both;
 }
 
 .field {

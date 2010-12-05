@@ -1,5 +1,5 @@
 <%= form_for(@payment, :url => payments_path) do |f| %>
-
+	<%= f.hidden_field :house_id, :value => @person.house_id %>
   <div class="field">
     <%= f.label :person_paid_id, raw('Person Paid<span class="small">Who did you pay?</span>') %>
     <%= f.collection_select :person_paid_id, @people, :id, :name, {:prompt => true} %>
