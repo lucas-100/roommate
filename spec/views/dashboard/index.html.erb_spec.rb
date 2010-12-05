@@ -140,6 +140,16 @@ describe "dashboard/index.html.erb" do
         end
       end
     end
+    
+    it "should prompt to add a new roommate in the roommates block" do
+      render
+      
+      rendered.should have_selector("div", :id => "roommates") do |div|
+        div.should have_selector("a", :href => new_roommate_path) do |a|
+          a.should contain("Click here to add a roommate")
+        end
+      end
+    end
   end
   
 end

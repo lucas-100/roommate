@@ -35,7 +35,6 @@ Feature: wizard
 		And I create a new house
 		Then I should see "Click here to log your first payment"
 	
-	@wip
 	Scenario: after joining a house, prompt to add roommates
 		Given I just signed up
 		And I create a new house
