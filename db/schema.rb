@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101203004402) do
+ActiveRecord::Schema.define(:version => 20101205201417) do
 
   create_table "debts", :force => true do |t|
     t.integer  "amount_in_cents"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20101203004402) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "notes"
+    t.integer  "house_id"
   end
 
   add_index "payments", ["person_paid_id"], :name => "index_payments_on_person_paid_id"

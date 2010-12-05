@@ -25,14 +25,18 @@ Feature: wizard
 		When I create a new house
 		Then I should see "New house created!"
 	
-	@wip
 	Scenario: after joining a house, prompt to create an expense
 		Given I just signed up
 		And I create a new house
 		Then I should see "Click here to log your first expense"
-	
-	@wip
+
 	Scenario: after joining a house, prompt to create a payment
+		Given I just signed up
+		And I create a new house
+		Then I should see "Click here to log your first payment"
 	
 	@wip
 	Scenario: after joining a house, prompt to add roommates
+		Given I just signed up
+		And I create a new house
+		Then I should see "Click here to add a roommate"

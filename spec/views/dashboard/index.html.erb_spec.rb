@@ -17,6 +17,9 @@ describe "dashboard/index.html.erb" do
   before do
     person.stub!(:new_user? => false)
     person.stub!(:expenseless? => false)
+    house.stub!(:expenseless? => false)
+    house.stub!(:paymentless? => false)
+    house.stub!(:roommateless? => false)
     assign(:person, person)
     assign(:house, house)
   end
@@ -77,6 +80,9 @@ describe "dashboard/index.html.erb" do
     before(:each) do
       person.stub!(:new_user? => true)
       person.stub!(:expenseless? => true)
+      house.stub!(:expenseless? => true)
+      house.stub!(:paymentless? => true)
+      house.stub!(:roommateless? => true)
       assign(:person, person)
       assign(:house, house)
     end
@@ -87,26 +93,52 @@ describe "dashboard/index.html.erb" do
       rendered.should contain("First time here?")
     end
     
-    it "should prompt to add new expense" do
+    it "should prompt to add new expense in the summary block" do
       render
       
-      rendered.should have_selector("a", :href => new_expense_path) do |a|
-        a.should contain("adding a new expense")
+      rendered.should have_selector("div", :id => "owe") do |div|
+        div.should have_selector("a", :href => new_expense_path) do |a|
+          a.should contain("adding a new expense")
+        end
       end
     end
     
-    it "should prompt to add new payment" do
+    it "should prompt to add new payment in the summary block" do
       render
       
-      rendered.should have_selector("a", :href => new_payment_path) do |a|
-        a.should contain("adding a new payment")
+      rendered.should have_selector("div", :id => "owe") do |div|
+        div.should have_selector("a", :href => new_payment_path) do |a|
+          a.should contain("adding a new payment")
+        end
       end
     end
     
-    it "should prompt to add a new roommate" do
+    it "should prompt to add a new roommate in the summary block" do
       render
       
-      rendered.should have_selector("a", :href => new_roommate_path)
+      rendered.should have_selector("div", :id => "owe") do |div|
+        div.should have_selector("a", :href => new_roommate_path)
+      end
+    end
+    
+    it "should promt to add a new expense in the expenses block" do
+      render
+      
+      rendered.should have_selector("div", :id => "expenses") do |div|
+        div.should have_selector("a", :href => new_expense_path) do |a|
+          a.should contain("log your first expense")
+        end
+      end
+    end
+    
+    it "should promt to add a new payment in the payments block" do
+      render
+      
+      rendered.should have_selector("div", :id => "payments") do |div|
+        div.should have_selector("a", :href => new_payment_path) do |a|
+          a.should contain("log your first payment")
+        end
+      end
     end
   end
   
