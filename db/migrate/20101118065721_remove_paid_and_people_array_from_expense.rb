@@ -1,6 +1,6 @@
 class RemovePaidAndPeopleArrayFromExpense < ActiveRecord::Migration
   def self.up
-    #remove_column :expenses, :paid
+    remove_column :expenses, :paid
     remove_column :expenses, :people_array
   end
 
