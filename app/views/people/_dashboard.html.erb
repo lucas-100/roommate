@@ -1,4 +1,4 @@
-<% if @house.roommateless? %>
+<% if house.roommateless? %>
 	<div id="roommates">
 	  <%= link_to '', new_person_path,  {:class => 'addBanner'}%>
 	  <div id="roommatesHeader" class="boxHeader"></div>
@@ -14,7 +14,7 @@
 	  <div id="roommatesMiddle" class="boxMiddle">
 	    <div class='column_1'>
 				<ul>
-	        <% for roommate in @house.people %>
+	        <% for roommate in house.people %>
 	          <li>
 							<span class='expenseName'><%= roommate.name %></span>
 							<span class='amount'></span>

@@ -14,13 +14,13 @@
   </div>
   <div class="clearfix"></div>
   
-  <%= render :partial => 'summary' %>
+  <%= render :partial => 'summary', :locals => {:person => @person} %>
 
-	<%= render :partial => 'expenses/dashboard' %>
+	<%= render :partial => 'expenses/dashboard', :locals => {:person => @person, :house => @house} %>
   
-  <%= render :partial => 'payments/dashboard' %>
+  <%= render :partial => 'payments/dashboard', :locals => {:person => @person, :house => @house}  %>
   
- 	<%= render :partial => 'people/dashboard' %>
+ 	<%= render :partial => 'people/dashboard', :locals => {:house => @house} %>
   
   <div class="clearfix"></div>
   

@@ -1,4 +1,4 @@
-<% if @house.paymentless? %>
+<% if house.paymentless? %>
 	<div id="payments">
 		<%= link_to '', new_payment_path, {:class => 'addBanner'}%>
 		<div id="paymentsHeader" class="boxHeader"></div>
@@ -17,7 +17,7 @@
 	    <div class="column_1">
 	      <h2>People I paid</h2>
 	      <ul>
-	        <% @person.recent_payments_made.each do |e| %>
+	        <% person.recent_payments_made.each do |e| %>
 	          <li>
 							<span class='expenseName'><%= e[:name] %> <%= link_to "Delete", payment_path(e[:id]), :method => :delete, :confirm => "Are you sure want to delete this payment? You cannot undo this.", :class => "smallLink" %></span> 
 							<span class='amount'>$<%= e[:amount] %></span> 
@@ -32,7 +32,7 @@
 	    <div class="column_2">
 	      <h2>People who paid me</h2>
 	      <ul>
-	        <% @person.recent_payments_received.each do |e| %>
+	        <% person.recent_payments_received.each do |e| %>
 	          <li>
 							<span class='expenseName'><%= e[:name] %></span> 
 							<span class='amount'>$<%= e[:amount] %></span> 

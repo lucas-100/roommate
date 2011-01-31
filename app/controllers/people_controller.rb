@@ -1,5 +1,7 @@
 class PeopleController < ApplicationController
   before_filter :login_required, :except => [:new, :create]
+  before_filter :load_person, :only => [:edit, :destroy]
+  before_filter :load_current_person, :only => [:show, :update, :update_password]
   
   # TODO - before_filter :load_house
   respond_to :json
@@ -10,9 +12,9 @@ class PeopleController < ApplicationController
   def index
     house = current_person.house
     @people = []
-    house.people.each do |p|
-      if p != current_person
-        @people << {:name => p.name}
+    house.people.each do |person|
+      if person != current_person
+        @people << {:name => person.name}
       end
     end
 
@@ -31,9 +33,6 @@ class PeopleController < ApplicationController
   # GET /people/new
   # GET /people/new.xml
   def new
-    @house = House.find(current_person.house_id)
-    @person = @house.people.new
-
     respond_with(@house, @person)
   end
   
@@ -43,8 +42,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1/edit
   def edit
-    @person = Person.includes(:house).find(params[:id])
-    @house = @person.house
+    
   end
 
   # POST /people
@@ -71,16 +69,13 @@ class PeopleController < ApplicationController
   # PUT /people/1
   # PUT /people/1.xml
   def update
-    @person = current_person
-    @house = @person.house
-
     respond_to do |format|
       if @person.update_attributes(params[:person])
         format.html { redirect_to(account_path, :notice => 'Profile was successfully updated.') }
         format.xml  { head :ok }
       else
         flash[:error] = "We couldn't save your profile."
-        format.html { render :action => "edit" }
+        format.html { render :action => "show" }
         format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
       end
     end
@@ -89,12 +84,9 @@ class PeopleController < ApplicationController
   # PUT /people/1
   # PUT /people/1.xml
   def update_password
-    @person = current_person
-    @house = @person.house
-
     respond_to do |format|
       if @person.update_password(params[:person])
-        format.html { redirect_to(account_path, :notice => 'Profile was successfully updated.') }
+        format.html { redirect_to(account_path, :notice => 'Your password was successfully changed.') }
         format.xml  { head :ok }
       else
         flash[:error] = "We couldn't save your profile."
@@ -107,9 +99,11 @@ class PeopleController < ApplicationController
   # POST /people/search
   def search
     @person = Person.where(:email => params[:person][:email]).limit(1).first
+    
     if @person
+      house = @person.house
       current_person.update_attribute(:house_id, @person.house_id)
-      redirect_to(dashboard_path, :notice => "You've been added to the '#{@person.house.name}' house")
+      redirect_to(dashboard_path, :notice => "You've been added to the '#{house.name}' house")
     else
       flash[:error] = "Couldn't find a user with that email."
       redirect_to house_wizard_path
@@ -119,8 +113,6 @@ class PeopleController < ApplicationController
   # DELETE /people/1
   # DELETE /people/1.xml
   def destroy
-    @person = Person.includes(:house).find(params[:id])
-    @house = @person.house
     @person.destroy
 
     respond_to do |format|
@@ -128,4 +120,15 @@ class PeopleController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  protected
+    def load_person
+      @person = Person.includes(:house).find(params[:id])
+      @house = @person.house
+    end
+    
+    def load_current_person
+      @house = House.find(current_person.house_id)
+      @person = current_person
+    end
 end
