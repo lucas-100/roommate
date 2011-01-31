@@ -1,7 +1,7 @@
 A new expense has been created on MyRoommate
 ===========================================
 
-Hey, <%= @expense.creator.name %> created a new expense, that <%= ((@expense.creator == @expense.loaner) ? "they" : @expense.loaner.name) %> paid for. They spent $<%= @expense.amount %> paying for <%= @expense.name %>.
+Hey, <%= @creator.name %> created a new expense, that <%= @expense.who_paid %> paid for. They spent $<%= @expense.amount %> paying for <%= @expense.name %>.  Your share is $<%= @debt.amount %>
 
 Login to MyRoommate (http://www.myroommateapp.com) to see who owes who.
 

@@ -93,7 +93,7 @@ describe ExpensesController do
     context "on successful save" do
       it "redirects to the homepage" do
         post :create
-        response.should redirect_to(root_path)
+        response.should redirect_to(dashboard_path)
       end
       
       it "sets a flash[:notice] message" do
@@ -115,7 +115,7 @@ describe ExpensesController do
     let(:expense) { mock_model(Expense).as_null_object }
     
     before(:each) do
-      Expense.stub!(:find).and_return(expense)
+      Expense.stub!(:where).and_return(expense)
     end
     
     it "assigns @expense" do
@@ -154,7 +154,7 @@ describe ExpensesController do
     let(:expense) { mock_model(Expense).as_null_object }
     
     before(:each) do
-      Expense.stub!(:find).and_return(expense)
+      Expense.stub!(:where).and_return(expense)
     end
     
     it "assigns @expense" do
@@ -169,7 +169,7 @@ describe ExpensesController do
     
     it "redirects to root" do
       delete :destroy, {:id => 1}
-      response.should redirect_to(root_path(:anchor => "expenses"))
+      response.should redirect_to(dashboard_path(:anchor => "expenses"))
     end
   end
 end

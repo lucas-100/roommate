@@ -1,4 +1,4 @@
-<% if (@person.new_user? || (@person.expenseless? && @person.paymentless?)) %>
+<% if (person.new_user? || (person.expenseless? && person.paymentless?)) %>
 	<div id="owe">
 	  <div id="oweTop">
 	  </div>
@@ -8,7 +8,7 @@
 				<h2>
 					Get started by <%= link_to "adding a new expense", new_expense_path %> 
 					or <%= link_to "adding a new payment", new_payment_path %>. 
-					<% if @person.roommateless? %>
+					<% if person.roommateless? %>
 						Get your roommates involved by <%= link_to "adding them to MyRoommate", new_roommate_path %>.
 					<% end %>
 				</h2>
@@ -33,7 +33,7 @@
 	      <div class="column_1">
 				  <ul>
 
-				    <% @person.all_debts_owed.each do |d| %>
+				    <% person.all_debts_owed.each do |d| %>
 				    	<li><%= d[:person] %>: $<%= d[:amount] %></li>
 				    <% end %>
 
@@ -43,7 +43,7 @@
 				<div class="column_2">
 				  <ul>
 
-				    <% @person.all_debts_loaned.each do |d| %>
+				    <% person.all_debts_loaned.each do |d| %>
 				    	<li><%= d[:person] %>: $<%= d[:amount] %></li>
 				    <% end %>
 

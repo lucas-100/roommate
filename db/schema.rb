@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20101205201417) do
     t.integer  "house_id"
   end
 
+  add_index "payments", ["house_id"], :name => "index_payments_on_house_id"
   add_index "payments", ["person_paid_id"], :name => "index_payments_on_person_paid_id"
   add_index "payments", ["person_paying_id"], :name => "index_payments_on_person_paying_id"
 

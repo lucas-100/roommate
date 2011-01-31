@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       self.current_person = login
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
-      redirect_back_or_default('/', :notice => "Welcome back, #{current_person.name}")
+      redirect_back_or_default(dashboard_path, :notice => "Welcome back, #{current_person.name}")
     else
       note_failed_signin
       @email       = params[:email]

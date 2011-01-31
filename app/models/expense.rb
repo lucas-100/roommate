@@ -25,7 +25,7 @@ class Expense < ActiveRecord::Base
   validate :at_least_one_person
   
   def add_people_associations
-    people_array.each { |key, value| people << house.people.find(key) if value == "1" }
+    people_array.each { |key, value| people << Person.where(:house_id => house.id).find(key) if value == "1" }
   end
   
   def send_emails
@@ -42,6 +42,10 @@ class Expense < ActiveRecord::Base
   
   def create_debt
     people.each { |person| debts << create_expense_debt(person) }
+  end
+  
+  def who_paid
+    ((creator == loaner) ? "they" : (loaner.nil?) ? "someone" : loaner.name)
   end
   
   protected
