@@ -30,14 +30,11 @@ describe 'pages/home.html.erb' do
     end
   end
   
-  it "has the my roommate header" do
-    pending
+  it "shows an explanation" do
     render
     
     rendered.should have_selector(:h1) do |h1|
-      h1.should contain("MyRoommate")
+      h1.should contain("What is MyRoommate")
     end
   end
-  
-  it "shows an explanation"
 end
