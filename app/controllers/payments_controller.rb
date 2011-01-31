@@ -2,7 +2,7 @@ class PaymentsController < ApplicationController
   before_filter :login_required
   before_filter :load_person
   before_filter :load_house
-  
+  before_filter :find_payment, :only => [:show, :edit, :update, :destroy]
   
   respond_to :json
   respond_to :html
@@ -19,8 +19,6 @@ class PaymentsController < ApplicationController
   # GET /payments/1
   # GET /payments/1.xml
   def show
-    @payment = Payment.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @payment }
@@ -41,7 +39,7 @@ class PaymentsController < ApplicationController
 
   # GET /payments/1/edit
   def edit
-    @payment = Payment.find(params[:id])
+    
   end
 
   # POST /payments
@@ -55,7 +53,7 @@ class PaymentsController < ApplicationController
         PersonMailer.new_payment_sent(@payment, @payment.person_paying).deliver
         PersonMailer.new_payment_received(@payment, @payment.person_paid).deliver
         
-        format.html { redirect_to(root_path, :notice => 'Payment was successfully created.') }
+        format.html { redirect_to(dashboard_path, :notice => 'Payment was successfully created.') }
         format.xml  { render :xml => @payment, :status => :created, :location => @payment }
       else
         flash[:error] = "Unabel to save payment."
@@ -68,8 +66,6 @@ class PaymentsController < ApplicationController
   # PUT /payments/1
   # PUT /payments/1.xml
   def update
-    @payment = Payment.find(params[:id])
-
     respond_to do |format|
       if @payment.update_attributes(params[:payment])
         format.html { redirect_to(@payment, :notice => 'Payment was successfully updated.') }
@@ -84,13 +80,16 @@ class PaymentsController < ApplicationController
   # DELETE /payments/1
   # DELETE /payments/1.xml
   def destroy
-    @payment = Payment.find(params[:id])
     @payment.destroy
 
     respond_to do |format|
-      format.html { redirect_to(root_path(:anchor => "payments"), :notice => "Payment was deleted.") }
+      format.html { redirect_to(dashboard_path(:anchor => "payments"), :notice => "Payment was deleted.") }
       format.xml  { head :ok }
     end
   end
   
+  protected
+    def load_payment
+      @payment = Payment.find(params[:id])
+    end
 end

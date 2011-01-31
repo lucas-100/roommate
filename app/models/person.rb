@@ -1,5 +1,7 @@
 require 'digest/sha1'
 
+# Person is the class for each user.  Controls authentication; assigns debt and payments; owns expenses; calculates total debt owed and loaned
+
 class Person < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
@@ -87,6 +89,22 @@ class Person < ActiveRecord::Base
       
       false
     end
+  end
+  
+  def new_user?
+    (expenseless? && paymentless? && roommateless?) ? true : false
+  end
+  
+  def expenseless?
+    (expenses.count > 0) ? false : true
+  end
+  
+  def paymentless?
+    (payments_made.count > 0) ? false : true
+  end
+  
+  def roommateless?
+    (house.people.count > 1) ? false : true 
   end
   
   protected

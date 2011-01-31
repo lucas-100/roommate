@@ -70,21 +70,23 @@
 			    </div>
 			  </div>
 			<% elsif notice || flash[:error] %>
-			<div id="accountInfo">
-			  <div class="center">
-			    <% if notice %>
-		        <p class="notice"><%= notice %></p>
-		      <% end %>
-		      <% if flash[:error] %>
-		        <p class="error"><%= flash[:error] %>
-		      <% end %>
-			  </div>
-			</div>
+				<div id="accountInfo">
+				  <div class="center">
+				    <% if notice %>
+			        <p class="notice"><%= notice %></p>
+			      <% end %>
+			      <% if flash[:error] %>
+			        <p class="error"><%= flash[:error] %>
+			      <% end %>
+				  </div>
+				</div>
 			<% end %>
     </header>
     
     <div id="main">
-			<div id="contentTop"></div>
+			<div id="contentTop">
+				<h1>MyRommate</h1>
+			</div>
 
 			<div id="content"> 
 

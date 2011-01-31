@@ -2,6 +2,7 @@ class ExpensesController < ApplicationController
   before_filter :login_required
   before_filter :load_person
   before_filter :load_house
+  before_filter :find_expense, :only => [:update, :destroy, :show, :edit]
   
   respond_to :json
   respond_to :html
@@ -17,8 +18,6 @@ class ExpensesController < ApplicationController
   # GET /expenses/1
   # GET /expenses/1.xml
   def show
-    @expense = Expense.where(:house_id => @house.id).find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @expense }
@@ -36,7 +35,6 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/1/edit
   def edit
-    @expense = Expense.where(:house_id => @house.id).find(params[:id])
     @people = Person.where(:house_id => @house.id).all
   end
 
@@ -47,7 +45,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.save
-        format.html { redirect_to(root_path, :notice => 'Expense was successfully created.') }
+        format.html { redirect_to(dashboard_path, :notice => 'Expense was successfully created.') }
         format.xml  { render :xml => @expense, :status => :created, :location => @expense }
       else
         @people = @house.people
@@ -61,8 +59,6 @@ class ExpensesController < ApplicationController
   # PUT /expenses/1
   # PUT /expenses/1.xml
   def update
-    @expense = Expense.find(params[:id])
-
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
         format.html { redirect_to(@expense, :notice => 'Expense was successfully updated.') }
@@ -77,12 +73,16 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1
   # DELETE /expenses/1.xml
   def destroy
-    @expense = Expense.find(params[:id])
     @expense.destroy
 
     respond_to do |format|
-      format.html { redirect_to(root_path(:anchor => "expenses"), :notice => "Expense was deleted.") }
+      format.html { redirect_to(dashboard_path(:anchor => "expenses"), :notice => "Expense was deleted.") }
       format.xml  { head :ok }
     end
   end
+  
+  protected
+    def find_expense
+      @expense = Expense.where(:house_id => @house.id).find(params[:id])
+    end
 end

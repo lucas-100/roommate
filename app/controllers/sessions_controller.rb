@@ -5,26 +5,26 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
-    @signup = Signup.new
+    @person = Person.new
   end
 
   def create
     logout_keeping_session!
-    person = Person.authenticate(params[:email], params[:password])
-    if person
+    login = Person.authenticate(params[:email], params[:password])
+    if login
       # Protects against session fixation attacks, causes request forgery
       # protection if user resubmits an earlier form using back
       # button. Uncomment if you understand the tradeoffs.
       # reset_session
-      self.current_person = person
+      self.current_person = login
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
-      redirect_back_or_default('/', :notice => "Welcome back, #{current_person.name}")
+      redirect_back_or_default(dashboard_path, :notice => "Welcome back, #{current_person.name}")
     else
       note_failed_signin
       @email       = params[:email]
       @remember_me = params[:remember_me]
-      @signup = Signup.new
+      @person = Person.new
       render :action => 'new'
     end
   end

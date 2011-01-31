@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101118065721) do
+ActiveRecord::Schema.define(:version => 20101205201417) do
 
   create_table "debts", :force => true do |t|
     t.integer  "amount_in_cents"
@@ -21,6 +21,10 @@ ActiveRecord::Schema.define(:version => 20101118065721) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "debts", ["expense_id"], :name => "index_debts_on_expense_id"
+  add_index "debts", ["loaner_id"], :name => "index_debts_on_loaner_id"
+  add_index "debts", ["person_id"], :name => "index_debts_on_person_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -47,10 +51,17 @@ ActiveRecord::Schema.define(:version => 20101118065721) do
     t.integer  "loaner_id"
   end
 
+  add_index "expenses", ["creator_id"], :name => "index_expenses_on_creator_id"
+  add_index "expenses", ["house_id"], :name => "index_expenses_on_house_id"
+  add_index "expenses", ["loaner_id"], :name => "index_expenses_on_loaner_id"
+
   create_table "expenses_people", :id => false, :force => true do |t|
     t.integer "expense_id"
     t.integer "person_id"
   end
+
+  add_index "expenses_people", ["expense_id"], :name => "index_expenses_people_on_expense_id"
+  add_index "expenses_people", ["person_id"], :name => "index_expenses_people_on_person_id"
 
   create_table "houses", :force => true do |t|
     t.string   "name"
@@ -65,7 +76,12 @@ ActiveRecord::Schema.define(:version => 20101118065721) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "notes"
+    t.integer  "house_id"
   end
+
+  add_index "payments", ["house_id"], :name => "index_payments_on_house_id"
+  add_index "payments", ["person_paid_id"], :name => "index_payments_on_person_paid_id"
+  add_index "payments", ["person_paying_id"], :name => "index_payments_on_person_paying_id"
 
   create_table "people", :force => true do |t|
     t.string   "name"
@@ -78,6 +94,8 @@ ActiveRecord::Schema.define(:version => 20101118065721) do
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
   end
+
+  add_index "people", ["house_id"], :name => "index_people_on_house_id"
 
   create_table "signups", :force => true do |t|
     t.string   "email"

@@ -1,5 +1,7 @@
 class PeopleController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => [:new, :create]
+  before_filter :load_person, :only => [:edit, :destroy]
+  before_filter :load_current_person, :only => [:show, :update, :update_password]
   
   # TODO - before_filter :load_house
   respond_to :json
@@ -10,9 +12,9 @@ class PeopleController < ApplicationController
   def index
     house = current_person.house
     @people = []
-    house.people.each do |p|
-      if p != current_person
-        @people << {:name => p.name}
+    house.people.each do |person|
+      if person != current_person
+        @people << {:name => person.name}
       end
     end
 
@@ -31,9 +33,6 @@ class PeopleController < ApplicationController
   # GET /people/new
   # GET /people/new.xml
   def new
-    @house = House.find(current_person.house_id)
-    @person = @house.people.new
-
     respond_with(@house, @person)
   end
   
@@ -43,28 +42,21 @@ class PeopleController < ApplicationController
 
   # GET /people/1/edit
   def edit
-    @person = Person.includes(:house).find(params[:id])
-    @house = @person.house
+    
   end
 
   # POST /people
   # POST /people.xml
   def create
-    @house = House.find(current_person.id)
-    
-    pass =  Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{params[:person][:email]}"))[0..7]
-    if params[:person][:password] == '' || params[:person][:password].nil?
-      params[:person][:password] = pass
-      params[:person][:password_confirmation] = pass
-    end
-    
-    @person = @house.people.new(params[:person])
+    @person = Person.new(params[:person])
     
     respond_to do |format|
       if @person.save
-        PersonMailer.new_person_created(@person, pass).deliver
+        self.current_person = Person.authenticate(@person.email, @person.password)
+        new_cookie_flag = (params[:remember_me] == "1")
+        handle_remember_cookie! new_cookie_flag
         
-        format.html { redirect_to(root_path, :notice => 'Person was successfully created.') }
+        format.html { redirect_to(house_wizard_path, :notice => 'Thank you for registering! You\'ve been automatically logged in.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else
         flash[:error] = "Unable to create roommate."
@@ -77,29 +69,8 @@ class PeopleController < ApplicationController
   # PUT /people/1
   # PUT /people/1.xml
   def update
-    @person = current_person
-    @house = @person.house
-
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to(account_path, :notice => 'Profile was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        flash[:error] = "We couldn't save your profile."
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-  
-  # PUT /people/1
-  # PUT /people/1.xml
-  def update_password
-    @person = current_person
-    @house = @person.house
-
-    respond_to do |format|
-      if @person.update_password(params[:person])
         format.html { redirect_to(account_path, :notice => 'Profile was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -109,12 +80,39 @@ class PeopleController < ApplicationController
       end
     end
   end
+  
+  # PUT /people/1
+  # PUT /people/1.xml
+  def update_password
+    respond_to do |format|
+      if @person.update_password(params[:person])
+        format.html { redirect_to(account_path, :notice => 'Your password was successfully changed.') }
+        format.xml  { head :ok }
+      else
+        flash[:error] = "We couldn't save your profile."
+        format.html { render :action => "show" }
+        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  # POST /people/search
+  def search
+    @person = Person.where(:email => params[:person][:email]).limit(1).first
+    
+    if @person
+      house = @person.house
+      current_person.update_attribute(:house_id, @person.house_id)
+      redirect_to(dashboard_path, :notice => "You've been added to the '#{house.name}' house")
+    else
+      flash[:error] = "Couldn't find a user with that email."
+      redirect_to house_wizard_path
+    end
+  end
 
   # DELETE /people/1
   # DELETE /people/1.xml
   def destroy
-    @person = Person.includes(:house).find(params[:id])
-    @house = @person.house
     @person.destroy
 
     respond_to do |format|
@@ -122,4 +120,15 @@ class PeopleController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  protected
+    def load_person
+      @person = Person.includes(:house).find(params[:id])
+      @house = @person.house
+    end
+    
+    def load_current_person
+      @house = House.find(current_person.house_id)
+      @person = current_person
+    end
 end

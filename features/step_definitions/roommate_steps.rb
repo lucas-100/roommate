@@ -34,16 +34,16 @@ Given /^the house has payment and expense history$/ do
   expense.people_array = {"1" => "1"}
   expense.save
   
-  Payment.create!(:amount_in_cents => 30000, :person_paid_id => 4, :person_paying_id => 1)
-  Payment.create!(:amount_in_cents => 50000, :person_paid_id => 4, :person_paying_id => 2)
-  Payment.create!(:amount_in_cents => 50000, :person_paid_id => 4, :person_paying_id => 3)
+  Payment.create!(:amount_in_cents => 30000, :person_paid_id => 4, :person_paying_id => 1, :house_id => 1)
+  Payment.create!(:amount_in_cents => 50000, :person_paid_id => 4, :person_paying_id => 2, :house_id => 1)
+  Payment.create!(:amount_in_cents => 50000, :person_paid_id => 4, :person_paying_id => 3, :house_id => 1)
   
   expense = Expense.new(:name => "Groceries", :amount_in_cents => 80000, :loaner_id => 2, :house_id => 1, :creator_id => 4)
   expense.people << Person.all
   expense.people_array = {"1" => "1"}
   expense.save
   
-  Payment.create!(:amount_in_cents => 10000, :person_paid_id => 2, :person_paying_id => 4)
+  Payment.create!(:amount_in_cents => 10000, :person_paid_id => 2, :person_paying_id => 4, :house_id => 1)
   
   expense = Expense.new(:name => "Electric Bill", :amount_in_cents => 40000, :loaner_id => 3, :house_id => 1, :creator_id => 4)
   expense.people << Person.all

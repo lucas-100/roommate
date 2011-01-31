@@ -1,0 +1,50 @@
+<div id="header">
+</div>
+
+<div class="clearfix"></div>
+
+<h1>Do any of your roommates already have an account on MyRoommate?</h1>
+
+<div class="roommate-lookup">
+  <div class="goldBoxTop">
+    <div style="padding-left:100px">
+      <h2>Yes, enter their email below</h2>
+    </div>
+  </div>
+
+  <div class="goldBoxMiddle">
+  	
+		
+		<div class="wizard house-lookup">
+			<%= form_for :person, :url => search_people_path, :method => :post do |f| %>
+				<%= f.label :email, raw("Email:<span class='small'>We'll look them up by email and add you to their house</span>") %>
+				<%= f.text_field :email %>
+			
+				<button type="submit" name="commit" id="person_submit">Find Person</button>
+			<% end %>
+		</div>
+
+		
+  </div>
+
+  <div class="goldBoxBottom"></div>
+</div>
+
+<div class="start-new-house">
+  <div class="goldBoxTop">
+    <div style="padding-left:100px">
+      <h2>No, I'll start a new house for me and my roommates</h2>
+    </div>
+  </div>
+
+  <div class="goldBoxMiddle">
+  	
+		<%= form_for :house, :url => houses_path, :method => :post do |f| %>
+			<button type="submit" name="commit" id="person_submit">Start a new house</button>
+		<% end %>
+
+		
+  </div>
+
+  <div class="goldBoxBottom"></div>
+</div>

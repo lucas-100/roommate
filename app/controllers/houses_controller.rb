@@ -1,3 +1,5 @@
+# Controller for the House model.  Handles the HTTP requests
+
 class HousesController < ApplicationController
   before_filter :login_required
   
@@ -14,9 +16,6 @@ class HousesController < ApplicationController
   # GET /houses/1
   # GET /houses/1.xml
   def show
-    # @house = House.joins(:expenses => {:debts => :loaner}).find(params[:id])
-    @house = House.find(params[:id])
-
     respond_with(@house)
   end
 
@@ -30,30 +29,24 @@ class HousesController < ApplicationController
 
   # GET /houses/1/edit
   def edit
-    @house = House.find(params[:id])
+    
   end
 
   # POST /houses
   # POST /houses.xml
   def create
-    @house = House.new(params[:house])
+    @house = House.new(:name => "New House")
 
     respond_to do |format|
-      if @house.save
-        format.html { redirect_to(@house, :notice => 'House was successfully created.') }
-        format.xml  { render :xml => @house, :status => :created, :location => @house }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @house.errors, :status => :unprocessable_entity }
-      end
+      @house.save
+      current_person.update_attribute(:house_id, @house.id)
+      format.html { redirect_to dashboard_path, :notice => "New house created!" }
     end
   end
 
   # PUT /houses/1
   # PUT /houses/1.xml
   def update
-    @house = House.find(params[:id])
-
     respond_to do |format|
       if @house.update_attributes(params[:house])
         format.html { redirect_to(root_path, :notice => 'House name changed.') }
@@ -68,7 +61,6 @@ class HousesController < ApplicationController
   # DELETE /houses/1
   # DELETE /houses/1.xml
   def destroy
-    @house = House.find(params[:id])
     @house.destroy
 
     respond_to do |format|
@@ -76,4 +68,9 @@ class HousesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  protected
+    def find_house
+      @house = House.find(params[:id])
+    end
 end

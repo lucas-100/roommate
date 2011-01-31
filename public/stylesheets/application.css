@@ -14,6 +14,18 @@
 
 body {margin:0; padding:0;background-image:url('../images/bodyBackground.jpg');background-repeat:no-repeat;background-color:#028eb7;}
 
+p {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.45em;
+  padding: 10px 50px 0 0;
+  margin-bottom: 10px;
+}
+
 div#content {
   width: 960px;
   margin: 0 auto;
@@ -23,11 +35,15 @@ div#content {
 }
 div#contentTop {
   width:960px;
-  height:20px;
-  margin: 150px auto 0 auto;
+  height:70px;
+  margin: 100px auto 0 auto;
   background-image: url('../images/contentBgTop.png');
   background-repeat: no-repeat;
+  background-position: bottom right;
   padding: 0;
+}
+div#contentTop h1 {
+  padding-top: -20px;
 }
 div#contentBottom {
   width:960px;
@@ -97,7 +113,7 @@ div#accountInfo {
 #newPayment {background-image: url('../images/newPayment.png'); margin-left: 15px;}
 #newExpense:hover, #newPayment:hover {background-color: #fff;}
 
-#oweTop {
+#oweTop, .goldBoxTop {
   width: 960px;
   height: 31px;
   background-image: url('../images/goldBoxTop.png');
@@ -349,6 +365,7 @@ a:hover { color: #fff; background-color:#000; }
 .single_column {
   margin: 0;
   float: left;
+  width: 800px;
 }
 .single_column ul li {
   width: 600px;
@@ -382,6 +399,25 @@ form {
 
 .column_1 form, .column_2 form {
   width: 352px;
+}
+
+.wizard form {
+  width: 800px;
+}
+
+.wizard.house-lookup label {
+  width:200px;
+}
+.wizard.house-lookup label span.small  {
+  width: 200px;
+}
+
+.wizard input {
+  width: 500px;
+}
+
+.wizard button {
+  clear: both;
 }
 
 .field {

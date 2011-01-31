@@ -75,6 +75,21 @@ describe Person do
     @person.update_password({:password => "", :password_confirmation => "" }).should == false
   end
   
+  it "knows if its a new user" do
+    @house = House.create!(:name => "Test House")
+    @person.update_attribute(:house, @house)
+    
+    @person.new_user?.should == true
+  end
+  
+  it "knows if its not a new user" do
+    @house = House.create!(:name => "Test House")
+    @person.update_attribute(:house, @house)
+    @person.payments_made << Payment.create!(:amount => 100, :person_paid_id => 2, :person_paying_id => 1)
+    
+    @person.new_user?.should == false
+  end
+  
   context "when there's been some user interaction" do 
     before(:each) do
       house = House.create!

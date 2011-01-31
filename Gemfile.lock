@@ -140,6 +140,9 @@ GEM
       thor (~> 0.14.0)
     rake (0.8.7)
     rcov (0.9.9)
+    recurly (0.3.1)
+      activeresource (>= 2.3)
+      activesupport (>= 2.3)
     reek (1.2.8)
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
@@ -201,6 +204,7 @@ DEPENDENCIES
   money (~> 2.1.5)
   newrelic_rpm
   rails (= 3.0.0)
+  recurly
   rspec-rails (>= 2.0.0)
   spork
   sqlite3-ruby
