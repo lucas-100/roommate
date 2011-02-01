@@ -1,7 +1,7 @@
 require 'digest'
 
 class PeopleController < ApplicationController
-  before_filter :login_required, :except => [:new, :create]
+  before_filter :login_required, :except => [:new, :create, :add_roommate]
   before_filter :load_person, :only => [:edit, :destroy]
   before_filter :load_current_person, :only => [:show, :update, :update_password, :new, :add_roommate]
   
@@ -79,11 +79,15 @@ class PeopleController < ApplicationController
         format.html { redirect_to(house_wizard_path, :notice => 'Thank you for registering! You\'ve been automatically logged in.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else
-        flash[:error] = "Unable to create roommate."
-        format.html { render :action => "new" }
+        flash[:error] = "Unable to sign you up."
+        format.html { render :signup }
         format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
       end
     end
+  end
+  
+  def signup
+    
   end
 
   # PUT /people/1
