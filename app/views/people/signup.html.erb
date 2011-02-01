@@ -1,0 +1,62 @@
+
+
+<div id="header">
+  <div class="column_1">
+		<h1>Sign Up</h1>
+	</div>
+	
+	<div class="column_2">
+		<h1>Log In</h1>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="goldBoxMiddle">
+	
+	<div class="column_1">
+		<%= form_for(@person) do |f| %>
+			<%= f.label :email, raw("Email<span class=\"small\">This will be your login</span>") %>
+			<%= f.text_field :email %>
+			
+			<%= f.label :name, raw("Name<span class=\"small\">So we know you</span>") %>
+			<%= f.text_field :name %>
+			
+			<%= f.label :password, raw("Password<span class='small'>At least 6 characters</span>") %>	
+			<%= f.password_field :password %>
+			
+			<%= f.label :password_confirmation, raw("Password Again<span class='small'>Just to check for typos</span>") %>
+			<%= f.password_field :password_confirmation %>					
+			
+			<div class="actions">
+				<button type="submit">Sign Up</button>
+			</div>
+		<% end %>
+	</div>
+	
+	<div class="column_2">
+  	<%= form_tag session_path do %>
+		  <label for="email">Email<span class="small">That you signed up with</span></label>
+			<%= text_field_tag 'email', @email %>
+    
+      <label for="password">Password<span class="small">So we know you're really you</span></label>
+			<%= password_field_tag 'password', nil %>
+			
+			<div class="clearfix"></div>
+			
+			<!-- Uncomment this if you want this functionality -->
+			<label for="remember_me">Remember Me?<span class="small">Login automatically</span></label>
+			<%= check_box_tag 'remember_me', '1', @remember_me, {:style => "float:none;width:20px"} %>
+
+			<div class="actions">
+			  <button type="submit">Log In</button>
+			</div>
+		<% end %>
+	</div>
+  
+	<div class="clearfix"></div>
+  
+  
+</div>
+
+<div class="goldBoxBottom"></div>
