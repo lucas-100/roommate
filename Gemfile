@@ -21,7 +21,6 @@ gem "sqlite3-ruby", :require => "sqlite3", :group => :development
 
 gem "money", "~> 2.1.5"
 gem "recurly"
-gem 'hoptoad_notifier'
 
 group :cucumber, :test, :development do
   gem 'capybara'

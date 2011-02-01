@@ -84,9 +84,6 @@ GEM
     hirb (0.3.6)
     hoe (2.9.0)
       rake (>= 0.8.7)
-    hoptoad_notifier (2.4.4)
-      activesupport
-      builder
     i18n (0.4.2)
     json_pure (1.4.6)
     launchy (0.3.7)
@@ -204,7 +201,6 @@ DEPENDENCIES
   cucumber (= 0.8.5)
   cucumber-rails
   database_cleaner
-  hoptoad_notifier
   launchy
   metric_fu
   money (~> 2.1.5)
