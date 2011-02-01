@@ -1,7 +1,9 @@
+require 'digest'
+
 class PeopleController < ApplicationController
   before_filter :login_required, :except => [:new, :create]
   before_filter :load_person, :only => [:edit, :destroy]
-  before_filter :load_current_person, :only => [:show, :update, :update_password]
+  before_filter :load_current_person, :only => [:show, :update, :update_password, :new, :add_roommate]
   
   # TODO - before_filter :load_house
   respond_to :json
@@ -33,13 +35,31 @@ class PeopleController < ApplicationController
   # GET /people/new
   # GET /people/new.xml
   def new
+    @person = Person.new
     respond_with(@house, @person)
   end
   
   def signup
     
   end
-
+  
+  # POST /people/add_roommate
+  def add_roommate
+    @person = Person.new(params[:person])
+    @person.house = @house
+    pass = Digest::MD5.hexdigest("#{@person.name}#{@person.email}#{Time.now}")[0..8]
+    @person.password = pass
+    @person.password_confirmation = pass
+    PersonMailer.new_person_created(@person, pass).deliver
+    
+    if @person.save
+      redirect_to(dashboard_path, :notice => "You added #{params[:person][:name]} (#{params[:person][:email]}) as a roommate!")
+    else
+      flash[:error] = "Unable to add roommate"
+      render :new
+    end
+  end
+  
   # GET /people/1/edit
   def edit
     
@@ -128,7 +148,7 @@ class PeopleController < ApplicationController
     end
     
     def load_current_person
-      @house = House.find(current_person.house_id)
       @person = current_person
+      @house = House.find(current_person.house_id)
     end
 end
