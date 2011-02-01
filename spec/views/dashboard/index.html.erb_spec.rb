@@ -117,7 +117,7 @@ describe "dashboard/index.html.erb" do
       render
       
       rendered.should have_selector("div", :id => "owe") do |div|
-        div.should have_selector("a", :href => new_roommate_path)
+        div.should have_selector("a", :href => new_person_path)
       end
     end
     
@@ -145,7 +145,7 @@ describe "dashboard/index.html.erb" do
       render
       
       rendered.should have_selector("div", :id => "roommates") do |div|
-        div.should have_selector("a", :href => new_roommate_path) do |a|
+        div.should have_selector("a", :href => new_person_path) do |a|
           a.should contain("Click here to add a roommate")
         end
       end

@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /the login page/
       login_path
+    when /the add roommate page/
+      new_person_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

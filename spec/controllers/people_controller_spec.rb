@@ -1,6 +1,58 @@
 require 'spec_helper'
 
 describe PeopleController do
+  describe "GET new" do
+    it "assigns @person" do
+      person = mock_model(Person).as_null_object
+      @house = mock_model(House, :id => 1)
+      controller.stub!(:load_current_person).and_return(@house)
+      Person.stub!(:new).and_return(person)
+      get :new
+      
+      assigns[:person].should eq(person)
+    end
+  end
+  
+  describe "POST add_roommate" do
+    let(:person) { mock_model(Person, :house_id => 1).as_null_object }
+    
+    before do
+      Person.stub!(:new).and_return(person)
+      @current_person = mock_model("Person", :house_id => 1).as_null_object
+      controller.stub!(:current_person).and_return(@current_person)
+      controller.stub!(:login_required).and_return(:true)
+      @house = mock_model(House, :id => 1)
+      controller.stub!(:load_current_person).and_return(@house)
+    end
+    
+    it "should assign @person" do
+      post :add_roommate, {:person => {:name => "Jared", :email => "jared.online@gmail.com"}}
+      assigns[:person].should eq(person)
+    end
+    
+    it "should save @person" do
+      person.should_receive(:save)
+      post :add_roommate, {:person => {:name => "Jared", :email => "jared.online@gmail.com"}}
+    end
+    
+    it "assigns the house_id" do
+      post :add_roommate, {:person => {:name => "Jared", :email => "jared.online@gmail.com"}}
+      person.house_id.should eq(@current_person.house_id)
+    end
+    
+    context "successful save" do
+      it "redirects to the dashboard page" do
+        post :add_roommate, {:person => {:name => "Jared", :email => "jared.online@gmail.com"}}
+        response.should redirect_to(dashboard_path)
+      end
+      
+      it "displays a confirmation" do
+        post :add_roommate, {:person => {:name => "Jared", :email => "jared.online@gmail.com"}}
+        flash[:notice].should eq("You added Jared (jared.online@gmail.com) as a roommate!")
+      end
+    end
+  end
+  
   describe "POST create" do
     let(:person) { mock_model(Person).as_null_object }
     
