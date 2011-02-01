@@ -11,6 +11,7 @@ Roommate::Application.routes.draw do
   resources :people do
     collection do
       post :search
+      post :add_roommate
     end
   end
   resources :signups
@@ -27,7 +28,6 @@ Roommate::Application.routes.draw do
   # match 'thank_you' => 'dashboard#thank_you', :as => :thank_you
   resource :session, :only => [:new, :create, :destroy]
   match 'dashboard' => 'dashboard#index', :as => :dashboard
-  match 'people/new_roommate' => 'people#new_roommate', :as => :new_roommate
   
   match 'mobile/loans/:id(.:format)' => 'dashboard#mobile'
   
