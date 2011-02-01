@@ -20,7 +20,6 @@ gem "sqlite3-ruby", :require => "sqlite3", :group => :development
 # gem "aws-s3", :require => "aws/s3"
 
 gem "money", "~> 2.1.5"
-gem "recurly"
 
 group :cucumber, :test, :development do
   gem 'capybara'
@@ -30,7 +29,7 @@ group :cucumber, :test, :development do
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
-  gem 'metric_fu'
+  # gem 'metric_fu'
   gem 'webrat'
   gem 'newrelic_rpm'
 end
