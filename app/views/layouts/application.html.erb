@@ -150,6 +150,7 @@
           'Payments Made Count': <%= @person.payments_made.count %>,
           'Payments Received Count': <%= @person.payments_received.count %>
         },
+        user_hash: '<%= Digest::SHA1.hexdigest('qf6kliuq' + @person.email) %>',
         created_at: <%= @person.created_at.to_time.to_i %>
       };
       (function() {
