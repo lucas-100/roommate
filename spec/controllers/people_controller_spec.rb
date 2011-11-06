@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe PeopleController do
   describe "GET new" do
-    it "assigns @person" do
+    it "assigns @new_person" do
       person = mock_model(Person).as_null_object
       @house = mock_model(House, :id => 1)
-      controller.stub!(:load_current_person).and_return(@house)
+      controller.stub!(:load_house).and_return(@house)
       Person.stub!(:new).and_return(person)
       get :new
       
-      assigns[:person].should eq(person)
+      assigns[:new_person].should eq(person)
     end
   end
   
@@ -22,15 +22,10 @@ describe PeopleController do
       controller.stub!(:current_person).and_return(@current_person)
       controller.stub!(:login_required).and_return(:true)
       @house = mock_model(House, :id => 1)
-      controller.stub!(:load_current_person).and_return(@house)
+      controller.stub!(:load_house).and_return(@house)
     end
     
-    it "should assign @person" do
-      post :add_roommate, {:person => {:name => "Jared", :email => "jared.online@gmail.com"}}
-      assigns[:person].should eq(person)
-    end
-    
-    it "should save @person" do
+    it "should save new_person" do
       person.should_receive(:save)
       post :add_roommate, {:person => {:name => "Jared", :email => "jared.online@gmail.com"}}
     end

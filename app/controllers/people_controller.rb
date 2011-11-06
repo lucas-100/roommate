@@ -2,8 +2,8 @@ require 'digest'
 
 class PeopleController < ApplicationController
   before_filter :login_required, :except => [:new, :create, :add_roommate]
-  before_filter :load_person, :only => [:edit, :destroy]
-  before_filter :load_current_person, :only => [:show, :update, :update_password, :new, :add_roommate]
+  before_filter :load_person
+  before_filter :load_house, :except => [:create]
   
   # TODO - before_filter :load_house
   respond_to :json
@@ -35,8 +35,8 @@ class PeopleController < ApplicationController
   # GET /people/new
   # GET /people/new.xml
   def new
-    @person = Person.new
-    respond_with(@house, @person)
+    @new_person = Person.new
+    respond_with(@house, @new_person)
   end
   
   def signup
@@ -45,14 +45,17 @@ class PeopleController < ApplicationController
   
   # POST /people/add_roommate
   def add_roommate
-    @person = Person.new(params[:person])
-    @person.house = @house
-    pass = Digest::MD5.hexdigest("#{@person.name}#{@person.email}#{Time.now}")[0..8]
-    @person.password = pass
-    @person.password_confirmation = pass
-    PersonMailer.new_person_created(@person, pass).deliver
+    new_person       = Person.new(params[:person])
+    new_person.house = @house
     
-    if @person.save
+    password = Digest::MD5.hexdigest("#{@person.name}#{@person.email}#{Time.now}")[0..8]
+    
+    new_person.password              = password
+    new_person.password_confirmation = password
+    
+    PersonMailer.new_person_created(new_person, password).deliver
+    
+    if new_person.save
       redirect_to(dashboard_path, :notice => "You added #{params[:person][:name]} (#{params[:person][:email]}) as a roommate!")
     else
       flash[:error] = "Unable to add roommate"
@@ -144,15 +147,4 @@ class PeopleController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  protected
-    def load_person
-      @person = Person.includes(:house).find(params[:id])
-      @house = @person.house
-    end
-    
-    def load_current_person
-      @person = current_person
-      @house = House.find(current_person.house_id)
-    end
 end

@@ -43,7 +43,7 @@ Feature: User accounts
 	    | person_password_confirmation 	| password 							|
 	  And I press "Sign Up"
 	  Then I should see "Thank you for registering! You've been automatically logged in."
-		
+	
 	Scenario: automatically logged in after signup
 		Given I just signed up
 		Then I should see "Logout"

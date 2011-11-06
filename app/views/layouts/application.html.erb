@@ -139,34 +139,21 @@
   
   <% if logged_in? %>
     <script>
-    var intercomSettings = {
-        app_id: 'icmeqg8c',
-        email: '<%= @person.email %>',
-        widget: {
-            activator: '#IntercomDefaultWidget'
-          },
-        custom_data: {
-          'Expenses Count': <%= @person.expenses.count %>,
-          'Payments Made Count': <%= @person.payments_made.count %>,
-          'Payments Received Count': <%= @person.payments_received.count %>
-        },
-        user_hash: '<%= Digest::SHA1.hexdigest('qf6kliuq' + @person.email) %>',
-        created_at: <%= @person.created_at.to_time.to_i %>
-      };
-      (function() {
-        function async_load() {
-          var s = document.createElement('script');
-          s.type = 'text/javascript'; s.async = true;
-          s.src = 'https://api.intercom.io/api/js/library.js';
-          var x = document.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s, x);
-        }
-        if (window.attachEvent) {
-          window.attachEvent('onload', async_load);
-        } else {
-          window.addEventListener('load', async_load, false);
-        };
-      })();
+      var intercomSettings = <%=raw intercom_settings(@person) %>;
+        (function() {
+          function async_load() {
+            var s = document.createElement('script');
+            s.type = 'text/javascript'; s.async = true;
+            s.src = 'https://api.intercom.io/api/js/library.js';
+            var x = document.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+          }
+          if (window.attachEvent) {
+            window.attachEvent('onload', async_load);
+          } else {
+            window.addEventListener('load', async_load, false);
+          };
+        })();
     </script>
   <% end %>
   
