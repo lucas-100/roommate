@@ -17,7 +17,7 @@ gem "coffee-rails"
 gem "sass-rails" 
 
 gem "thin"
-gem "sqlite3-ruby", :require => "sqlite3"
+gem "pg"
 gem "newrelic_rpm"
 
 ## Bundle the gems you use:
