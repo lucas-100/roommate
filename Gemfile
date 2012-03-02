@@ -39,6 +39,7 @@ group :cucumber, :test, :development do
   # gem 'metric_fu'
   gem 'webrat'
   gem 'newrelic_rpm'
+  gem "sqlite3"
 end
 
 ## Bundle gems used only in certain environments:
