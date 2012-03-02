@@ -19,6 +19,7 @@ gem "sass-rails"
 gem "thin"
 gem "pg"
 gem "newrelic_rpm"
+gem "uglifier"
 
 ## Bundle the gems you use:
 # gem "bj"
