@@ -16,10 +16,13 @@ gem "bundler"
 gem "coffee-rails"
 gem "sass-rails" 
 
+gem "thin"
+gem "sqlite3-ruby", :require => "sqlite3"
+gem "newrelic_rpm"
+
 ## Bundle the gems you use:
 # gem "bj"
 # gem "hpricot", "0.6"
-gem "sqlite3-ruby", :require => "sqlite3"
 # gem "aws-s3", :require => "aws/s3"
 
 gem "money", "~> 2.1.5"
