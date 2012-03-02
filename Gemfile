@@ -19,7 +19,7 @@ gem "sass-rails"
 ## Bundle the gems you use:
 # gem "bj"
 # gem "hpricot", "0.6"
-# gem "sqlite3-ruby", :require => "sqlite3"
+gem "sqlite3-ruby", :require => "sqlite3"
 # gem "aws-s3", :require => "aws/s3"
 
 gem "money", "~> 2.1.5"
