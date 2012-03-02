@@ -2,7 +2,7 @@
 source 'http://gemcutter.org'
 
 
-gem "rails", "3.0.0"
+gem "rails", "3.1.0"
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
@@ -12,6 +12,9 @@ gem "rails", "3.0.0"
 gem "sqlite3-ruby", :require => "sqlite3", :group => :development
 # gem "pg", :group => :production
 
+gem "bundler"
+gem "coffee-rails"
+gem "sass-rails" 
 
 ## Bundle the gems you use:
 # gem "bj"
@@ -25,7 +28,7 @@ group :cucumber, :test, :development do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
-  gem 'cucumber', '0.8.5'
+  gem 'cucumber'
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'
   gem 'launchy'    # So you can do Then show me the page

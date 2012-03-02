@@ -1,11 +1,5 @@
 Roommate::Application.routes.draw do
-
-  resources :houses do
-    # resources :people do 
-      # resources :payments
-    # end
-    # resources :expenses
-  end
+  resources :houses
   resources :expenses
   resources :payments
   resources :people do
@@ -17,7 +11,7 @@ Roommate::Application.routes.draw do
   resources :signups
   
   match 'wizard/house' => 'wizard#house', :as => :house_wizard, :via => :get
-
+  
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   # match 'register' => 'people#create', :as => :register
@@ -48,12 +42,12 @@ Roommate::Application.routes.draw do
   # Sample resource route with options:
   #   resources :products do
   #     member do
-  #       get :short
-  #       post :toggle
+  #       get 'short'
+  #       post 'toggle'
   #     end
   #
   #     collection do
-  #       get :sold
+  #       get 'sold'
   #     end
   #   end
 
@@ -67,7 +61,7 @@ Roommate::Application.routes.draw do
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get :recent, :on => :collection
+  #       get 'recent', :on => :collection
   #     end
   #   end
 
@@ -80,8 +74,7 @@ Roommate::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
-  root :to => "pages#home"
+  root :to => 'pages#home'
 
   # See how all your routes lay out with "rake routes"
 

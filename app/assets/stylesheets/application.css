@@ -1,19 +1,28 @@
 @font-face {
-	font-family: "Helvetica Neue";
-	src: url('/fonts/HelveticaNeue.ttf');
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeue.ttf");
 }
+
 @font-face {
-	font-family: "Helvetica Neue Light";
-	src: url('/fonts/HelveticaNeueLight.ttf');
+  font-family: "Helvetica Neue Light";
+  src: url("/fonts/HelveticaNeueLight.ttf");
 }
+
 @font-face {
-	font-family: "Helvetica Neue Bold";
-	src: url('/fonts/HelveticaNeueBold.ttf');
+  font-family: "Helvetica Neue Bold";
+  src: url("/fonts/HelveticaNeueBold.ttf");
 }
 
+/* line 29, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(/assets/bodyBackground.jpg);
+  background-repeat: no-repeat;
+  background-color: #028eb7;
+}
 
-body {margin:0; padding:0;background-image:url('../images/bodyBackground.jpg');background-repeat:no-repeat;background-color:#028eb7;}
-
+/* line 35, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 p {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
@@ -26,130 +35,180 @@ p {
   margin-bottom: 10px;
 }
 
+/* line 47, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 div#content {
   width: 960px;
   margin: 0 auto;
-  background-image: url('../images/contentBgRepeat.png');
+  background-image: url(/assets/contentBgRepeat.png);
   background-repeat: repeat-y;
   padding: 20px 0;
 }
+
+/* line 55, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 div#contentTop {
-  width:960px;
-  height:70px;
+  width: 960px;
+  height: 70px;
   margin: 100px auto 0 auto;
-  background-image: url('../images/contentBgTop.png');
+  background-image: url(/assets/contentBgTop.png);
   background-repeat: no-repeat;
   background-position: bottom right;
   padding: 0;
 }
+/* line 63, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 div#contentTop h1 {
   padding-top: -20px;
 }
+
+/* line 66, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 div#contentBottom {
-  width:960px;
-  height:20px;
+  width: 960px;
+  height: 20px;
   margin: 0 auto 50px auto;
-  background-image: url('../images/contentBgBottom.png');
+  background-image: url(/assets/contentBgBottom.png);
   background-repeat: no-repeat;
 }
 
+/* line 72, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 div#accountInfo {
   width: 100%;
-  margin: 0 0 0 0;
+  margin: 0;
   padding: 20px 0 0 0;
   height: 47px;
-  background-image: url('../images/headerBG.png');
+  background-image: url(/assets/headerBG.png);
   background-repeat: repeat-x;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 999;
 }
-#accountInfo ul {
+/* line 84, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+div#accountInfo ul {
   width: 300px;
   text-align: right;
-  margin: 0 auto 0 auto;
+  margin: 0 auto;
   padding: 0;
   float: right;
 }
-#accountInfo ul li {
+/* line 90, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+div#accountInfo ul li {
   display: inline;
   margin: 0;
   padding: 0;
 }
 
+/* line 94, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 #top-bar {
   float: right;
 }
+
+/* line 97, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 .edit {
-  font-size: .5em;
+  font-size: 0.5em;
 }
+
+/* line 100, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 #person-bar-greeting {
   float: left;
 }
+
+/* line 103, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 #person-bar-action {
   float: left;
 }
 
+/* line 106, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 #header {
   margin-top: 25px;
 }
+/* line 108, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 #header h1 {
   float: left;
   width: 440px;
   line-height: 1.1em;
 }
-#newExpense, #newPayment {
+
+/* line 124, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+#newExpense {
   display: block;
   float: left;
   width: 166px;
-  height: 48px;
+  height: 48;
   background-repeat: no-repeat;
+  background-image: url(/assets/newExpense.png);
+  background-repeat: no-repeat;
+  margin-left: 25px;
 }
-#newExpense span, #newPayment span {
+/* line 119, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+#newExpense span {
   display: none;
 }
-#newExpense {background-image: url('../images/newExpense.png'); margin-left: 25px;}
-#newPayment {background-image: url('../images/newPayment.png'); margin-left: 15px;}
-#newExpense:hover, #newPayment:hover {background-color: #fff;}
+/* line 121, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+#newExpense:hover {
+  background-color: white;
+}
 
-#oweTop, .goldBoxTop {
+/* line 128, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+#newPayment {
+  display: block;
+  float: left;
+  width: 166px;
+  height: 48;
+  background-repeat: no-repeat;
+  background-image: url(/assets/newPayment.png);
+  background-repeat: no-repeat;
+  margin-left: 15px;
+}
+/* line 119, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+#newPayment span {
+  display: none;
+}
+/* line 121, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+#newPayment:hover {
+  background-color: white;
+}
+
+/* line 140, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+.goldBoxTop, #oweTop {
   width: 960px;
   height: 31px;
-  background-image: url('../images/goldBoxTop.png');
+  background-image: url(/assets/goldBoxTop.png);
   background-repeat: no-repeat;
   margin: 0;
   padding-top: 20px;
 }
+
+/* line 145, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 #oweTop h2 {
   font-family: "Helvetica Neue Light";
   font-style: normal;
   font-size: 180%;
-  color: #999;
 }
+/* line 151, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
 #oweTop .column_1 {
   padding-left: 100px;
 }
-#oweMiddle, .goldBoxMiddle {
+
+/* line 164, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+.goldBoxMiddle, #oweMiddle {
   background-color: #ffc90e;
-  background-image: url('../images/goldBoxBGRepeat.png');
+  background-image: url(/assets/goldBoxBGRepeat.png);
   background-repeat: repeat-x;
   padding-left: 100px;
   width: 860px;
   margin: 0;
   min-height: 146px;
 }
-#oweBottom, .goldBoxBottom {
+
+/* line 176, /Volumes/Data/jared/rails/roommate/app/assets/stylesheets/application.css.sass */
+.goldBoxBottom, #oweBottom {
   width: 960px;
   height: 32px;
-  background-image: url('../images/goldBoxBottom.png');
+  background-image: url(/assets/goldBoxBottom.png);
   background-repeat: no-repeat;
   margin: 0 0 50px 0;
 }
 
-.goldBoxMiddle {
-  
-}
+/* here */
 
 .boxHeader {
   width: 960px;
@@ -158,17 +217,17 @@ div#accountInfo {
   margin: 0;
 }
 #roommatesHeader {
-  background-image: url('../images/roommatesHeader.png');
+  background-image: url('/assets/roommatesHeader.png');
 }
 #expensesHeader {
-  background-image: url('../images/expensesHeader.png');
+  background-image: url('/assets/expensesHeader.png');
 }
 #paymentsHeader {
-  background-image: url('../images/paymentsHeader.png');
+  background-image: url('/assets/paymentsHeader.png');
 }
 .boxMiddle {
   background-color: #ececec;
-  background-image: url("../images/boxBGRepeat.png");
+  background-image: url("/assets/boxBGRepeat.png");
   width: 860px;
   padding-left: 100px;
   padding-bottom: 20px;
@@ -179,7 +238,7 @@ div#accountInfo {
 .boxFooter {
   width: 960px;
   height: 37px;
-  background-image: url('../images/boxFooter.png');
+  background-image: url('/assets/boxFooter.png');
   background-repeat: no-repeat;
   margin: 0 0 50px 0;
 }
@@ -187,7 +246,7 @@ div#accountInfo {
   height: 87px;
   width: 87px;
   z-index: 100;
-  background-image: url('../images/addBanner.png');
+  background-image: url('/assets/addBanner.png');
   position: relative;
   top: 0;
   left: 0;
@@ -524,7 +583,7 @@ button {
   clear:both;
 	width:125px;
 	height:31px;
-	background:transparent url("../images/button.png") no-repeat;
+	background:transparent url("/assets/button.png") no-repeat;
 	text-align:center;
 	line-height:31px;
 	color:#FFFFFF;
