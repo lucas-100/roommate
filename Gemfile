@@ -32,7 +32,7 @@ gem 'json', '~> 1.7.7'
 group :cucumber, :test, :development do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails'
+  
   gem 'cucumber'
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'
@@ -44,6 +44,10 @@ end
 
 group :development do
   gem 'sqlite3'
+end
+
+group :cucumber, :test do
+  gem 'cucumber-rails'
 end
 
 ## Bundle gems used only in certain environments:
