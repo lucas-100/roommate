@@ -2,7 +2,7 @@
 source 'http://gemcutter.org'
 
 
-gem "rails", "3.1.0"
+gem "rails", "3.2.12"
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
@@ -13,13 +13,13 @@ gem "rails", "3.1.0"
 # gem "pg", :group => :production
 
 gem "bundler"
-gem "coffee-rails"
-gem "sass-rails" 
+gem "coffee-rails", "~> 3.2.1"
+gem "sass-rails", "~> 3.2.3"
 
 gem "thin"
 gem "pg"
 gem "newrelic_rpm"
-gem "uglifier"
+gem "uglifier", ">= 1.0.3"
 
 ## Bundle the gems you use:
 # gem "bj"
@@ -27,6 +27,7 @@ gem "uglifier"
 # gem "aws-s3", :require => "aws/s3"
 
 gem "money", "~> 2.1.5"
+gem 'json', '~> 1.7.7'
 
 group :cucumber, :test, :development do
   gem 'capybara'
