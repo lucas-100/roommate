@@ -4,11 +4,11 @@ class PeopleController < ApplicationController
   before_filter :login_required, :except => [:new, :create, :add_roommate]
   before_filter :load_person
   before_filter :load_house, :except => [:create]
-  
+
   # TODO - before_filter :load_house
   respond_to :json
   respond_to :html
-  
+
   # GET /people
   # GET /people.xml
   def index
@@ -28,7 +28,7 @@ class PeopleController < ApplicationController
   def show
     @person = current_person
     @house = @person.house
-    
+
     respond_with(@person, @house)
   end
 
@@ -38,23 +38,23 @@ class PeopleController < ApplicationController
     @new_person = Person.new
     respond_with(@house, @new_person)
   end
-  
+
   def signup
-    
+
   end
-  
+
   # POST /people/add_roommate
   def add_roommate
     new_person       = Person.new(params[:person])
     new_person.house = @house
-    
+
     password = Digest::MD5.hexdigest("#{@person.name}#{@person.email}#{Time.now}")[0..8]
-    
+
     new_person.password              = password
     new_person.password_confirmation = password
-    
+
     PersonMailer.new_person_created(new_person, password).deliver
-    
+
     if new_person.save
       redirect_to(dashboard_path, :notice => "You added #{params[:person][:name]} (#{params[:person][:email]}) as a roommate!")
     else
@@ -62,23 +62,23 @@ class PeopleController < ApplicationController
       render :new
     end
   end
-  
+
   # GET /people/1/edit
   def edit
-    
+
   end
 
   # POST /people
   # POST /people.xml
   def create
     @person = Person.new(params[:person])
-    
+
     respond_to do |format|
       if @person.save
         self.current_person = Person.authenticate(@person.email, @person.password)
         new_cookie_flag = (params[:remember_me] == "1")
         handle_remember_cookie! new_cookie_flag
-        
+
         format.html { redirect_to(house_wizard_path, :notice => 'Thank you for registering! You\'ve been automatically logged in.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else
@@ -88,9 +88,9 @@ class PeopleController < ApplicationController
       end
     end
   end
-  
+
   def signup
-    
+
   end
 
   # PUT /people/1
@@ -107,7 +107,7 @@ class PeopleController < ApplicationController
       end
     end
   end
-  
+
   # PUT /people/1
   # PUT /people/1.xml
   def update_password
@@ -122,11 +122,11 @@ class PeopleController < ApplicationController
       end
     end
   end
-  
+
   # POST /people/search
   def search
     @person = Person.where(:email => params[:person][:email]).limit(1).first
-    
+
     if @person
       house = @person.house
       current_person.update_attribute(:house_id, @person.house_id)

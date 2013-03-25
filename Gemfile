@@ -32,7 +32,7 @@ gem 'json', '~> 1.7.7'
 group :cucumber, :test, :development do
   gem 'capybara'
   gem 'database_cleaner'
-  
+
   gem 'cucumber'
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'

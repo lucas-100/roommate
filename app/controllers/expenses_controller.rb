@@ -3,15 +3,15 @@ class ExpensesController < ApplicationController
   before_filter :load_person
   before_filter :load_house
   before_filter :find_expense, :only => [:update, :destroy, :show, :edit]
-  
+
   respond_to :json
   respond_to :html
-  
+
   # GET /expenses
   # GET /expenses.xml
   def index
     @expenses = @person.expenses.includes(:people).order("created_at DESC").all
-    
+
     respond_with(@expenses)
   end
 
@@ -80,7 +80,7 @@ class ExpensesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   protected
     def find_expense
       @expense = Expense.where(:house_id => @house.id).find(params[:id])
