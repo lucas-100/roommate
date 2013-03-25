@@ -4,6 +4,6 @@ rvm:
 env:
   - DB=sqlite
 script:
-  - RAILS_ENV=test bundle exec rake --trace db:migrate test
+  - RAILS_ENV=test bundle exec rake --trace db:migrate rspec
 # uncomment this line if your project needs to run something other than `rake`:
 # script: bundle exec rspec spec
