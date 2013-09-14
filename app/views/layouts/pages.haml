@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    = stylesheet_link_tag :application
+
+  %body
+
+    %header
+      .container
+        %h1 MyRoommate
+        %h3 The easiest way to track your household expenses
+
+    %section.light
+      .container
+
+    %section.dotted
+      .container
+        %p
+          %span.thin= "".html_safe + "---------"
+          =  "A shared household".html_safe + ("&nbsp;" * 19).html_safe
+          %br/
+          = ("&nbsp;" * 16).html_safe + "doesn’t have to be a" + ("&nbsp;" * 14).html_safe
+          %br/
+          = ("&nbsp;" * 21).html_safe + "shared hassle"
+          %span.thin= "---------"
+
+    %section.dark
+      .container

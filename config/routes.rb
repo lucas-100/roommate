@@ -9,9 +9,9 @@ Roommate::Application.routes.draw do
     end
   end
   resources :signups
-  
+
   match 'wizard/house' => 'wizard#house', :as => :house_wizard, :via => :get
-  
+
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
   # match 'register' => 'people#create', :as => :register
@@ -22,9 +22,9 @@ Roommate::Application.routes.draw do
   # match 'thank_you' => 'dashboard#thank_you', :as => :thank_you
   resource :session, :only => [:new, :create, :destroy]
   match 'dashboard' => 'dashboard#index', :as => :dashboard
-  
+
   match 'mobile/loans/:id(.:format)' => 'dashboard#mobile'
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
