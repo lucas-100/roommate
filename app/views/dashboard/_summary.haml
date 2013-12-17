@@ -1,5 +1,26 @@
-- if (person.new_user? || (person.expenseless? && person.paymentless?))
-  // Foo
+- if (person.new_user?)
+  %section.bounded
+    .container.bounded.no-border
+      .span6
+        %p
+          Do any of your roommates already use MyRoommate? Enter their email and we'll add you to their house.
+
+        = form_for :person, :url => search_people_path, :method => :post do |f|
+          .input.small
+            = f.label :email
+            = f.text_field :email
+
+          .input.center
+            %button.btn.btn-primary( type="submit" name="commit" id="person_submit" ) Find Person
+
+      .span6
+        %p
+          If not, click the button below to get started.
+
+        = form_for :house, :url => houses_path, :method => :post do |f|
+          %button.btn.btn-primary( type="submit" name="commit" id="person_submit" ) Start a new house
+
+      .clearfix
 - else
   %section.bounded
     .three-quarter-container.bounded.no-border

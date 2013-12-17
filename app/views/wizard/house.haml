@@ -1,0 +1,9 @@
+- if flash[:error]
+  %section.bounded
+    .three-quarter-container.bounded.no-border.dark
+      = flash[:error]
+
+= render :partial => 'dashboard/summary',  :locals => { :person => @person }
+= render :partial => 'expenses/dashboard', :locals => { :person => @person, :house => @house }
+= render :partial => 'payments/dashboard', :locals => { :person => @person, :house => @house }
+

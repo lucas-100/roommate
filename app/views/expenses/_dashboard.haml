@@ -1,5 +1,12 @@
 - if house.expenseless?
-  // Foo
+  %section.bounded
+    .three-quarter-container.bounded.no-border.dark.empty
+      %h3.ribbon-header Recent Expenses
+
+      %p
+        No Expenses Yet.
+        = link_to "Click here to add one.", new_expense_path if @house.id.present?
+
 - else
   %section.bounded
     .three-quarter-container.bounded.no-border.dark

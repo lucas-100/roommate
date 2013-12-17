@@ -1,0 +1,28 @@
+- if flash[:error]
+  %section.bounded
+    .three-quarter-container.bounded.no-border.dark
+      = flash[:error]
+
+%section.bounded
+  .three-quarter-container.bounded
+    %h3.ribbon-header Signup
+
+    = form_for(@person) do |f|
+      .input
+        = f.label :email, "Email Address"
+        = f.text_field :email
+			
+      .input
+        = f.label :name, "Name"
+        = f.text_field :name
+
+      .input
+        = f.label :password
+        = f.password_field :password
+
+      .input
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation
+
+      .input.center
+        = f.submit "Signup", :class => "btn btn-primary"

@@ -1,5 +1,12 @@
 - if house.paymentless?
-  // Foo
+  %section.bounded
+    .three-quarter-container.bounded.no-border
+      %h3.ribbon-header Recent Payments
+
+      %p
+        No payments yet.
+        = link_to "Click here to add one", new_payment_path if @house.id.present?
+
 - else
   :ruby
     payments = person.recent_payments_made + person.recent_payments_received

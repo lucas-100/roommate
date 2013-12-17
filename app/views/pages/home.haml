@@ -1,8 +1,31 @@
 %section.light.first
   .container
-    #everyday.span12
-    #otherday.span12
-    #tryit.span12
+    .span8.offset2
+      #carousel-homepage.carousel.slide{ :data => { :ride => "carousel" } }
+        -# Indicators
+        %ol.carousel-indicators
+          %li.active{ :data => { :target => "#carousel-homepage", :"slide-to" => 0 } }
+          %li{ :data => { :target => "#carousel-homepage", :"slide-to" => 1 } }
+          %li{ :data => { :target => "#carousel-homepage", :"slide-to" => 2 } }
+
+        -# Slides
+        .carousel-inner
+          .item.active
+            = image_tag "icons/view1.png"
+            .homepage-caption
+              Track Your Everyday Expenses
+          .item
+            = image_tag "icons/view2.png"
+            .homepage-caption
+              And not so everyday expenses too...
+          .item
+            = image_tag "icons/view3.png"
+            .homepage-caption
+              = link_to raw("Join <br /> Now and forget no more"), new_signup_path
+
+      .clearfix
+    .clearfix
+  .clearfix
 
 %section.dotted
   .container

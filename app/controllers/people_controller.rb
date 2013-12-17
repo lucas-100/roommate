@@ -83,7 +83,7 @@ class PeopleController < ApplicationController
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else
         flash[:error] = "Unable to sign you up."
-        format.html { render :signup }
+        format.html { render :template => "signups/new" }
         format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
       end
     end

@@ -12,6 +12,11 @@ body
   background-color: $body-bg
   color:            $dark-gray
 
+  p
+    font-size: 18px
+    font-family: $mensch
+    margin: 10px 0
+
   span.thin
     font-family: $mensch-thin
     font-weight: bold
@@ -53,6 +58,18 @@ body
 
     .offset#{$i}
       margin-left: $px-column-width * $i
+
+  .homepage-caption
+    font-family: $mensch
+    font-size:   20px
+    width:       90px
+    padding:     10px
+    text-align:  center
+    margin:      -240px auto 140px auto
+
+    a
+      color: $orange
+      text-decoration: none
 
   #buy-stuff
     @include bg-image-2x('/assets/icons/milk', 121px, 124px)

@@ -92,7 +92,7 @@ class Person < ActiveRecord::Base
   end
 
   def new_user?
-    (expenseless? && paymentless? && roommateless?) ? true : false
+    !house.present?
   end
 
   def expenseless?
@@ -104,7 +104,7 @@ class Person < ActiveRecord::Base
   end
 
   def roommateless?
-    (house.people.count > 1) ? false : true 
+    (house.present? && house.people.count > 1) ? false : true 
   end
 
   protected
