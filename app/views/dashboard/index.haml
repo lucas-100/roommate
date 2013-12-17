@@ -1,0 +1,3 @@
+= render :partial => 'summary', :locals => { :person => @person }
+= render :partial => 'expenses/dashboard', :locals => { :person => @person, :house => @house }
+= render :partial => 'payments/dashboard', :locals => { :person => @person, :house => @house }

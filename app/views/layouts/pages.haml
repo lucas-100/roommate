@@ -1,28 +1,30 @@
 !!!
 %html
   %head
+    = render :partial => 'layouts/head'
     = stylesheet_link_tag :application
 
   %body
 
     %header
       .container
-        %h1 MyRoommate
+        %h1
+          = link_to "MyRoommate", root_path
         %h3 The easiest way to track your household expenses
 
-    %section.light
-      .container
+        .span2.offset9
+          %a{ :href => login_path }
+            .login-container
+              #login-icon
+              .login
+                = link_to "Log In", login_path
 
-    %section.dotted
-      .container
-        %p
-          %span.thin= "".html_safe + "---------"
-          =  "A shared household".html_safe + ("&nbsp;" * 19).html_safe
-          %br/
-          = ("&nbsp;" * 16).html_safe + "doesn’t have to be a" + ("&nbsp;" * 14).html_safe
-          %br/
-          = ("&nbsp;" * 21).html_safe + "shared hassle"
-          %span.thin= "---------"
+    = yield
 
-    %section.dark
+    %section.light.last
       .container
+        .span1
+          .footer-link
+            -#= link_to "- About Us -", "#"
+
+    = render :partial => 'layouts/tracking'

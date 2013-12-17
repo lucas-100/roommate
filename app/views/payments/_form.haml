@@ -1,0 +1,14 @@
+= form_for payment, :url => payments_path do |f|
+  = f.hidden_field :house_id, :value => person.house_id
+  = f.hidden_field :person_paying_id, :value => person.id
+
+  .input
+    = f.label :person_paid_id, "Person Paid"
+    = f.collection_select :person_paid_id, people, :id, :name, { :prompt => true }
+
+  .input
+    = f.label :amount, "Amount Paid"
+    = f.text_field :amount
+
+  .input.center
+    %button.btn.btn-primary( type="submit" name="commit" id="payment_submit" ) Create Payment

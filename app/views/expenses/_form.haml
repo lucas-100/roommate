@@ -1,0 +1,34 @@
+= form_for expense, :url => expenses_path do |f|
+  = f.hidden_field :creator_id, :value => person.id
+  = f.hidden_field :house_id,   :value => house.id
+
+  .input
+    = f.label :name, "Title"
+    = f.text_field :name
+
+  .input
+    = f.label :amount, "How much was it?"
+    = f.text_field :amount
+
+  .input
+    = f.label :loaner_id, "Who paid up front?"
+    = f.collection_select :loaner_id, people, :id, :name, { :prompt => true }
+
+  .input
+    = f.label :people_array, "Who is responsible for this?", :class => :top
+
+    .control-array
+      - people.each do |p|
+        - check_attrs = { :type => "checkbox", :value => "1", :id => "expense_peope_array_#{p.id}", :name => "expense[people_array][#{p.id}]" }
+        - check_attrs[:checked] = true if expense.people.include?(p.id)
+        .control
+          %input( type="hidden" name="expense[people_array][#{p.id}]" value="0" )
+          %input{ check_attrs }
+          = label_tag "expense[people_array][#{p.id}]", p.name
+
+  .input
+    = f.label :notes, "Notes"
+    = f.text_field :notes
+
+  .input.center
+    %button.btn.btn-primary( type="submit" name="commit" id="expense_submit" ) Create Expense

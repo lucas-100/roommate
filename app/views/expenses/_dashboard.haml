@@ -1,0 +1,33 @@
+- if house.expenseless?
+  // Foo
+- else
+  %section.bounded
+    .three-quarter-container.bounded.no-border.dark
+      .add-new-link
+        = link_to "Add Expense", new_expense_path
+
+      %h3.ribbon-header Recent Expenses
+
+      .expenses
+        - @house.expenses.order("created_at DESC").limit(10).each do |expense|
+          - amount_per_person = expense.amount.cents / expense.debts.count.to_f
+          .expense
+            .expense-date
+              = expense.created_at.to_s(:month_and_day)
+            .expense-amount
+              = number_to_currency(expense.amount.cents / 100.0)
+              .expense-share
+                your share is
+                %span.currency= number_to_currency(amount_per_person / 100.0)
+            .expense-description
+              - if expense.loaner == person
+                You
+              - else
+                = expense.loaner.first_name
+              %span.expense-small paid for
+              = expense.name
+              - if expense.notes.present?
+                %span.expense-notes
+                  = expense.notes
+            .clearfix
+          .clearfix

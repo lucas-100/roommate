@@ -1,0 +1,29 @@
+%section.light.first
+  .container
+    #everyday.span12
+    #otherday.span12
+    #tryit.span12
+
+%section.dotted
+  .container
+    %p
+      %span.thin= "".html_safe + "---------"
+      =  "A shared household".html_safe + ("&nbsp;" * 19).html_safe
+      %br/
+      = ("&nbsp;" * 16).html_safe + "doesn’t have to be a" + ("&nbsp;" * 14).html_safe
+      %br/
+      = ("&nbsp;" * 21).html_safe + "shared hassle"
+      %span.thin= "---------"
+
+%section.dark
+  %h4 Easy as 1-2-3
+  .container
+    #buy-stuff.span4
+      %p Buy Stuff
+    #share-it.span4
+      %p Share It
+    #profit.span4
+      %h5 MyRoommate
+      %p Use It
+
+    .clearfix

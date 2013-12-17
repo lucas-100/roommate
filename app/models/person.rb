@@ -139,7 +139,13 @@ class Person < ActiveRecord::Base
   end
 
   def create_payment_hash(payment, user)
-    {:name => user.name, :amount => payment.amount, :id => payment.id, :created_at => payment.created_at}
+    {
+      :name       => user.name,
+      :amount     => payment.amount,
+      :id         => payment.id,
+      :created_at => payment.created_at,
+      :paid?      => user == payment.person_paid
+    }
   end
 
   def password_is_valid(params)

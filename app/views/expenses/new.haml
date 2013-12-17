@@ -1,0 +1,10 @@
+- if flash[:error]
+  %section.bounded
+    .three-quarter-container.bounded.no-border.dark
+      = flash[:error]
+
+%section.bounded
+  .three-quarter-container.bounded
+    %h3.ribbon-header Add New Expense
+
+    = render :partial => 'form', :locals => { :expense => @expense, :people => @people, :house => @house, :person => @person }

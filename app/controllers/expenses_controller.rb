@@ -28,7 +28,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new.xml
   def new
     @expense = Expense.new
-    @people = @house.people
+    @people  = @house.people
 
     respond_with(@house, @expense, @people)
   end

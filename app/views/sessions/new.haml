@@ -1,0 +1,18 @@
+%section.bounded
+  .half-container.bounded
+    %h3.ribbon-header
+      Log In
+
+    = form_tag session_path do
+      .input
+        = label_tag      :email, "Email"
+        = text_field_tag :email
+
+      .input
+        = label_tag          :password, "Password"
+        = password_field_tag :password
+
+      .input.center
+        %button.btn.btn-primary( type="submit" ) Log In
+
+    .clearfix

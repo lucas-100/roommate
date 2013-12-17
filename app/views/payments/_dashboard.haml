@@ -1,0 +1,32 @@
+- if house.paymentless?
+  // Foo
+- else
+  :ruby
+    payments = person.recent_payments_made + person.recent_payments_received
+    payments = payments.sort_by { |p| p[:created_at] }.reverse
+
+  %section.bounded
+    .three-quarter-container.bounded.no-border
+      .add-new-link
+        = link_to "Add Payment", new_payment_path
+
+      %h3.ribbon-header Recent Payments
+
+      .payments
+        - payments.each do |payment|
+          .payment
+            .payment-date
+              = payment[:created_at].to_s(:month_and_day)
+            .payment-amount
+              = number_to_currency(payment[:amount].cents / 100.0)
+            .payment-description
+              - if payment[:paid?]
+                You
+                %span.payment-small paid
+                = payment[:name]
+              - else
+                = payment[:name]
+                %span.payment-small paid
+                you
+            .clearfix
+          .clearfix

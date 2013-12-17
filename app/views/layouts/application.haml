@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    = render :partial => 'layouts/head'
+
+    = stylesheet_link_tag :application
+
+  %body
+
+    %header
+      .container
+        %h1
+          = link_to "MyRoommate", root_path
+
+        - if logged_in?
+          .span2.offset9
+            %a{ :href => logout_path }
+              .login-container
+                #login-icon
+                .login
+                  Hi,
+                  = @person.name
+
+    = yield
+
+    = render :partial => 'layouts/tracking'
