@@ -1,20 +1,15 @@
+- if flash[:error]
+  %section.bounded
+    .three-quarter-container.bounded.no-border.dark
+      = flash[:error]
 
-<div id="header">
-  <h1>New Roommate</h1>
-</div>
+%secion.bounded
+  .three-quarter-container.bounded
+    %h3.ribbon-header New Roommate
 
-<div class="clearfix"></div>
+    = form_for(@new_person, :url => add_roommate_people_path) do |f|
 
-<div class="goldBoxMiddle">
-  <%= form_for(@new_person, :url => add_roommate_people_path) do |f| %>
+      = render :partial => 'form', :locals => {:f => f}
 
-    <%= render :partial => 'form', :locals => {:f => f} %>
-    <div class="actions">
-      <button type="submit">Create Roommate</button> or <%= link_to 'cancel', root_path(), {:class => 'cancel'} %>
-    </div>
-  <% end %>
-  
-  
-</div>
-
-<div class="goldBoxBottom"></div>
+      .input.center
+        %button.btn.btn-primary( type="submit" ) Create Roommate

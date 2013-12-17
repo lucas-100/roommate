@@ -19,7 +19,7 @@
 
     .control-array
       - people.each do |p|
-        - check_attrs = { :type => "checkbox", :value => "1", :id => "expense_peope_array_#{p.id}", :name => "expense[people_array][#{p.id}]" }
+        - check_attrs = { :type => "checkbox", :value => "1", :id => "expense_people_array_#{p.id}", :name => "expense[people_array][#{p.id}]" }
         - check_attrs[:checked] = true if expense.people.include?(p.id)
         .control
           %input( type="hidden" name="expense[people_array][#{p.id}]" value="0" )

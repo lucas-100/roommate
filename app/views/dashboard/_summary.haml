@@ -50,4 +50,9 @@
                 %span.balance-amount
                   = number_to_currency(d[:amount].cents / 100)
 
+      - if person.roommateless?
+        %p
+          No roommates yet.
+          = link_to "Click here to add one.", new_person_path
+
       .clearfix
