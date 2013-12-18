@@ -36,5 +36,9 @@
               - if expense.notes.present?
                 %span.expense-notes
                   = expense.notes
+
+              - if expense.creator == current_person
+                %span.expense-small
+                  = link_to "delete", expense_path(expense), :method => :delete, :confirm => "Are you sure you want to permanently delete this expense?"
             .clearfix
           .clearfix

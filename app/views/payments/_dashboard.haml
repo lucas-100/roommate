@@ -31,6 +31,8 @@
                 You
                 %span.payment-small paid
                 = payment[:name]
+                %span.payment-small
+                  = link_to "delete", payment_path(payment[:id]), :method => :delete, :confirm => "Are you sure you want to permanently delete this payment?"
               - else
                 = payment[:name]
                 %span.payment-small paid

@@ -3,6 +3,7 @@ source 'http://gemcutter.org'
 
 
 gem "rails", "3.2.12"
+gem "jquery-rails"
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"

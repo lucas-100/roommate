@@ -2,7 +2,7 @@ class PaymentsController < ApplicationController
   before_filter :login_required
   before_filter :load_person
   before_filter :load_house
-  before_filter :find_payment, :only => [:show, :edit, :update, :destroy]
+  before_filter :load_payment, :only => [:show, :edit, :update, :destroy]
   
   respond_to :json
   respond_to :html
@@ -20,7 +20,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1.xml
   def show
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to dashboard_path }
       format.xml  { render :xml => @payment }
     end
   end
