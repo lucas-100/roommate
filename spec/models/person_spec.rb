@@ -76,8 +76,7 @@ describe Person do
   end
 
   it "knows if its a new user" do
-    @house = House.create!(:name => "Test House")
-    @person.update_attribute(:house, @house)
+    @person.house = nil
 
     @person.new_user?.should == true
   end
