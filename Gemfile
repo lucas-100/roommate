@@ -35,11 +35,8 @@ group :cucumber, :test, :development do
   gem 'capybara'
   gem 'database_cleaner'
 
-  gem 'cucumber'
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'
-  gem 'launchy'    # So you can do Then show me the page
-  # gem 'metric_fu'
   gem 'webrat'
 end
 

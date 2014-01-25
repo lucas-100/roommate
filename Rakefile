@@ -12,8 +12,8 @@ require 'rdoc/task'
 #     #define which metrics you want to use
 #     #config.metrics  = [:churn, :saikuro, :stats, :flog, :flay, :rcov]
 #     #config.graphs   = [:flog, :flay, :stats]
-# 
-#     config.rcov[:test_files] = ['spec/**/*_spec.rb']  
+#
+#     config.rcov[:test_files] = ['spec/**/*_spec.rb']
 #     config.rcov[:rcov_opts] << "-Ispec" # Needed to find spec_helper
 # end
 
