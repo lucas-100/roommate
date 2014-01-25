@@ -14,7 +14,7 @@ describe PeopleController do
   end
 
   describe "POST add_roommate" do
-    let(:person) { mock_model(Person, :house_id => 1).as_null_object }
+    let(:person) { mock_model(Person, :house_id => 1, :email => "foo@example.com").as_null_object }
 
     before do
       Person.stub!(:new).and_return(person)
