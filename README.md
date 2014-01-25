@@ -6,7 +6,17 @@
 
 # API
 
-Coming soon.
+The `roommate` API defines the following set of resources:
+
+## people
+
+## houses
+
+## expenses
+
+## payments
+
+## debts
 
 # Contributing
 
