@@ -1,8 +1,8 @@
 desc "Get the loaner ID and people on an expense and save them to the DB"
 
-namespace :expense do 
+namespace :expense do
   task(:update_format => :environment) do
-    
+
     Expense.all.each do |e|
 
       if e.loaner_id.nil?
@@ -25,10 +25,10 @@ namespace :expense do
       end
 
       puts "#{e.save} -- #{e.name}"
-    end 
-    
+    end
+
   end
-  
+
   task(:update_relationships => :environment) do
     Expense.all.each do |e|
       e.people_array.each do |key, value|
@@ -36,11 +36,11 @@ namespace :expense do
           e.people_array.delete(key)
         end
       end
-      
+
       e.people_array.keys.each do |person_id|
         e.people << Person.find(person_id)
       end
     end
   end
-  
+
 end
