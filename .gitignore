@@ -1,4 +1,6 @@
 .bundle
+.jhw-cache
+.vagrant
 db/*.sqlite3
 log/*.log
 tmp/**/*
