@@ -1,8 +1,8 @@
 # Edit this Gemfile to bundle your application's dependencies.
-source 'http://gemcutter.org'
+source "https://rubygems.org"
 
 
-gem "rails", "3.2.12"
+gem "rails", "3.2.16"
 gem "jquery-rails"
 
 ## Bundle edge rails:
@@ -41,7 +41,6 @@ group :cucumber, :test, :development do
   gem 'launchy'    # So you can do Then show me the page
   # gem 'metric_fu'
   gem 'webrat'
-  gem 'newrelic_rpm'
 end
 
 group :development do
