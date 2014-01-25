@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/jaredonline/roommate.png?branch=master)](http://travis-ci.org/jaredonline/roommate)
+[![Code Climate](https://codeclimate.com/github/jaredonline/roommate.png)](https://codeclimate.com/github/jaredonline/roommate)
 
 # roommate
 
@@ -6,7 +7,17 @@
 
 # API
 
-Coming soon.
+The `roommate` API defines the following set of resources:
+
+## people
+
+## houses
+
+## expenses
+
+## payments
+
+## debts
 
 # Contributing
 
