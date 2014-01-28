@@ -56,7 +56,7 @@ describe Person do
 
   it "updates its password" do
     @person.save
-    @person.should_receive(:update_attribute)
+    @person.should_receive(:update_attributes)
 
     @person.update_password({:password => "newpassword", :password_confirmation => "newpassword"}).should_not == false
   end

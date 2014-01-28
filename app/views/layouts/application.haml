@@ -12,14 +12,14 @@
         %h1
           = link_to "MyRoommate", root_path
 
-        - if logged_in?
+        - if current_person.present?
           .span2.offset9
             %a{ :href => logout_path }
               .login-container
                 #login-icon
                 .login
                   Hi,
-                  = @person.name
+                  = current_person.name
 
     = yield
 

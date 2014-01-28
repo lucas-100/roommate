@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_filter :login_required
+  before_filter :person_required
   before_filter :load_person
   before_filter :load_house
   before_filter :load_payment, :only => [:show, :edit, :update, :destroy]

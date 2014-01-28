@@ -31,6 +31,9 @@ gem "uglifier", ">= 1.0.3"
 gem "money", "~> 2.1.5"
 gem 'json', '~> 1.7.7'
 
+gem "authlogic"
+gem "bcrypt-ruby"
+
 group :cucumber, :test, :development do
   gem 'capybara'
   gem 'database_cleaner'

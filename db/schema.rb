@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923045146) do
+ActiveRecord::Schema.define(:version => 20140128145600) do
 
   create_table "debts", :force => true do |t|
     t.integer  "amount_in_cents"
@@ -90,10 +90,19 @@ ActiveRecord::Schema.define(:version => 20120923045146) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "house_id"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
+    t.string   "crypted_password",          :limit => 128, :default => "", :null => false
+    t.string   "salt",                      :limit => 128, :default => "", :null => false
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
+    t.string   "persistence_token",                        :default => "", :null => false
+    t.string   "perishable_token",                         :default => "", :null => false
+    t.integer  "login_count",                              :default => 0,  :null => false
+    t.integer  "failed_login_count",                       :default => 0,  :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
   end
 
   add_index "people", ["house_id"], :name => "index_people_on_house_id"

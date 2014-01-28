@@ -20,7 +20,7 @@ describe PeopleController do
       Person.stub!(:new).and_return(person)
       @current_person = mock_model("Person", :house_id => 1).as_null_object
       controller.stub!(:current_person).and_return(@current_person)
-      controller.stub!(:login_required).and_return(:true)
+      controller.stub!(:person_required).and_return(:true)
       @house = mock_model(House, :id => 1)
       controller.stub!(:load_house).and_return(@house)
       person.stub!(:save).and_return(true)
@@ -84,7 +84,7 @@ describe PeopleController do
       end
 
       it "automatically logs the user in" do
-        Person.should_receive(:authenticate)
+        PersonSession.should_receive(:create)
 
         post :create
       end
@@ -100,7 +100,7 @@ describe PeopleController do
     before(:each) do
       @current_person = mock_model("Person").as_null_object
       controller.stub!(:current_person).and_return(@current_person)
-      controller.stub!(:login_required).and_return(:true)
+      controller.stub!(:person_required).and_return(:true)
     end
 
     it "looks for a person" do

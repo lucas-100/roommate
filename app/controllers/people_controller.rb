@@ -1,7 +1,7 @@
 require 'digest'
 
 class PeopleController < ApplicationController
-  before_filter :login_required, :except => [:new, :create, :add_roommate]
+  before_filter :person_required, :except => [:new, :create, :add_roommate]
   before_filter :load_person
   before_filter :load_house, :except => [:create]
 
@@ -75,9 +75,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        self.current_person = Person.authenticate(@person.email, @person.password)
-        new_cookie_flag = (params[:remember_me] == "1")
-        handle_remember_cookie! new_cookie_flag
+        @person_session = PersonSession.create(@person, false, true)
 
         format.html { redirect_to(house_wizard_path, :notice => 'Thank you for registering! You\'ve been automatically logged in.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }

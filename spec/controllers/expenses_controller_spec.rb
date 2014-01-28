@@ -9,7 +9,7 @@ describe ExpensesController do
     @person  = mock_model("Person", :house => @house, :expenses => expenses).as_null_object
 
     controller.stub!(:current_person).and_return(@person)
-    controller.stub!(:login_required).and_return(:true)
+    controller.stub!(:person_required).and_return(:true)
   end
 
   describe "GET index" do

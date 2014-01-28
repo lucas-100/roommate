@@ -1,7 +1,7 @@
 # Controller for the House model.  Handles the HTTP requests
 
 class HousesController < ApplicationController
-  before_filter :login_required
+  before_filter :person_required
   
   respond_to :html
   

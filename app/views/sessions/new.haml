@@ -3,14 +3,14 @@
     %h3.ribbon-header
       Log In
 
-    = form_tag session_path do
+    = form_for @person_session, :url => session_path do |form|
       .input
-        = label_tag      :email, "Email"
-        = text_field_tag :email
+        = form.label      :email, "Email"
+        = form.text_field :email
 
       .input
-        = label_tag          :password, "Password"
-        = password_field_tag :password
+        = form.label          :password, "Password"
+        = form.password_field :password
 
       .input.center
         %button.btn.btn-primary( type="submit" ) Log In

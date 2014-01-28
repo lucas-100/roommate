@@ -3,9 +3,10 @@ require 'digest/sha1'
 # Person is the class for each user.  Controls authentication; assigns debt and payments; owns expenses; calculates total debt owed and loaned
 
 class Person < ActiveRecord::Base
-  include Authentication
-  include Authentication::ByPassword
-  include Authentication::ByCookieToken
+  acts_as_authentic do |c|
+    c.transition_from_restful_authentication = true
+    c.crypto_provider                        = ::Authlogic::CryptoProviders::BCrypt
+  end
 
   belongs_to :house
   has_many :debts
@@ -14,14 +15,9 @@ class Person < ActiveRecord::Base
   has_many :payments_received, :class_name => "Payment", :foreign_key => :person_paid_id
   has_and_belongs_to_many :expenses
 
-  validates :name,  :format     => { :with => Authentication.name_regex, :message => Authentication.bad_name_message },
-                    :length     => { :maximum => 100 },
-                    :allow_nil  => true,
-                    :presence   => true
-
+  validates_presence_of :name
   validates :email, :presence   => true,
                     :uniqueness => true,
-                    :format     => { :with => Authentication.email_regex, :message => Authentication.bad_email_message },
                     :length     => { :within => 6..100 }
 
   # HACK HACK HACK -- how to do attr_accessible from here?
@@ -82,7 +78,7 @@ class Person < ActiveRecord::Base
 
   def update_password(params)
     if password_is_valid(params) && password_is_confirmed(params)
-      update_attribute(:crypted_password, encrypt(params[:password]))
+      update_attributes(params)
     else
       errors.add(:password_confirmation, "must match password") if params[:password] != params[:password_confirmation]
       errors.add(:password, "cannot be blank") if params[:password].nil? || params[:password] == ''

@@ -5,7 +5,7 @@ describe HousesController do
     before(:each) do
       @current_person = mock_model("Person").as_null_object
       controller.stub!(:current_person).and_return(@current_person)
-      controller.stub!(:login_required).and_return(:true)
+      controller.stub!(:person_required).and_return(:true)
       @house = mock_model("House", :id => 1).as_null_object
       House.stub!(:new).and_return(@house)
     end
