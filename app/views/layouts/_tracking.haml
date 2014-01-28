@@ -21,7 +21,7 @@
       s.parentNode.insertBefore(t, s);
     })();
 
-  - if logged_in?
+  - if current_person.present?
     :javascript
       var intercomSettings = #{raw intercom_settings(@person)}
       (function() {
