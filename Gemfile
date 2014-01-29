@@ -1,6 +1,8 @@
 # Edit this Gemfile to bundle your application's dependencies.
 source "https://rubygems.org"
 
+ruby '1.9.3'
+
 gem "rails", "3.2.16"
 gem "jquery-rails"
 gem "rake"
@@ -42,6 +44,8 @@ group :cucumber, :test, :development do
   gem 'rspec-rails', '>= 2.0.0'
   gem 'spork'
   gem 'webrat'
+
+  gem 'email_spec'
 end
 
 group :development do
