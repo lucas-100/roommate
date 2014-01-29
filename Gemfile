@@ -28,7 +28,8 @@ gem "uglifier", ">= 1.0.3"
 # gem "hpricot", "0.6"
 # gem "aws-s3", :require => "aws/s3"
 
-gem "money", "~> 2.1.5"
+gem "money", "~> 6.0.0"
+gem "money-rails", "~> 0.9.0"
 gem 'json', '~> 1.7.7'
 
 gem "authlogic"

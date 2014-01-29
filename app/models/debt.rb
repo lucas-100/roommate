@@ -4,6 +4,6 @@ class Debt < ActiveRecord::Base
   belongs_to :expense
   belongs_to :person
   belongs_to :loaner, :class_name => "Person"
-  
-  money :amount
+
+  monetize :amount_in_cents, :as => "amount"
 end
