@@ -192,6 +192,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   rails (= 3.2.16)
+  rake
   rspec-rails (>= 2.0.0)
   sass-rails (~> 3.2.3)
   spork

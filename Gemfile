@@ -1,9 +1,9 @@
 # Edit this Gemfile to bundle your application's dependencies.
 source "https://rubygems.org"
 
-
 gem "rails", "3.2.16"
 gem "jquery-rails"
+gem "rake"
 
 ## Bundle edge rails:
 # gem "rails", :git => "git://github.com/rails/rails.git"
