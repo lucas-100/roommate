@@ -37,7 +37,7 @@ gem 'json', '~> 1.7.7'
 gem "authlogic"
 gem "bcrypt-ruby"
 
-group :cucumber, :test, :development do
+group :test, :development do
   gem 'capybara'
   gem 'database_cleaner'
 
@@ -52,7 +52,7 @@ group :development do
   gem 'sqlite3'
 end
 
-group :cucumber, :test do
+group :test do
   gem 'cucumber-rails'
 end
 
