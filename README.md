@@ -28,4 +28,4 @@ The `roommate` API defines the following set of resources:
 
 # License
 
-MIT.
+MIT
