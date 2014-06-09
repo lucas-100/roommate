@@ -2,21 +2,41 @@
 
 class HousesController < ApplicationController
   before_filter :person_required
-  
-  respond_to :html
-  
+
+  respond_to :json
+
   # GET /houses
   # GET /houses.xml
   def index
-    @houses = House.all
+    respond_to do |format|
+      format.json do
+        res = Jbuilder.encode do |json|
+          json.houses [ house ]
+        end
 
-    respond_with(@houses)
+        render :json => res
+      end
+    end
   end
 
   # GET /houses/1
   # GET /houses/1.xml
   def show
-    respond_with(@house)
+    respond_to do |format|
+      format.json do
+        res = Jbuilder.encode do |json|
+          json.house do |h|
+            h.id     "current"
+            h.person current_person.id
+
+            h.debtees current_person.all_debts_loaned
+            h.debtors current_person.all_debts_owed
+          end
+        end
+
+        render :json => res
+      end
+    end
   end
 
   # GET /houses/new
@@ -29,7 +49,6 @@ class HousesController < ApplicationController
 
   # GET /houses/1/edit
   def edit
-    
   end
 
   # POST /houses

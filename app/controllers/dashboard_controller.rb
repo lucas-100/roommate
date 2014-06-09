@@ -11,6 +11,7 @@ class DashboardController < ApplicationController
       format.json do
         res = Jbuilder.encode do |json|
           json.person do |per|
+            per.name    person.name
             per.debtees person.all_debts_loaned
             per.debtors person.all_debts_owed
           end

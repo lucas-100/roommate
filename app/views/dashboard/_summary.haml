@@ -23,32 +23,10 @@
       .clearfix
 - else
   %section.bounded
-    .three-quarter-container.bounded.no-border
-      .span4
-        %h3.ribbon-header I currently owe
-
-        .balances
-          - person.all_debts_owed.each do |d|
-            .balance
-              .span1.offset1
-                %span.balance-name
-                  = d[:person]
-              .span1
-                %span.balance-amount
-                  = number_to_currency(d[:amount].cents / 100)
-
-      .span4.offset1
-        %h3.ribbon-header My Roommates owe me
-
-        .balances
-          - person.all_debts_loaned.each do |d|
-            .balance
-              .span1.offset1
-                %span.balance-name
-                  = d[:person]
-              .span1
-                %span.balance-amount
-                  = number_to_currency(d[:amount].cents / 100)
+    #dashboard-summary.three-quarter-container.bounded.no-border
+      #dashboard-summary-loading.span9
+        .throbber
+          Loading...
 
       - if person.roommateless?
         %p

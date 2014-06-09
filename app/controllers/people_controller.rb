@@ -2,8 +2,6 @@ require 'digest'
 
 class PeopleController < ApplicationController
   before_filter :person_required, :except => [:new, :create, :add_roommate]
-  before_filter :load_person
-  before_filter :load_house, :except => [:create]
 
   # TODO - before_filter :load_house
   respond_to :json
@@ -26,10 +24,20 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.xml
   def show
-    @person = current_person
-    @house = @person.house
+    person = house.people.find(params[:id])
+    respond_to do |format|
+      format.json do
+        res = Jbuilder.encode do |json|
+          json.person do |per|
+            per.id    person.id
+            per.house house.id
+            per.name  person.name
+          end
+        end
 
-    respond_with(@person, @house)
+        render :json => res
+      end
+    end
   end
 
   # GET /people/new

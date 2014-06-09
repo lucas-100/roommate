@@ -1,0 +1,43 @@
+{{#if model }}
+{{#with model }}
+<div class="span4">
+  <h3 class="ribbon-header">I current owe</h3>
+
+  <div class="balances">
+    {{#each debtors }}
+      {{#with this }}
+      <div class="balance">
+        <div class="span1 offset1">
+          <span class="balance-name">{{ person }}</span>
+        </div>
+        <div class="span1">
+          <span class="balance-amount">{{ amount.fractional }}</span>
+        </div>
+      </div>
+      {{/with }}
+    {{/each }}
+  </div>
+</div>
+
+<div class="span4 offset1">
+  <h3 class="ribbon-header">My Roommates owe me</h3>
+
+  <div class="balances">
+    {{#each debtees }}
+      {{#with this }}
+      <div class="balance">
+        <div class="span1 offset1">
+          <span class="balance-name">{{ person }}</span>
+        </div>
+        <div class="span1">
+          <span class="balance-amount">{{ amount.fractional }}</span>
+        </div>
+      </div>
+      {{/with }}
+    {{/each }}
+  </div>
+</div>
+
+<div class="clearfix"></div>
+{{/with }}
+{{/if }}
