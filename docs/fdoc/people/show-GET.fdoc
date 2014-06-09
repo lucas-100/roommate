@@ -1,0 +1,6 @@
+description: Show attributes for a person.
+
+requestParameters:
+  properties:
+    id:
+      type: integer

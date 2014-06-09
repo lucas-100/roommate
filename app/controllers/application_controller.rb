@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
     redirect_to login_path unless current_person.present?
   end
 
-  def load_person
-    @person ||= current_person
+  def person
+    @person ||= Person.includes(:expenses, :debts).find(current_person)
   end
   
-  def load_house
-    @house ||= current_person.house
+  def house
+    @house ||= House.includes(:people).find(current_person.house_id)
   end
 
   def current_person_session

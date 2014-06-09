@@ -1,0 +1,32 @@
+description: List all people in a house.
+
+responseParameters:
+  properties:
+    people:
+      type: array
+      required: yes
+      items:
+        title: person
+        description: Representation of a person
+        type: object
+        properties:
+          name:
+            type: string
+            description: Person's name
+            required: yes
+            example: Captain Smellypants
+
+          id:
+            type: integer
+            description: Person's ID
+            required: yes
+            example: 1
+
+responseCodes:
+- status: 200 OK
+  successful: yes
+  description: A list of this house's members, excluding the current user.
+
+- status: 401
+  successful: no
+  description: Not Authorized
