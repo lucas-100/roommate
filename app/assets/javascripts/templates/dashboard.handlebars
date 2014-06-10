@@ -6,16 +6,16 @@
   <div class="balances">
     {{#each people }}
       {{#with this }}
-      {{#if isDebtor }}
-      <div class="balance">
-        <div class="span1 offset1">
-          <span class="balance-name">{{ name }}</span>
-        </div>
-        <div class="span1">
-          <span class="balance-amount">{{money balance }}</span>
-        </div>
-      </div>
-      {{/if}}
+        {{#if isDebtor }}
+          <div class="balance">
+            <div class="span1 offset1">
+              <span class="balance-name">{{ name }}</span>
+            </div>
+            <div class="span1">
+              <span class="balance-amount">{{money balance }}</span>
+            </div>
+          </div>
+        {{/if}}
       {{/with }}
     {{/each }}
   </div>
@@ -27,16 +27,16 @@
   <div class="balances">
     {{#each people }}
       {{#with this }}
-      {{#if isDebtee }}
-      <div class="balance">
-        <div class="span1 offset1">
-          <span class="balance-name">{{ name }}</span>
-        </div>
-        <div class="span1">
-          <span class="balance-amount">{{money balance }}</span>
-        </div>
-      </div>
-      {{/if}}
+        {{#if isDebtee }}
+          <div class="balance">
+            <div class="span1 offset1">
+              <span class="balance-name">{{ name }}</span>
+            </div>
+            <div class="span1">
+              <span class="balance-amount">{{money balance }}</span>
+            </div>
+          </div>
+        {{/if}}
       {{/with }}
     {{/each }}
   </div>
