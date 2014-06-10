@@ -24,20 +24,9 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.xml
   def show
-    person = house.people.find(params[:id])
-    respond_to do |format|
-      format.json do
-        res = Jbuilder.encode do |json|
-          json.person do |per|
-            per.id    person.id
-            per.house house.id
-            per.name  person.name
-          end
-        end
-
-        render :json => res
-      end
-    end
+    @person         = Person.find(params[:id])
+    @current_person = current_person
+    respond_with(@person, @current_person)
   end
 
   # GET /people/new

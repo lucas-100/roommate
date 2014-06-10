@@ -10,9 +10,9 @@ class ApplicationController < ActionController::Base
   def person
     @person ||= Person.includes(:expenses, :debts).find(current_person)
   end
-  
+
   def house
-    @house ||= House.includes(:people).find(current_person.house_id)
+    @house ||= House.includes(:people).find(current_person.house_id) rescue nil
   end
 
   def current_person_session

@@ -5,64 +5,15 @@ class HousesController < ApplicationController
 
   respond_to :json
 
-  # GET /houses
-  # GET /houses.xml
-  def index
-    respond_to do |format|
-      format.json do
-        res = Jbuilder.encode do |json|
-          json.houses [ house ]
-        end
-
-        render :json => res
-      end
-    end
-  end
-
-  # GET /houses/1
-  # GET /houses/1.xml
+  # GET /houses/current.json
   def show
-    respond_to do |format|
-      fuckers = house.people.select { |p| p.id != current_person.id }.map do |p|
-        {
-          :id      => p.id,
-          :name    => p.name,
-          :balance => p.total_debt_loaned(current_person)
-        }
-      end
+    @person = person
+    @house  = house || House.new
 
-      format.json do
-        res = Jbuilder.encode do |json|
-          json.house do |h|
-            h.id        "current"
-            h.person    current_person.id
-            h.people    fuckers.map { |h| h[:id] }
-
-            h.debtees current_person.all_debts_loaned
-            h.debtors current_person.all_debts_owed
-          end
-
-          json.people fuckers
-        end
-
-        render :json => res
-      end
-    end
+    @roommates = @house.people.select { |p| p.id != @person.id }
+    respond_with(@house, @person, @roommates)
   end
 
-  # GET /houses/new
-  # GET /houses/new.xml
-  def new
-    @house = House.new
-
-    respond_with(@house)
-  end
-
-  # GET /houses/1/edit
-  def edit
-  end
-
-  # POST /houses
   # POST /houses.xml
   def create
     @house = House.new(:name => "New House")
@@ -98,9 +49,4 @@ class HousesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  protected
-    def find_house
-      @house = House.find(params[:id])
-    end
 end
