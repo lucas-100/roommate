@@ -1,4 +1,3 @@
 Roommate.House = DS.Model.extend
-  person:    DS.belongsTo 'person'
-  debtors:   DS.attr()
-  debtees:   DS.attr()
+  person: DS.belongsTo 'person'
+  people: DS.hasMany   'person'

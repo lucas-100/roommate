@@ -23,15 +23,26 @@ class HousesController < ApplicationController
   # GET /houses/1.xml
   def show
     respond_to do |format|
+      fuckers = house.people.select { |p| p.id != current_person.id }.map do |p|
+        {
+          :id      => p.id,
+          :name    => p.name,
+          :balance => p.total_debt_loaned(current_person)
+        }
+      end
+
       format.json do
         res = Jbuilder.encode do |json|
           json.house do |h|
-            h.id     "current"
-            h.person current_person.id
+            h.id        "current"
+            h.person    current_person.id
+            h.people    fuckers.map { |h| h[:id] }
 
             h.debtees current_person.all_debts_loaned
             h.debtors current_person.all_debts_owed
           end
+
+          json.people fuckers
         end
 
         render :json => res

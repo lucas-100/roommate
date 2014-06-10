@@ -103,7 +103,6 @@ class Person < ActiveRecord::Base
     (house.present? && house.people.count > 1) ? false : true 
   end
 
-  protected
   # how much the current user owes to another user
   def total_debt_owed(to_user)
     Money.new((debt_received(to_user) + payments_made_from(to_user)) - (payments_made_to(to_user) + debt_loaned(to_user)))
@@ -114,6 +113,7 @@ class Person < ActiveRecord::Base
     Money.new((debt_loaned(to_user) + payments_made_to(to_user)) - (payments_made_from(to_user) + debt_received(to_user)))
   end
 
+  protected
   def debt_received(user)
     Debt.where("loaner_id = ? AND person_id = ?", user.id, self.id).all.inject(0) { |amount, debt| amount += debt.amount_in_cents }
   end
