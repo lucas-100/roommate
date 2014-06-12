@@ -7,6 +7,41 @@
             <p>
               Do any of your roommates already use MyRoommate? Enter their email and we will add you to their house.
             </p>
+
+            <div class="input small">
+              {{input value=controller.searchedForUser}}
+            </div>
+
+            <div class="input center">
+              <button class="btn btn-primary" type="submit" name="commit" placeholder="Enter your roommates's email address" {{action 'searchForUser'}}>
+                Find Person
+              </button>
+            </div>
+
+            {{#each controller.houseSearchResults}}
+              {{#with this}}
+                {{#if name}}
+                  <div>
+                    <button class="btn">{{name}}</button>
+                  </div>
+                {{/if}}
+              {{/with}}
+            {{else}}
+              {{#if haveSearched}}
+                <p>We could not find anyone with that email</p>
+              {{/if}}
+            {{/each}}
+
+          </div>
+
+          <div class="span6">
+            <p>
+              If not, click the button below to get started.
+            </p>
+
+            <button class="btn btn-primary" type="submit" name="commit" {{action 'createNewHouse'}}>
+              Start a new house
+            </button>
           </div>
 
           <div class="clearfix"></div>

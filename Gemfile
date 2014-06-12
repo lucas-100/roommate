@@ -20,6 +20,7 @@ gem "coffee-rails", "~> 3.2.1"
 gem "sass-rails", "~> 3.2.3"
 gem "haml"
 gem "ember-rails"
+gem "emblem-rails"
 gem "hamlbars"
 gem "jbuilder"
 

@@ -8,5 +8,6 @@ Roommate.Store = DS.Store.extend({
 # Override the default adapter with the `DS.ActiveModelAdapter` which
 # is built to work nicely with the ActiveModel::Serializers gem.
 Roommate.ApplicationAdapter = DS.RESTAdapter.extend({
-
+  pathForType: (type) ->
+    Ember.String.underscore(Ember.String.pluralize(type))
 })

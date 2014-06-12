@@ -7,11 +7,12 @@ class HousesController < ApplicationController
 
   # GET /houses/current.json
   def show
+    @id     = params[:id] || "current"
     @person = person
-    @house  = house || House.new
+    @house  = @id != "current" ? House.find(params[:id]) : (house || House.new)
 
     @roommates = @house.people.select { |p| p.id != @person.id }
-    respond_with(@house, @person, @roommates)
+    respond_with(@id, @house, @person, @roommates)
   end
 
   # POST /houses.xml

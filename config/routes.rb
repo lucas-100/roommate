@@ -8,18 +8,16 @@ Roommate::Application.routes.draw do
       post :add_roommate
     end
   end
+  resources :user_searches, :only => :create
   resources :signups
 
   match 'wizard/house' => 'wizard#house', :as => :house_wizard, :via => :get
 
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
-  # match 'register' => 'people#create', :as => :register
-  # match 'signup' => 'people#signup', :as => :signup, :via => :post
   match 'account' => 'people#show', :as => :account
   match 'account_save' => 'people#update', :as => :account_save
   match 'account_save_password' => 'people#update_password', :as => :account_save_password
-  # match 'thank_you' => 'dashboard#thank_you', :as => :thank_you
   resource :session, :only => [:new, :create, :destroy]
   match 'dashboard' => 'dashboard#index', :as => :dashboard
 

@@ -24,7 +24,9 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.xml
   def show
-    @person         = Person.find(params[:id])
+    selector = house ? house.people : Person
+    @person  = selector.find(params[:id])
+
     @current_person = current_person
     respond_with(@person, @current_person)
   end
