@@ -1,5 +1,5 @@
 class SignupMailer < ActionMailer::Base
-  default :from => "Rommates Mailer Monkey <noreply@myroommateapp.com>"
+  default :from => "Roommates Mailer Monkey <noreply@myroommateapp.com>"
   
   def new_signup(signup)
     @signup = signup

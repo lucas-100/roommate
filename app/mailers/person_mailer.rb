@@ -1,5 +1,5 @@
 class PersonMailer < ActionMailer::Base
-  default :from => "Rommates Mailer Monkey <noreply@myroommateapp.com>"
+  default :from => "Roommates Mailer Monkey <noreply@myroommateapp.com>"
 
   def new_expense_created(expense, person)
     @person = person
